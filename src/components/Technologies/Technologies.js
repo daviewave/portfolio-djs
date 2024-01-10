@@ -28,13 +28,13 @@ const Technologies = () => (
         <ListContainer>
           <ListTitle>Front-End</ListTitle>
           <ListParagraph>
-            <li>- NextJS</li>
-            <li>- ReactJS</li>
-            <li>- MaterialUI</li>
-            <li>- Typescript</li>
-            <li>- Javascript</li>
-            <li>- Figma + Balsamiq</li>
-            <li>- CSS</li>
+            - NextJS <br />
+            - ReactJS <br />
+            - MaterialUI <br />
+            - Typescript <br />
+            - Javascript <br />
+            - Figma + Balsamiq <br />
+            - CSS <br />
           </ListParagraph>
         </ListContainer>
       </ListItem>
@@ -43,12 +43,12 @@ const Technologies = () => (
         <ListContainer>
           <ListTitle>Back-End</ListTitle>
           <ListParagraph>
-            <li>- Django</li>
-            <li>- Node.js</li>
-            <li>- Python</li>
-            <li>- REST API</li>
-            <li>- Mongo</li>
-            <li>- Flask</li>
+            - Django <br />
+            - Node.js <br />
+            - Python <br />
+            - REST API <br />
+            - Mongo <br />
+            - Flask <br />
           </ListParagraph>
         </ListContainer>
       </ListItem>
@@ -57,13 +57,13 @@ const Technologies = () => (
         <ListContainer>
           <ListTitle>Devops</ListTitle>
           <ListParagraph>
-            <li>- AWS</li>
-            <li>- Docker</li>
-            <li>- Linux</li>
-            <li>- Nginx</li>
-            <li>- Ubunut</li>
-            <li>- Git</li>
-            <li>- Scripting</li>
+            - AWS <br />
+            - Docker <br />
+            - Linux <br />
+            - Nginx <br />
+            - Ubuntu <br />
+            - Git <br />
+            - Scripting <br />
           </ListParagraph>
         </ListContainer>
       </ListItem>
@@ -72,12 +72,13 @@ const Technologies = () => (
         <ListContainer>
           <ListTitle>A.I</ListTitle>
           <ListParagraph>
-            <li>- PyTorch</li>
-            <li>- PyTensor</li>
-            <li>- Whispr</li>
-            <li>- Llama</li>
-            <li>- GPT</li>
-            <li>- PyTorch</li>
+            - PyTorch <br />
+            - PyTensor <br />
+            - Whispr <br />
+            - Llama<br /> 
+            - GPT<br />
+            - PyTorch<br /> 
+            - Kaldi<br />
           </ListParagraph>
         </ListContainer>
       </ListItem>
