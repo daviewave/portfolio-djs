@@ -31,6 +31,11 @@ export const BlogCard = styled.div`
   @media ${(props) => props.theme.breakpoints.sm} {
     width: 100%;
   }
+
+  // on hover change cursor to pointer
+  &:hover {
+    cursor: pointer;
+  }
 `;
 export const TitleContent = styled.div`
   text-align: center;
