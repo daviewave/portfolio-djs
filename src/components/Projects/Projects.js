@@ -27,12 +27,11 @@ const Projects = () => (
                 ))}
               </TagList>
             </div>
-            <UtilityList>
-              {/* This will give us the link to the code of the project */}
+            {/* <UtilityList>
               <ExternalLinks href={visit}>Code</ExternalLinks>
-              {/* This will give us the link to the code of the project */}
+
               <ExternalLinks href={source}>Deploy</ExternalLinks>
-            </UtilityList>
+            </UtilityList> */}
           </BlogCard>
         )
       )}

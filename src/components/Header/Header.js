@@ -9,12 +9,12 @@ const Header = () => (
   <Container>
     <Div1>
       <Link href="/"
-      // style={{
-      //   display: "flex",
-      //   alignItems: "center",
-      //   color: "white",
-      //   marginBottom: "20px",
-      // }}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        color: "white",
+        marginBottom: "20px",
+      }}
       >
         {/* <a
           style={{
@@ -52,9 +52,9 @@ const Header = () => (
       <SocialIcons href="https://www.linkedin.com/in/david-silveira-03921821b/">
         <AiFillLinkedin size="3rem" />
       </SocialIcons>
-      <SocialIcons href="https://twitter.com/DavidSilveira_3">
+      {/* <SocialIcons href="https://twitter.com/DavidSilveira_3">
         <AiFillTwitterCircle size="3rem" />
-      </SocialIcons>
+      </SocialIcons> */}
     </Div3>
   </Container>
 );

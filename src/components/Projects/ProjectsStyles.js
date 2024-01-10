@@ -5,6 +5,7 @@ export const Img = styled.img`
   height: 220px;
   object-fit: cover;
   overflow: hidden;
+  background-color: white;
 `;
 
 export const GridContainer = styled.section`
@@ -68,7 +69,7 @@ export const Intro = styled.div`
 
 export const CardInfo = styled.p`
   width: 100%;
-  padding: 0 50px;
+  padding: 0 16px;
   color: #e4e6e7;
   font-style: 2rem;
   line-height: 24px;
@@ -103,11 +104,15 @@ transition: 0.5s;
 `;
 
 export const TagList = styled.ul`
-display: flex;
-justify-content: space-around;
-padding: 2rem;
+  display: flex;
+  justify-content: space-around;
+  padding: 1.8rem;
 `
 export const Tag = styled.li`
-color: #d8bfbf;
-font-size: 1.5rem;
+  color: #d8bfbf;
+  font-size: 1.5rem;
+  border-radius: 15px;
+  border: 1px solid gray;
+  padding: 0.75rem;
+  background: ${({ alt }) => alt ? 'linear-gradient(270deg, #ff622e 0%, #B133FF 100%)' : 'linear-gradient(270deg, #00DBD8 0%, #B133FF 100%)'};
 `

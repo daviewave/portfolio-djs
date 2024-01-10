@@ -22,20 +22,20 @@ const Footer = () => {
   return (
     <FooterWrapper id="footer">
       <LinkList>
-        <LinkColumn>
+        {/* <LinkColumn>
           <LinkTitle>Phone</LinkTitle>
           <LinkItem href="phone #:617-459-5248">617-459-5248</LinkItem>
-        </LinkColumn>
+        </LinkColumn> */}
         <LinkColumn>
           <LinkTitle>Email</LinkTitle>
-          <LinkItem href="email:daviewave@gmail.com">
-            daviewave@gmail.com
+          <LinkItem href="email:davidsilveira.3.djs@gmail.com">
+            davidsilveira.3.djs@gmail.com
           </LinkItem>
         </LinkColumn>
         <LinkColumn>
           <LinkTitle>Résumé</LinkTitle>
-          <LinkItem href="file:///C:/Users/David/Downloads/current-resume.docx.pdf">
-            file:///C:/Users/David/Downloads/current-resume.docx.pdf
+          <LinkItem href="/DavidSilveira.pdf" target="_blank">
+            David Silveira Résumé
           </LinkItem>
         </LinkColumn>
         <SocialIconsContainer>
@@ -46,9 +46,9 @@ const Footer = () => {
             <SocialIcons href="https://www.linkedin.com/in/david-silveira-03921821b/">
               <AiFillLinkedin size="3rem" />
             </SocialIcons>
-            <SocialIcons href="https://twitter.com/DavidSilveira_3">
+            {/* <SocialIcons href="https://twitter.com/DavidSilveira_3">
               <AiFillTwitterCircle size="3rem" />
-            </SocialIcons>
+            </SocialIcons> */}
           </SocialContainer>
         </SocialIconsContainer>
       </LinkList>
