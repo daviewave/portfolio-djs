@@ -34,7 +34,7 @@ const Footer = () => {
         </LinkColumn>
         <LinkColumn>
           <LinkTitle>Résumé</LinkTitle>
-          <LinkItem href="/DavidSilveira.pdf" target="_blank">
+          <LinkItem href="/DavidSilveira_resume.pdf" target="_blank">
             David Silveira Résumé
           </LinkItem>
         </LinkColumn>
