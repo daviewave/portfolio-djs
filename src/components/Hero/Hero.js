@@ -9,7 +9,7 @@ const Hero = (props) => (
     <LeftSection>
       <SectionTitle main center>
         David Silveira <br />
-        Full Stack Web Developer
+        Full Stack Software Engineer
       </SectionTitle>
       <SectionText>
         As a seasoned full-stack web developer with a background in Neuroscience and a Computer Science minor, I offer a unique perspective on user web experiences, honed through professional experience in developing enterprise applications. My strong problem-solving skills and keen sense of timing enable me to meet project deadlines effectively, balancing a clear vision of broader objectives with meticulous attention to detail for innovative strategy implementation.
