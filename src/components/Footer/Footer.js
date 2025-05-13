@@ -28,13 +28,13 @@ const Footer = () => {
         </LinkColumn> */}
         <LinkColumn>
           <LinkTitle>Email</LinkTitle>
-          <LinkItem href="email:davidsilveira.3.djs@gmail.com">
-            davidsilveira.3.djs@gmail.com
+          <LinkItem href="email:dav.silveira@proton.me">
+            dav.silveira@proton.me
           </LinkItem>
         </LinkColumn>
         <LinkColumn>
           <LinkTitle>Résumé</LinkTitle>
-          <LinkItem href="/DavidSilveira_resume.pdf" target="_blank">
+          <LinkItem href="/dsilveira_25.pdf" target="_blank">
             David Silveira Résumé
           </LinkItem>
         </LinkColumn>
@@ -46,9 +46,6 @@ const Footer = () => {
             <SocialIcons href="https://www.linkedin.com/in/david-silveira-03921821b/">
               <AiFillLinkedin size="3rem" />
             </SocialIcons>
-            {/* <SocialIcons href="https://twitter.com/DavidSilveira_3">
-              <AiFillTwitterCircle size="3rem" />
-            </SocialIcons> */}
           </SocialContainer>
         </SocialIconsContainer>
       </LinkList>

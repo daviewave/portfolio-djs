@@ -6,7 +6,7 @@ export const currentProjects = [
     image: "/images/easy-covers-full.svg",
     tags: ["Django", "NextJS", "Docker", "PostgreSQL", "Linux"],
     source: "request access",
-    visit: "https://easycovers.io",
+    visit: "https://github.com/Easy-Covers-Software/clg_frontend",
     id: 0,
   },
   {
@@ -16,7 +16,7 @@ export const currentProjects = [
     image: "/images/greatkart.png",
     tags: ["Django", "PostgresSQL", "AWS", "Linux"],
     source: "https://github.com/daviewave/ecommerce-course",
-    visit: "http://ecommerce-django-dev.us-east-1.elasticbeanstalk.com/",
+    visit: "https://github.com/daviewave/ecommerce-course",
     id: 1,
   },
   {
