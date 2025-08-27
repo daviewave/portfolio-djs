@@ -82,7 +82,7 @@ export const SectionTitle = styled.h2`
 `;
 
 export const SectionText = styled.p`
-  max-width: 80vw;
+  max-width: 88vw;
   font-size: 24px;
   line-height: 40px;
   font-weight: 300;
@@ -90,20 +90,19 @@ export const SectionText = styled.p`
   color: rgba(255, 255, 255, 0.5);
 
   @media ${(props) => props.theme.breakpoints.lg} {
-    max-width: 90vw;
     font-size: 22px;
     line-height: 32px;
     padding-bottom: 24px;
   }
 
   @media ${(props) => props.theme.breakpoints.md} {
-    max-width: 90vw;
     font-size: 20px;
     line-height: 32px;
     padding-bottom: 24px;
   }
 
   @media ${(props) => props.theme.breakpoints.sm} {
+    max-width: 80vw;
     font-size: 16px;
     line-height: 24px;
     padding-bottom: 16px;
@@ -111,7 +110,7 @@ export const SectionText = styled.p`
 `;
 
 export const TimelineText = styled.p`
-  max-width: 80vw;
+  max-width: 88vw;
   font-size: 1.2em;
   line-height: 40px;
   font-weight: 300;
@@ -119,23 +118,49 @@ export const TimelineText = styled.p`
   color: rgba(255, 255, 255, 0.5);
 
   @media ${(props) => props.theme.breakpoints.lg} {
-    max-width: 90vw;
     font-size: 1.2em;
     line-height: 32px;
     padding-bottom: 24px;
   }
 
   @media ${(props) => props.theme.breakpoints.md} {
-    max-width: 90vw;
     font-size: 1.2em;
     line-height: 32px;
     padding-bottom: 24px;
   }
 
   @media ${(props) => props.theme.breakpoints.sm} {
+    max-width: 80vw;
     font-size: 1.2em;
     line-height: 24px;
     padding-bottom: 16px;
+  }
+`;
+
+export const TechText = styled.p`
+  max-width: 80vw;
+  font-size: 1.2em;
+  line-height: 40px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.5);
+
+  @media ${(props) => props.theme.breakpoints.lg} {
+    max-width: 90vw;
+    font-size: 1.3em;
+    line-height: 32px;
+    padding-bottom: 24px;
+  }
+
+  @media ${(props) => props.theme.breakpoints.md} {
+    max-width: 90vw;
+    font-size: 1.3em;
+    line-height: 32px;
+    padding-bottom: 24px;
+  }
+
+  @media ${(props) => props.theme.breakpoints.sm} {
+    font-size: 1.4em;
+    line-height: 24px;
   }
 `;
 
@@ -150,6 +175,7 @@ export const SectionDivider = styled.div`
       : "linear-gradient(270deg, #13ADC7 0%, #945DD6 100%)"};
 
   margin: ${(props) => (props.divider ? "4rem 0" : "")};
+  margin-bottom: 32px;
 
   @media ${(props) => props.theme.breakpoints.md} {
     width: 48px;

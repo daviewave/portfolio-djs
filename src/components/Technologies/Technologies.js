@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 import { DiCloud9, DiDatabase, DiReact } from "react-icons/di";
 import {
   Section,
   SectionDivider,
-  SectionText,
+  TechText,
   SectionTitle,
 } from "../../styles/GlobalComponents";
 import {
@@ -17,72 +17,91 @@ import {
 const Technologies = () => (
   <Section id="tech">
     <SectionDivider />
-    <br />
     <SectionTitle>Technologies</SectionTitle>
-    <SectionText>
-      As a full stack developer I have experience with a wide range of technologies spanning across the front-end, back-end, dev-ops, and artificial intelligence fields.
-    </SectionText>
-    <List>
-      <ListItem>
-        {/* <DiReact size="3rem" /> */}
+
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "space-between",
+        gap: "20px",
+      }}
+    >
+      <TechText>
+        Over the course of my career I’ve had the chance to work with a wide
+        variety of technologies—experimenting, integrating, and building across
+        frontend, backend, DevOps, and AI. While I’m always learning, the tools
+        listed here are the ones I’ve grown most skilled with, including some of
+        the more challenging and complex technologies I’ve learned and
+        successfully integrated, which I’m especially proud of.
+      </TechText>
+
+      <List>
         <ListContainer>
           <ListTitle>Front-End</ListTitle>
           <ListParagraph>
-            - NextJS <br />
-            - ReactJS <br />
-            - MaterialUI <br />
-            - Typescript <br />
-            - Javascript <br />
-            - Figma + Balsamiq <br />
-            - CSS <br />
+            <li>NextJS</li>
+            <li>ReactJS</li>
+            <li>MaterialUI</li>
+            <li>Typescript</li>
+            <li>Javascript</li>
+            <li>Figma</li>
+            <li>Penpot</li>
+            <li>Balsamiq</li>
+            <li>CSS</li>
+            <li>HTML</li>
           </ListParagraph>
         </ListContainer>
-      </ListItem>
-      <ListItem>
-        {/* <DiDatabase size="3rem" /> */}
+
         <ListContainer>
           <ListTitle>Back-End</ListTitle>
           <ListParagraph>
-            - Django <br />
-            - Node.js <br />
-            - Python <br />
-            - REST API <br />
-            - Mongo <br />
-            - Flask <br />
+            <li>Django</li>
+            <li>Python</li>
+            <li>REST API's</li>
+            <li>Flask</li>
+            <li>PostgreSQL</li>
+            <li>Redis</li>
+            <li>Celery</li>
+            <li>WebSockets</li>
+            <li>Async Programming</li>
+            <li>Data Modeling</li>
           </ListParagraph>
         </ListContainer>
-      </ListItem>
-      <ListItem>
-        {/* <DiCloud9 size="3rem" /> */}
+
         <ListContainer>
           <ListTitle>Devops</ListTitle>
           <ListParagraph>
-            - AWS <br />
-            - Docker <br />
-            - Linux <br />
-            - Nginx <br />
-            - Ubuntu <br />
-            - Git <br />
-            - Scripting <br />
+            <li>Shell Scripting</li>
+            <li>Docker</li>
+            <li>Linux</li>
+            <li>Qubes OS</li>
+            <li>Nginx Servers</li>
+            <li>Digital Ocean</li>
+            <li>On-Prem Deployments</li>
+            <li>Virtual Machines</li>
+            <li>Git</li>
+            <li>Network/VPN Mgmt</li>
           </ListParagraph>
         </ListContainer>
-      </ListItem>
-      <ListItem>
-        {/* <DiCloud9 size="3rem" /> */}
+
         <ListContainer>
-          <ListTitle>A.I</ListTitle>
+          <ListTitle style={{ paddingLeft: "4px" }}>AI</ListTitle>
           <ListParagraph>
-            - PyTorch <br />
-            - PyTensor <br />
-            - Whispr <br />
-            - Llama<br /> 
-            - GPT<br />
-            - PyTorch<br /> 
-            - Kaldi<br />
+            <li>GPT model</li>
+            <li>Whispr model</li>
+            <li>gpt4all</li>
+            <li>HuggingFace Transformers</li>
+            <li>Kaldi ASR Pipeline</li>
+            <li>PyTorch/PyTensor</li>
+            <li>LangChain</li>
+            <li>Prompt Engineering</li>
+            <li>Word2Vec</li>
+            <li>Risk/Legal Analysis</li>
           </ListParagraph>
         </ListContainer>
-      </ListItem>
-    </List>
+      </List>
+    </div>
   </Section>
 );
 

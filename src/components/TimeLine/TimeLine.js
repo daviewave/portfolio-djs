@@ -74,6 +74,7 @@ const Timeline = () => {
 
   return (
     <Section id="about">
+      <SectionDivider />
       <SectionTitle>About Me</SectionTitle>
       <TimelineText>
         <strong style={{ fontSize: "1.4em", color: "silver" }}>

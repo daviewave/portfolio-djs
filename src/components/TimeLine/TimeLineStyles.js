@@ -14,7 +14,7 @@ export const CarouselContainer = styled.ul`
     margin-left: 0px;
   }
 
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   margin-top: 16px;
 
   //remove scrollbar
@@ -42,15 +42,17 @@ export const CarouselMobileScrollNode = styled.div`
 export const CarouselItem = styled.div`
   background: #0f1624;
   border-radius: 3px;
-  max-width: 196px;
+  max-width: 48vw;
+  min-width: 22vw;
 
   @media ${(props) => props.theme.breakpoints.md} {
-    max-width: 124px;
+    max-width: 48vw;
+    min-width: 30vw;
   }
 
   @media ${(props) => props.theme.breakpoints.sm} {
     margin-left: 32px;
-    min-width: 120px;
+    min-width: 48vw;
     background: #0e131f;
     padding: 4px;
     align-content: start;
@@ -109,20 +111,20 @@ export const CarouselItemImg = styled.svg`
 `;
 
 export const CarouselItemText = styled.p`
-  font-size: 14px;
-  line-height: 22px;
+  font-size: 1.2em;
+  // line-height: 22px;
   letter-spacing: 0.02em;
   color: rgba(255, 255, 255, 0.75);
   padding-right: 16px;
 
   @media ${(props) => props.theme.breakpoints.md} {
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 1.2em;
+    // line-height: 18px;
     padding-right: 32px;
   }
   @media ${(props) => props.theme.breakpoints.sm} {
-    font-size: 10px;
-    line-height: 16px;
+    font-size: 1.1em;
+    // line-height: 16px;
     padding-right: 0;
   }
 `;
