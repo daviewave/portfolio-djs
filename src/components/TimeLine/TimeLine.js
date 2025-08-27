@@ -76,7 +76,7 @@ const Timeline = () => {
     <Section id="about">
       <SectionTitle>About Me</SectionTitle>
       <TimelineText>
-        <strong style={{ fontSize: "1.2em", color: "silver" }}>
+        <strong style={{ fontSize: "1.4em", color: "silver" }}>
           Education{" "}
         </strong>{" "}
         <br />
@@ -88,11 +88,11 @@ const Timeline = () => {
         projects.
         <br />
         <br />
-        <strong style={{ fontSize: "1.2em", color: "silver" }}>
+        <strong style={{ fontSize: "1.4em", color: "silver" }}>
           Professional Experience{" "}
         </strong>
         <br />
-        <strong style={{ fontSize: "1em", color: "silver" }}>
+        <strong style={{ fontSize: "1.1em", color: "silver" }}>
           Forum Systems:{" "}
         </strong>
         I began my career at Forum Systems as a frontend software engineer,
@@ -117,7 +117,7 @@ const Timeline = () => {
         AI-driven application.
         <br />
         <br />
-        <strong style={{ fontSize: "1em", color: "silver" }}>
+        <strong style={{ fontSize: "1.1em", color: "silver" }}>
           Easy Covers Software Venture:{" "}
         </strong>
         After a year in the startup grind building Quantum Sim, I decided to
@@ -148,10 +148,9 @@ const Timeline = () => {
         changed the trajectory of my career.
         <br />
         <br />
-        <strong style={{ fontSize: "1em", color: "silver" }}>
+        <strong style={{ fontSize: "1.1em", color: "silver" }}>
           Skaion Corporation:{" "}
         </strong>
-        <br />
         After Easy Covers, I took on a contract role with Skaion Corporation, a
         veteran-owned company with a focus on government R&D contracts. This was
         a completely different environment than my previous roles, since
