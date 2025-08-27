@@ -110,6 +110,35 @@ export const SectionText = styled.p`
   }
 `;
 
+export const TimelineText = styled.p`
+  max-width: 80vw;
+  font-size: 1.2em;
+  line-height: 40px;
+  font-weight: 300;
+  padding-bottom: 3.6rem;
+  color: rgba(255, 255, 255, 0.5);
+
+  @media ${(props) => props.theme.breakpoints.lg} {
+    max-width: 90vw;
+    font-size: 1.2em;
+    line-height: 32px;
+    padding-bottom: 24px;
+  }
+
+  @media ${(props) => props.theme.breakpoints.md} {
+    max-width: 90vw;
+    font-size: 1.2em;
+    line-height: 32px;
+    padding-bottom: 24px;
+  }
+
+  @media ${(props) => props.theme.breakpoints.sm} {
+    font-size: 1.2em;
+    line-height: 24px;
+    padding-bottom: 16px;
+  }
+`;
+
 export const SectionDivider = styled.div`
   width: 64px;
   height: 6px;

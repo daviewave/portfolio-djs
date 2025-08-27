@@ -42,26 +42,30 @@ export const currentProjects = [
 ];
 
 export const TimeLineData = [
-  { 
-    year: 2020, 
-    text: "Gained professional experience as an undergraduate research assistant in the UMass Amherst Kwak Lab. While there, I created a program using R programming language that performed basic NLP on a large dataset of collected responses to a survey about the election where participants were primed with certain fear or anger inducing words."
+  {
+    year: 2020,
+    text: "Worked as a research assistant in the UMass Amherst Kwak Lab, where I built a custom R program to process survey data and perform basic NLP. My research analyzed how different framing words shaped voter sentiment during the 2018 midterm elections.",
   },
-  { 
-    year: 2021, 
-    text: "Graduated from UMass Amherst with a Bachelor's degree in Psychology with a concentration on Neuroscience. While studying, I also took many computer science classes including data structures, computer systems principles, and computational theory. After Graduating I followed my passion for computer science and enrolled in Columbia University's Full Stack Web Development Bootcamp and graduated in January of 2022." 
+  {
+    year: 2021,
+    text: "Graduated from UMass Amherst with a B.S. in Psychology, concentrating in Neuroscience with a minor in Computer Science. Took advanced CS coursework in data structures, computer systems principles, and computational theory. Soon after, I enrolled in Columbia University's Full Stack Web Development Bootcamp, which I completed in early 2022.",
   },
   {
     year: 2022,
-    text: "Got my first professional role as a Full Stack Engineer at Forum Systems. While there I worked on a wide range of tasks including front-end development using React.js, Django-based REST API creation, and Linux server management. I also worked closely with C-level executives in feature design and implementation.",
+    text: "Started my first professional role at Forum Systems as the first external hire on their AI-driven healthcare application, Quantum Sim. I expanded beyond my original frontend React.js role into backend Django APIs, DevOps automation with Bash, and Linux server deployments for Blue Cross Blue Shield.",
   },
   {
     year: 2023,
-    text: "Founded Easy Covers Software, where I developed an innovative applicant tracking system featuring unique AI-integrated tools, distinguishing it from other products on the market. This project involved creating a speech-to-text pipeline with Kaldi ASR software and closely working with recruiters to ensure market fit. Additionally, I crafted a detailed 25-page business plan and multiple pitch decks to effectively communicate the product’s unique value proposition to various stakeholders.",
+    text: "Founded Easy Covers Software to tackle inefficiencies in the recruiting industry. I built a full-stack AI-powered applicant tracking system with speech-to-text pipelines (Kaldi, Hugging Face, later Whisper) and GPT-based note generation. I also authored a 25-page business plan and created pitch decks, securing meetings with major venture capital firms.",
+  },
+  {
+    year: 2024,
+    text: "Joined Skaion Corporation as a contract Software Engineer on a government R&D project. I engineered a Python backend and React.js frontend for secure offline environments, containerized apps with Docker, and built an AI microservice with GPT4All running fully disconnected from the cloud. I also presented progress to stakeholders, helping secure additional funding.",
   },
 ];
 
 export const accomplishments = [
-  { number: '1800+', text: "Git Commits over the past year" },
+  { number: "1800+", text: "Git Commits over the past year" },
   { number: 2, text: "Degrees/Certifcations" },
   { number: 6, text: "Coding Languages" },
   { number: 1, text: "Research Projects" },

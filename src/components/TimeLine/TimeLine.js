@@ -16,6 +16,7 @@ import {
 } from "./TimeLineStyles";
 import {
   TimlineSection,
+  TimelineText,
   Section,
   SectionDivider,
   SectionText,
@@ -74,50 +75,113 @@ const Timeline = () => {
   return (
     <Section id="about">
       <SectionTitle>About Me</SectionTitle>
-      <SectionText>
+      <TimelineText>
         <strong style={{ fontSize: "1.2em", color: "silver" }}>
-          Education:{" "}
+          Education{" "}
         </strong>{" "}
-        I earned an undergraduate Bachelor’s Degree in Neuroscience from the
-        University of Massachusetts Amherst in the Spring of 2021, and in
-        January of 2022 earned a certificate in full stack web development boot
-        camp from Columbia University.
+        <br />
+        I earned a Bachelor’s Degree in Neuroscience with a concentration in
+        Neuroscience and a minor in Computer Science from the University of
+        Massachusetts Amherst in 2021. In January 2022, I completed an intensive
+        Full Stack Web Development Boot Camp at Columbia University, building a
+        strong foundation in modern development technologies and real-world
+        projects.
         <br />
         <br />
         <strong style={{ fontSize: "1.2em", color: "silver" }}>
-          Professional Experience:{" "}
+          Professional Experience{" "}
         </strong>
-        After graduating, I secured my first professional role at Forum Systems,
-        where I had the distinction of being the first full-time employee hired
-        to contribute to their innovative AI-integrated healthcare application
-        as a Full Stack Engineer. In this multifaceted role, I was involved in a
-        wide range of tasks encompassing both front and back-end development. My
-        responsibilities included front-end development using React.js for key
-        features like risk analysis and legal analysis, as well as crafting REST
-        API endpoints utilizing a Django backend. Additionally, I developed bash
-        scripts for the efficient transfer of development and production builds
-        onto Linux servers for on-premise installations. Collaborating closely
-        with C-level executives, I played a pivotal role in the design and
-        implementation of new application features. <br />
         <br />
-        <strong style={{ fontSize: "1.2em", color: "silver" }}>
-          Professional Venture:{" "}
+        <strong style={{ fontSize: "1em", color: "silver" }}>
+          Forum Systems:{" "}
         </strong>
-        After completing my studies, I launched my career at Forum Systems as
-        the first full-time Full Stack Engineer for their AI-integrated
-        healthcare application. In this role, I was responsible for a broad
-        range of tasks including front-end React.js development, Django-based
-        REST API creation, and Linux server management. My tenure there was
-        marked by direct collaboration with C-level executives in feature design
-        and implementation. Leveraging this experience, I founded Easy Covers
-        Software, where I developed an innovative applicant tracking system
-        featuring unique AI-integrated tools, distinguishing it from other
-        products on the market. This project involved creating a speech-to-text
-        pipeline with Kaldi ASR software and closely working with recruiters to
-        ensure market fit. Additionally, I crafted a detailed 25-page business
-        plan and multiple pitch decks to effectively communicate the product’s
-        unique value proposition to various stakeholders.
-      </SectionText>
+        I began my career at Forum Systems as a frontend software engineer,
+        hired to work on the React.js interfaces for their AI healthcare
+        application, Quantum Sim. Not long after, I became the first external
+        engineer hired onto the project and quickly expanded beyond the
+        frontend, gaining exposure to every component of the system. I moved
+        into the backend with Django, where I designed REST APIs and developed
+        machine learning features including NLP-driven healthcare benefit
+        encoding and PDF contract risk analysis using Word2Vec, Transformer, and
+        GPT models. I also dove into DevOps, writing Bash scripts to build
+        packaged, containerized applications and transferring them onto Linux
+        servers for on-prem deployments, while also managing backups and data
+        handling for Blue Cross Blue Shield. My eagerness to learn and
+        contribute wherever I could led to my role broadening into a generalized
+        software engineer, which had me touching frontend design, backend logic,
+        data workflows, and deployment processes. I even created a developer
+        productivity toolkit in the form of a “dev-shortcuts” repository to
+        streamline onboarding for new hires. Working closely with C-level
+        executives, I helped shape the direction of new features and came away
+        from the role with a holistic view of building and maintaining a complex
+        AI-driven application.
+        <br />
+        <br />
+        <strong style={{ fontSize: "1em", color: "silver" }}>
+          Easy Covers Software Venture:{" "}
+        </strong>
+        After a year in the startup grind building Quantum Sim, I decided to
+        branch out on my own. Confident in my skills and motivated by a clear
+        problem I saw in the recruiting industry, I founded Easy Covers
+        Software. I had noticed how junior recruiters often struggled to
+        evaluate technical candidates, leading to awkward gaps in communication
+        with hiring managers and a reliance on “buzzword” editing that usually
+        backfired. To fix this, I built an application that allowed recruiters
+        to initiate phone calls directly through the app, automatically
+        transcribe the conversations, and then use large language models to
+        generate structured notes that could be cleanly passed to hiring
+        managers. I started by building my own transcription pipeline using
+        Hugging Face models, Kaldi, and Python tools, eventually incorporating
+        OpenAI’s Whisper for higher-quality speech recognition. Once
+        transcribed, the system would feed conversations into GPT models, which
+        extracted technical highlights and produced match scores to help
+        recruiters evaluate candidate fit more objectively. On the engineering
+        side, I created a microservices architecture with Django, Flask, and
+        Redis to keep the system scalable and responsive, while designing the
+        frontend with Next.js and Material-UI. At the same time, I built a full
+        business case around the product, writing a 25-page business plan and
+        producing multiple pitch decks that landed meetings with venture
+        capitalists and major players in the space. While I was ultimately
+        unable to close a funding round, the experience pushed my technical
+        abilities further than ever and gave me invaluable exposure to the
+        business side of software development, something that fundamentally
+        changed the trajectory of my career.
+        <br />
+        <br />
+        <strong style={{ fontSize: "1em", color: "silver" }}>
+          Skaion Corporation:{" "}
+        </strong>
+        <br />
+        After Easy Covers, I took on a contract role with Skaion Corporation, a
+        veteran-owned company with a focus on government R&D contracts. This was
+        a completely different environment than my previous roles, since
+        security and offline functionality were top priorities and cloud-based
+        solutions were not an option. I engineered a Python backend framework
+        from the ground up, first building it in Django and then transitioning
+        it into modular Python scripts to better align with evolving project
+        requirements. On the frontend, I built a React.js framework for guiding
+        users through backend-driven workflows, incorporating advanced
+        visualization with react-force-graph in both 2D and 3D, as well as
+        charting components for dynamic data displays. To ensure secure
+        deployment, I containerized each component using Docker and managed
+        packaging with custom Bash scripts. I also developed an AI microservice
+        with GPT4All, which ran fully offline and used Celery and Redis to
+        handle asynchronous requests and manage memory constraints. Beyond the
+        code, I regularly met with stakeholders to present technical progress,
+        gather feedback, and adapt project goals, playing a part in securing
+        additional funding rounds. I also collaborated with management on
+        reviewing contract proposals and refining implementation plans, giving
+        me deeper insight into how government-funded projects are structured and
+        executed.
+        <br />
+        <br />
+        Across these experiences, I’ve blended full-stack engineering with AI,
+        data visualization, and research-driven problem solving. I’ve had the
+        chance to work in very different environments—from private startups to
+        government R&D—each of which taught me new approaches to software
+        design. What ties them together is my drive to build technology that is
+        secure, intuitive, and ultimately delivers real-world value.
+      </TimelineText>
       <CarouselContainer ref={carouselRef} onScroll={handleScroll}>
         {/* TimeLineData was defined as a constant and imported above */}
         <>
@@ -188,7 +252,7 @@ const Timeline = () => {
           </CarouselButton>
         ))}
       </CarouselButtons>
-      <SectionDivider />
+      {/* <SectionDivider /> */}
     </Section>
   );
 };
