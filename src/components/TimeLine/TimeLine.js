@@ -73,7 +73,7 @@ const Timeline = () => {
 
   return (
     <Section id="about">
-      <SectionTitle>How I Ended Up Here</SectionTitle>
+      <SectionTitle>About Me</SectionTitle>
       <SectionText>
         <strong style={{ fontSize: "1.2em", color: "silver" }}>
           Education:{" "}
