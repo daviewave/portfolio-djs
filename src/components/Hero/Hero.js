@@ -30,11 +30,9 @@ const Hero = (props) => (
         intuitive, and adds real value to society.
       </SectionText>
       <ButtonSection>
-        <Button onClick={() => (window.location = "#footer")}>About Me</Button>
-        <Button onClick={() => (window.location = "#footer")}>
-          Tech Skills
-        </Button>
-        <Button onClick={() => (window.location = "#footer")}>
+        <Button onClick={() => (window.location = "#about")}>About Me</Button>
+        <Button onClick={() => (window.location = "#tech")}>Tech Skills</Button>
+        <Button onClick={() => (window.location = "#projects")}>
           Github Code
         </Button>
         <Button onClick={() => (window.location = "#footer")}>
