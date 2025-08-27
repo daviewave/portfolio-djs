@@ -22,6 +22,7 @@ export const Section = styled.section`
 
     width: calc(100vw - 32px);
     flex-direction: column;
+    margin-bottom: 8px;
   }
 `;
 
@@ -65,7 +66,7 @@ export const SectionTitle = styled.h2`
   @media ${(props) => props.theme.breakpoints.md} {
     font-size: ${(props) => (props.main ? "56px" : "48px")};
     line-height: ${(props) => (props.main ? "56px" : "48px")};
-    margin-bottom: 12px;
+    margin-bottom: 6px;
     padding: ${(props) => (props.main ? "40px 0 12px" : "0")};
   }
 
@@ -235,7 +236,7 @@ export const ButtonBack = styled.div`
 
   @media ${(props) => props.theme.breakpoints.sm} {
     width: 100%;
-    height: 6vh;
+    // height: 6vh;
     font-size: 14px;
     margin-bottom: ${({ alt }) => (alt ? "0" : "12px")};
   }

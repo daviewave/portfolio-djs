@@ -35,7 +35,7 @@ const Hero = (props) => (
           Tech Skills
         </Button>
         <Button onClick={() => (window.location = "#footer")}>
-          Github Projects
+          Github Code
         </Button>
         <Button onClick={() => (window.location = "#footer")}>
           Contact Info
