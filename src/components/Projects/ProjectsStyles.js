@@ -37,7 +37,7 @@ export const BlogCard = styled.div`
   justify-content: space-between;
 
   width: 28vw;
-  height: 70vh;
+  min-height: 70vh;
   padding-bottom: 4px;
 
   @media ${(props) => props.theme.breakpoints.lg} {
@@ -50,7 +50,7 @@ export const BlogCard = styled.div`
 
   @media ${(props) => props.theme.breakpoints.sm} {
     width: 80vw;
-    height: 75vh;
+    // height: 75vh;
   }
 
   &:hover {
@@ -105,7 +105,7 @@ export const CardInfo = styled.p`
   // margin-top: -4px;
 
   @media ${(props) => props.theme.breakpoints.sm} {
-    font-size: 1.8em;
+    font-size: 0.8em;
   }
 `;
 
@@ -158,7 +158,8 @@ export const Tag = styled.li`
   // min-width: 12%;
 
   @media ${(props) => props.theme.breakpoints.sm} {
-    // font-size: 0.8rem;
+    font-size: 0.9rem;
+    padding: 0.3rem;
   }
   background: ${({ alt }) =>
     alt
