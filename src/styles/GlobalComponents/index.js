@@ -277,7 +277,10 @@ export const ButtonBack = styled.div`
   transition: 0.5s ease;
   position: relative;
   overflow: hidden;
-  opacity: ${({ disabled }) => (disabled ? ".5" : "1")};
+  // opacity: ${({ disabled }) => (disabled ? ".5" : "1")};
+  &:hover {
+    opacity: 60%;
+  }
 
   @media ${(props) => props.theme.breakpoints.lg} {
     width: ${({ alt }) => (alt ? "150px" : "90%")};
@@ -325,7 +328,7 @@ export const ButtonFront = styled.button`
       : "none"};
 
   &:hover {
-    opacity: 0;
+    opacity: 20%;
   }
   &:focus {
     outline: none;
