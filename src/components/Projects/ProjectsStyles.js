@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Img = styled.img`
   width: 100%;
   height: 40%;
+  max-height: 30vh;
   object-fit: cover;
   overflow: hidden;
   background-color: white;
@@ -20,6 +21,7 @@ export const GridContainer = styled.section`
   row-gap: 3rem;
   width: 92vw;
   max-width: 1280px;
+  // min-height:
 
   @media ${(props) => props.theme.breakpoints.sm} {
     display: flex;
