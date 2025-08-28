@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const Img = styled.img`
   width: 100%;
-  height: 30%;
-  max-height: 35vh;
+  height: 40%;
+  max-height: 25vh;
   object-fit: cover;
   overflow: hidden;
   background-color: white;
@@ -40,11 +40,12 @@ export const BlogCard = styled.div`
 
   width: 28vw;
   height: fits-content;
-  // min-height: 70vh;
+  height: 64vh;
   padding-bottom: 4px;
 
   @media ${(props) => props.theme.breakpoints.lg} {
     width: 40vw;
+    height: 60vh;
   }
 
   @media ${(props) => props.theme.breakpoints.md} {
@@ -112,6 +113,14 @@ export const CardInfo = styled.p`
   text-align: center;
   // margin-top: -4px;
 
+  @media ${(props) => props.theme.breakpoints.lg} {
+    font-size: 1em;
+  }
+
+  @media ${(props) => props.theme.breakpoints.md} {
+    font-size: 0.9em;
+  }
+
   @media ${(props) => props.theme.breakpoints.sm} {
     font-size: 0.8em;
   }
@@ -159,7 +168,7 @@ export const TagList = styled.ul`
 export const Tag = styled.li`
   color: #d8bfbf;
   flex: 0 1 auto;
-  font-size: 2rem;
+  font-size: 1.4rem;
   border-radius: 12px;
   border: 1px solid gray;
   padding: 0.5rem;

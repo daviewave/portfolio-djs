@@ -98,24 +98,23 @@ const Timeline = () => {
         </strong>
         I began my career at Forum Systems as a frontend software engineer,
         hired to work on the React.js interfaces for their AI healthcare
-        application, Quantum Sim. Not long after, I became the first external
-        engineer hired onto the project and quickly expanded beyond the
-        frontend, gaining exposure to every component of the system. I moved
-        into the backend with Django, where I designed REST APIs and developed
-        machine learning features including NLP-driven healthcare benefit
-        encoding and PDF contract risk analysis using Word2Vec, Transformer, and
-        GPT models. I also dove into DevOps, writing Bash scripts to build
-        packaged, containerized applications and transferring them onto Linux
-        servers for on-prem deployments, while also managing backups and data
-        handling for Blue Cross Blue Shield. My eagerness to learn and
-        contribute wherever I could led to my role broadening into a generalized
-        software engineer, which had me touching frontend design, backend logic,
-        data workflows, and deployment processes. I even created a developer
-        productivity toolkit in the form of a “dev-shortcuts” repository to
-        streamline onboarding for new hires. Working closely with C-level
-        executives, I helped shape the direction of new features and came away
-        from the role with a holistic view of building and maintaining a complex
-        AI-driven application.
+        application, Quantum Sim. As the first external engineer hired onto the
+        project I quickly expanded beyond the frontend, gaining exposure to
+        every component of the system. I moved into the backend with Django,
+        where I designed REST APIs and developed machine learning features
+        including NLP-driven healthcare benefit encoding and PDF contract risk
+        analysis using Word2Vec, Transformer, and GPT models. I also dove into
+        DevOps, writing Bash scripts to build packaged, containerized
+        applications and transferring them onto Linux servers for on-prem
+        deployments, while also managing backups and data handling for Blue
+        Cross Blue Shield. My eagerness to learn and contribute wherever I could
+        led to my role broadening into a generalized software engineer, which
+        had me touching frontend design, backend logic, data workflows, and
+        deployment processes. I even created a developer productivity toolkit in
+        the form of a “dev-shortcuts” repository to streamline onboarding for
+        new hires. Working closely with C-level executives, I helped shape the
+        direction of new features and came away from the role with a holistic
+        view of building and maintaining a complex AI-driven application.
         <br />
         <br />
         <strong style={{ fontSize: "1.1em", color: "silver" }}>

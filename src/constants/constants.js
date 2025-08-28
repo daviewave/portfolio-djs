@@ -2,7 +2,7 @@ export const currentProjects = [
   {
     title: "Easy Covers",
     description:
-      "Easy Covers is a full-stack web application that automates cover letter creation by parsing job postings and resumes. The linked repository contains the **frontend code only**, built with NextJS and React, while the backend (Django + PostgreSQL) and other services remain private. This project demonstrates frontend-reactive UI development, integration with APIs, and structuring a scalable user-facing application, giving a clear view of the client-side implementation in a full-stack context.",
+      "Easy Covers is a full-stack web app that allows recruiters to make phone calls through the app, take notes on the calls, and generate match scores based on resumes and call notes. The linked repository contains the frontend code only, built with Next.js and React, while the backend (Django + PostgreSQL) and other services remain private. This project demonstrates UI development, API integration for calls and transcription, and structuring a scalable, user-facing app.",
     image: "/images/easy-covers-full.svg",
     tags: ["NextJS", "Typescript", "Material UI"],
     source: "https://github.com/Easy-Covers-Software/clg_frontend",
