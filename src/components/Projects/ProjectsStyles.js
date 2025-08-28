@@ -67,9 +67,9 @@ export const TitleContent = styled.div`
   width: 100%;
   font-size: 1.2em;
   // margin: auto;
-  padding-top: 12px;
+  // padding-top: 12px;
   @media ${(props) => props.theme.breakpoints.sm} {
-    font-size: 1.4em;
+    font-size: 1.2em;
   }
 `;
 
@@ -77,8 +77,11 @@ export const HeaderThree = styled.h3`
   font-weight: 500;
   letter-spacing: 2px;
   color: #9cc9e3;
-  padding: 0.5rem 0;
+  // padding: 0.5rem 0;
   font-size: ${(props) => (props.title ? "3rem" : "2rem")};
+  @media ${(props) => props.theme.breakpoints.sm} {
+    font-size: 1.2em;
+  }
 `;
 
 export const Hr = styled.hr`
@@ -102,7 +105,8 @@ export const Intro = styled.div`
 export const CardInfo = styled.p`
   width: 100%;
   height: 100%;
-  padding: 0.2rem;
+  padding: 0.75rem;
+  padding-bottom: 1rem;
   color: #e4e6e7;
   font-size: 1.1em;
   text-align: center;
