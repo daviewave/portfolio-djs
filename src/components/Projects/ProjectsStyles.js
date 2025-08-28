@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const Img = styled.img`
   width: 100%;
-  height: 40%;
-  max-height: 30vh;
+  height: 30%;
+  max-height: 35vh;
   object-fit: cover;
   overflow: hidden;
   background-color: white;
@@ -36,7 +36,7 @@ export const BlogCard = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  // justify-content: space-around;
 
   width: 28vw;
   min-height: 70vh;
@@ -100,6 +100,7 @@ export const Intro = styled.div`
 
 export const CardInfo = styled.p`
   width: 100%;
+  height: 100%;
   padding: 0.2rem;
   color: #e4e6e7;
   font-size: 1.1em;

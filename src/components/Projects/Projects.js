@@ -42,10 +42,13 @@ const Projects = () => (
 
             <div
               style={{
-                height: "90%",
+                height: "70%",
                 display: "flex",
+                marginTop: "4%",
+                // gap: "8%",
                 flexDirection: "column",
-                justifyContent: "space-between",
+                // justifyContent: "space-between",
+                alignItems: "space-between",
                 paddingTop: "4px",
               }}
             >
