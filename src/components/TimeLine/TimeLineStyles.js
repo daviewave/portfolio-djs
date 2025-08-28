@@ -43,11 +43,11 @@ export const CarouselItem = styled.div`
   background: #0f1624;
   border-radius: 3px;
   max-width: 48vw;
-  min-width: 22vw;
+  min-width: 16vw;
 
   @media ${(props) => props.theme.breakpoints.md} {
     max-width: 48vw;
-    min-width: 30vw;
+    min-width: 20vw;
   }
 
   @media ${(props) => props.theme.breakpoints.sm} {
