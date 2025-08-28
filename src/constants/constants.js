@@ -52,7 +52,7 @@ export const currentProjects = [
   {
     title: "JavaScripts",
     description:
-      "A set of custom JavaScript scripts designed for use with the Monkey Scripts browser extension to improve browser security. Demonstrates practical front-end scripting, DOM manipulation, and client-side security enhancements, reflecting hands-on application of JavaScript for real-world security improvements.",
+      "A set of custom JavaScript scripts designed for use with the Tampermonkey browser extension to improve browser security. Demonstrates practical front-end scripting, DOM manipulation, and client-side security enhancements, reflecting hands-on application of JavaScript for real-world security improvements.",
     image: "/images/js.jpg",
     tags: ["JavaScript", "Browser Security", "Front-End Scripting"],
     source: "https://github.com/daviewave/javascripts",
