@@ -22,6 +22,7 @@ export const GridContainer = styled.section`
   width: 92vw;
   max-width: 1280px;
   // min-height:
+  // overflow: clip;
 
   @media ${(props) => props.theme.breakpoints.sm} {
     display: flex;
@@ -54,7 +55,7 @@ export const BlogCard = styled.div`
 
   @media ${(props) => props.theme.breakpoints.sm} {
     width: 80vw;
-    // height: 75vh;
+    // height: 62vh;
   }
 
   &:hover {
@@ -106,12 +107,14 @@ export const Intro = styled.div`
 export const CardInfo = styled.p`
   width: 100%;
   height: 100%;
+  max-height: 30vh;
   padding: 0.75rem;
   padding-bottom: 1rem;
   color: #e4e6e7;
   font-size: 1.1em;
   text-align: center;
   // margin-top: -4px;
+  overflow: scroll;
 
   @media ${(props) => props.theme.breakpoints.lg} {
     font-size: 1em;
