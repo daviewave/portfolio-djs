@@ -39,7 +39,8 @@ export const BlogCard = styled.div`
   // justify-content: space-around;
 
   width: 28vw;
-  min-height: 70vh;
+  height: fits-content;
+  // min-height: 70vh;
   padding-bottom: 4px;
 
   @media ${(props) => props.theme.breakpoints.lg} {
