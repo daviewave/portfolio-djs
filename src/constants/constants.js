@@ -2,42 +2,92 @@ export const currentProjects = [
   {
     title: "Easy Covers",
     description:
-      "Sick of writing cover letters? Easy Covers is a web application that allows you to create a cover letter in minutes. Simply copy and paste the job postings you are applying to then upload your Résumé and Easy Covers will generate a cover letter for you.",
+      "Easy Covers is a full-stack web application that automates cover letter creation by parsing job postings and resumes. The linked repository contains the **frontend code only**, built with NextJS and React, while the backend (Django + PostgreSQL) and other services remain private. This project demonstrates frontend-reactive UI development, integration with APIs, and structuring a scalable user-facing application, giving a clear view of the client-side implementation in a full-stack context.",
     image: "/images/easy-covers-full.svg",
-    tags: ["Django", "NextJS", "Docker", "PostgreSQL", "Linux"],
-    source: "request access",
+    tags: ["NextJS", "Typescript", "Material UI"],
+    source: "https://github.com/Easy-Covers-Software/clg_frontend",
     visit: "https://github.com/Easy-Covers-Software/clg_frontend",
     id: 0,
   },
   {
+    title: "PyScripts",
+    description:
+      "A collection of Python scripts created for a variety of tasks, from email analysis to reverse engineering C code out of binary files. This repository showcases Python scripting, automation, and problem-solving across multiple domains, highlighting versatility and practical coding solutions for complex technical challenges.",
+    image: "/images/py.jpg",
+    tags: ["Python", "Automation", "Reverse Engineering", "Scripting"],
+    source: "https://github.com/daviewave/pyscripts",
+    visit: "https://github.com/daviewave/pyscripts",
+    id: 1,
+  },
+  {
+    title: "Qubes Tools",
+    description:
+      "A collection of custom scripts and tools for hardening Qubes OS environments. Includes kernel hardening, SELinux configuration, and firewall management. This repository demonstrates secure system administration, automation of security workflows, and hands-on experience with Linux-based security hardening.",
+    image: "/images/qubes.jpg",
+    tags: ["Bash", "Linux", "Qubes OS", "Security", "SELinux", "Firewall"],
+    source: "https://github.com/daviewave/qubes-tools",
+    visit: "https://github.com/daviewave/qubes-tools",
+    id: 2,
+  },
+  {
+    title: "Santorini C - CS230",
+    description:
+      "A reimplementation of a college course project in C, designed to refresh and improve my C programming skills. This project demonstrates memory management, low-level programming, and algorithmic problem-solving, allowing me to evaluate how my coding abilities have evolved since the original implementation.",
+    image: "/images/santorini.jpg",
+    tags: ["C", "Algorithms", "Data Structures", "Memory Management"],
+    source: "https://github.com/daviewave/santorini_c-cs230",
+    visit: "https://github.com/daviewave/santorini_c-cs230",
+    id: 3,
+  },
+  {
+    title: "LeetCode Practice",
+    description:
+      "A repository documenting my practice solving algorithmic and data structure problems on LeetCode. Focused on learning efficient approaches, optimizing solutions, and challenging myself to stay sharp with coding problem-solving skills. Highlights proficiency in algorithm design, complexity analysis, and iterative improvement.",
+    image: "/images/leetcode.jpg",
+    tags: ["Algorithms", "Data Structures", "Python", "Problem Solving"],
+    source: "https://github.com/daviewave/leetcode-practice",
+    visit: "https://github.com/daviewave/leetcode-practice",
+    id: 4,
+  },
+  {
+    title: "JavaScripts",
+    description:
+      "A set of custom JavaScript scripts designed for use with the Monkey Scripts browser extension to improve browser security. Demonstrates practical front-end scripting, DOM manipulation, and client-side security enhancements, reflecting hands-on application of JavaScript for real-world security improvements.",
+    image: "/images/js.jpg",
+    tags: ["JavaScript", "Browser Security", "Front-End Scripting"],
+    source: "https://github.com/daviewave/javascripts",
+    visit: "https://github.com/daviewave/javascripts",
+    id: 5,
+  },
+  {
     title: "GreatKart",
     description:
-      "GreatKart is a comprehensive and feature-rich e-commerce platform, offering a seamless shopping experience from start to finish. With GreatKart, customers have the opportunity to explore an extensive catalog meticulously curated to cater to their diverse preferences.",
+      "GreatKart is a Django-based e-commerce platform that showcases full-stack web development, including PostgreSQL-backed data models, AWS hosting, and Linux server management. This project highlights skills in designing scalable database schemas, implementing RESTful APIs, and building responsive user interfaces for an end-to-end shopping experience.",
     image: "/images/greatkart.png",
-    tags: ["Django", "PostgresSQL", "AWS", "Linux"],
+    tags: ["Django", "PostgreSQL", "AWS", "Linux"],
     source: "https://github.com/daviewave/ecommerce-course",
     visit: "https://github.com/daviewave/ecommerce-course",
-    id: 1,
+    id: 6,
   },
   {
     title: "Prompt Pioneer",
     description:
-      "Love using chatGPT but hate remembering the prompts you use over and over again? Prompt Pioneer is a web application that allows you to save your favorite prompts and easily access them with the click of a button.",
+      "Prompt Pioneer is a web application for storing and managing frequently used AI prompts. Built with NextJS, NodeJS, and MongoDB, and deployed on Vercel, this project demonstrates backend CRUD operations, frontend state management, and full-stack integration for a productivity-focused application.",
     image: "/images/prompt-pio.png",
     tags: ["NextJS", "NodeJS", "MongoDB", "Vercel"],
     source: "https://github.com/daviewave/Prompt-Pioneer",
     visit: "https://prompt-pioneer.vercel.app/",
-    id: 2,
+    id: 7,
   },
   {
     title: "Foode",
     description:
-      "Foode is a web application that allows users to search for recipes based on the ingredients they have on hand. Users can also save recipes to their favorites list and add them to their weekly meal planner.",
+      "Foode is a group project from my first coding bootcamp at Columbia University. It allows users to search for recipes based on available ingredients, save favorites, and plan weekly meals. Built with HTML, CSS, and JavaScript, it demonstrates collaborative development, DOM manipulation, API integration, and user interface design in an early full-stack project context.",
     image: "/images/foodee.jpg",
     tags: ["HTML", "CSS", "JavaScript"],
     source: "https://github.com/mwathomas/project-1",
     visit: "https://mwathomas.github.io/project-1/",
-    id: 1,
+    id: 8,
   },
 ];
 
@@ -65,8 +115,7 @@ export const TimeLineData = [
 ];
 
 export const accomplishments = [
-  { number: "1800+", text: "Git Commits over the past year" },
-  { number: 2, text: "Degrees/Certifcations" },
+  { number: 2, text: "Degrees" },
   { number: 6, text: "Coding Languages" },
-  { number: 1, text: "Research Projects" },
+  { number: 5, text: "Applications/Research Projects" },
 ];

@@ -1,56 +1,81 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Img = styled.img`
   width: 100%;
-  height: 220px;
+  height: 40%;
   object-fit: cover;
   overflow: hidden;
   background-color: white;
+  border-radius: 10px 10px 0 0;
 `;
 
 export const GridContainer = styled.section`
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-padding: 3rem;
-place-items: center;
-column-gap: 2rem;
-row-gap: 3rem;
-@media ${(props) => props.theme.breakpoints.sm} {
   display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  padding-bottom: 0;
-}
+  flex-wrap: wrap;
+  justify-content: center;
 
-`
+  padding: 3rem;
+  place-items: center;
+  column-gap: 2rem;
+  row-gap: 3rem;
+  width: 92vw;
+  max-width: 1280px;
+
+  @media ${(props) => props.theme.breakpoints.sm} {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    padding-bottom: 0;
+  }
+`;
 export const BlogCard = styled.div`
   border-radius: 10px;
   box-shadow: 3px 3px 20px rgba(80, 78, 78, 0.5);
-  text-align: center;
-  width: 400px;
-  @media ${(props) => props.theme.breakpoints.sm} {
-    width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 28vw;
+  height: 70vh;
+  padding-bottom: 4px;
+
+  @media ${(props) => props.theme.breakpoints.lg} {
+    width: 40vw;
   }
 
-  // on hover change cursor to pointer
+  @media ${(props) => props.theme.breakpoints.md} {
+    width: 65vw;
+  }
+
+  @media ${(props) => props.theme.breakpoints.sm} {
+    width: 80vw;
+    height: 75vh;
+  }
+
   &:hover {
     cursor: pointer;
+    opacity: 75%;
   }
 `;
 export const TitleContent = styled.div`
   text-align: center;
   z-index: 20;
   width: 100%;
-
+  font-size: 1.2em;
+  // margin: auto;
+  padding-top: 12px;
+  @media ${(props) => props.theme.breakpoints.sm} {
+    font-size: 1.4em;
+  }
 `;
-
 
 export const HeaderThree = styled.h3`
   font-weight: 500;
   letter-spacing: 2px;
   color: #9cc9e3;
-  padding: .5rem 0;
-  font-size: ${(props) => props.title ? '3rem' : '2rem'};
+  padding: 0.5rem 0;
+  font-size: ${(props) => (props.title ? "3rem" : "2rem")};
 `;
 
 export const Hr = styled.hr`
@@ -65,27 +90,24 @@ export const Intro = styled.div`
   width: 170px;
   margin: 0 auto;
   color: #dce3e7;
-  font-family: 'Droid Serif', serif;
+  font-family: "Droid Serif", serif;
   font-size: 13px;
   font-style: italic;
-  line-height: 18px;
+  // line-height: 18px;
 `;
-
 
 export const CardInfo = styled.p`
   width: 100%;
-  padding: 0 16px;
+  padding: 0.2rem;
   color: #e4e6e7;
-  font-style: 2rem;
-  line-height: 24px;
-  text-align: justify;
-  margin-top: 10px;
-  margin-bottom: 25px;
+  font-size: 1.1em;
+  text-align: center;
+  // margin-top: -4px;
+
   @media ${(props) => props.theme.breakpoints.sm} {
-    padding: 0.3rem;
+    font-size: 1.8em;
   }
 `;
-
 
 export const UtilityList = styled.ul`
   list-style-type: none;
@@ -93,31 +115,53 @@ export const UtilityList = styled.ul`
   display: flex;
   justify-content: space-around;
   margin: 2.5rem 0;
+  @media ${(props) => props.theme.breakpoints.sm} {
+    padding: 0.3rem;
+  }
 `;
 
 export const ExternalLinks = styled.a`
-color:#d4c0c0;
-font-size: 1.6rem;
-padding:1rem 1.5rem;
-background: #6b3030;
-border-radius: 15px;
-transition: 0.5s;
-&:hover{
-  background: #801414;
-
-}
+  color: #d4c0c0;
+  font-size: 1.6rem;
+  padding: 1rem 1.5rem;
+  background: #6b3030;
+  border-radius: 15px;
+  transition: 0.5s;
+  &:hover {
+    background: #801414;
+  }
 `;
 
 export const TagList = styled.ul`
+  // height: 10%;
+  width: 100%;
   display: flex;
-  justify-content: space-around;
-  padding: 1.8rem;
-`
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  // padding: 1.8rem;
+  // max-width: 80%;
+  @media ${(props) => props.theme.breakpoints.sm} {
+    // display: inline;
+    // display: none;
+    // grid-template-columns: 2fr 2fr;
+  }
+`;
 export const Tag = styled.li`
   color: #d8bfbf;
-  font-size: 1.5rem;
-  border-radius: 15px;
+  flex: 0 1 auto;
+  font-size: 2rem;
+  border-radius: 12px;
   border: 1px solid gray;
-  padding: 0.75rem;
-  background: ${({ alt }) => alt ? 'linear-gradient(270deg, #ff622e 0%, #B133FF 100%)' : 'linear-gradient(270deg, #00DBD8 0%, #B133FF 100%)'};
-`
+  padding: 0.5rem;
+  // min-width: 12%;
+
+  @media ${(props) => props.theme.breakpoints.sm} {
+    // font-size: 0.8rem;
+  }
+  background: ${({ alt }) =>
+    alt
+      ? "linear-gradient(180deg, #4a66e2ff 0%, #7a88d6ff 50%, #6fd2caff 100%)"
+      : "linear-gradient(180deg, #324bbbff 0%, #5666c5ff 50%, #5850c5ff 100%)"};
+`;
