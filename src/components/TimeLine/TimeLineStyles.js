@@ -23,6 +23,15 @@ export const CarouselContainer = styled.ul`
     display: none;
   }
 
+  @media ${(props) => props.theme.breakpoints.md} {
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    touch-action: pan-x;
+    justify-content: initial;
+    margin-bottom: 8px;
+  }
+
   @media ${(props) => props.theme.breakpoints.sm} {
     overflow-x: scroll;
     -webkit-overflow-scrolling: touch;
