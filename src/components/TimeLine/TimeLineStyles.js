@@ -33,6 +33,11 @@ export const CarouselContainer = styled.ul`
   }
 `;
 export const CarouselMobileScrollNode = styled.div`
+  @media ${(props) => props.theme.breakpoints.md} {
+    display: flex;
+    min-width: ${({ final }) => (final ? `120%;` : `min-content`)};
+  }
+
   @media ${(props) => props.theme.breakpoints.sm} {
     display: flex;
     min-width: ${({ final }) => (final ? `120%;` : `min-content`)};
@@ -45,9 +50,25 @@ export const CarouselItem = styled.div`
   max-width: 48vw;
   min-width: 16vw;
 
+  // @media ${(props) => props.theme.breakpoints.md} {
+  //   max-width: 48vw;
+  //   min-width: 20vw;
+  // }
+
   @media ${(props) => props.theme.breakpoints.md} {
-    max-width: 48vw;
-    min-width: 20vw;
+    margin-left: 32px;
+    min-width: 48vw;
+    background: #0e131f;
+    padding: 4px;
+    align-content: start;
+    scroll-snap-align: start;
+    border-radius: 3px;
+    overflow: visible;
+    position: relative;
+    height: fit-content;
+
+    ${(props) =>
+      props.active === props.index ? `opacity: 1` : `opacity: 0.5`};
   }
 
   @media ${(props) => props.theme.breakpoints.sm} {
@@ -103,6 +124,12 @@ export const CarouselItemImg = styled.svg`
   );
   width: 100%;
 
+  @media ${(props) => props.theme.breakpoints.md} {
+    -webkit-mask-image: none;
+    margin-left: 16px;
+    overflow: visible;
+  }
+
   @media ${(props) => props.theme.breakpoints.sm} {
     -webkit-mask-image: none;
     margin-left: 16px;
@@ -133,6 +160,12 @@ export const CarouselButtons = styled.div`
 
   display: none;
   visibility: hidden;
+
+  @media ${(props) => props.theme.breakpoints.md} {
+    display: flex;
+    visibility: visible;
+    margin-bottom: 48px;
+  }
 
   @media ${(props) => props.theme.breakpoints.sm} {
     display: flex;
