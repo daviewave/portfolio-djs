@@ -225,7 +225,7 @@ test("advance keeps integrating pointer forces after the graph has settled", asy
 	const simulation = createSimulation(graph, 800, 400);
 	settle(simulation, 300);
 	while (simulation.alpha() > simulation.alphaMin()) simulation.tick();
-	const options = { radius: 140, strength: 0.6, activeAlphaTarget: 0.02 };
+	const options = { radius: 140, strength: 0.025, activeAlphaTarget: 0.02 };
 	expect(advance(simulation, null, options)).toBe(false);
 	const [node] = simulation.nodes();
 	const before = node.x ?? 0;
@@ -233,4 +233,38 @@ test("advance keeps integrating pointer forces after the graph has settled", asy
 	for (let frame = 0; frame < 30; frame++)
 		advance(simulation, pointer, options);
 	expect(node.x).not.toBeCloseTo(before, 3);
+});
+
+test("a held pointer pulls nearby nodes in and lets them settle without jitter", async () => {
+	const { advance, buildGraph, createSimulation, settle } = await import(
+		"./index"
+	);
+	const graph = buildGraph([
+		{ id: "a", label: "A", area: "backend", weight: 3, links: ["b"] },
+		{ id: "b", label: "B", area: "backend", weight: 2, links: ["c"] },
+		{ id: "c", label: "C", area: "ai", weight: 1, links: [] },
+		{ id: "d", label: "D", area: "infra", weight: 1, links: ["a"] },
+	]);
+	const simulation = createSimulation(graph, 800, 400);
+	settle(simulation, 300);
+	const options = { radius: 140, strength: 0.025, activeAlphaTarget: 0.02 };
+	const [node] = simulation.nodes();
+	const pointer = { x: (node.x ?? 0) + 50, y: (node.y ?? 0) + 20 };
+	const gap = () =>
+		Math.hypot(pointer.x - (node.x ?? 0), pointer.y - (node.y ?? 0));
+	const before = gap();
+	for (let frame = 0; frame < 90; frame++)
+		advance(simulation, pointer, options);
+	expect(gap()).toBeLessThan(before);
+	let maxStep = 0;
+	for (let frame = 0; frame < 60; frame++) {
+		const x = node.x ?? 0;
+		const y = node.y ?? 0;
+		advance(simulation, pointer, options);
+		maxStep = Math.max(
+			maxStep,
+			Math.hypot((node.x ?? 0) - x, (node.y ?? 0) - y),
+		);
+	}
+	expect(maxStep).toBeLessThan(0.5);
 });

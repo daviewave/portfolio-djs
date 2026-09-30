@@ -92,8 +92,8 @@ export const applyPointerForce = (
 		const distance = Math.hypot(dx, dy);
 		if (distance === 0 || distance > radius) continue;
 		const falloff = 1 - distance / radius;
-		node.vx = (node.vx ?? 0) + (dx / distance) * falloff * strength * radius;
-		node.vy = (node.vy ?? 0) + (dy / distance) * falloff * strength * radius;
+		node.vx = (node.vx ?? 0) + dx * falloff * strength;
+		node.vy = (node.vy ?? 0) + dy * falloff * strength;
 	}
 };
 
