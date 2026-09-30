@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>David Silveira - Software Engineer</title>
+		<meta
+			name="description"
+			content="Lead software engineer building AI products end to end: Django, React, graph databases, and AWS."
+		/>
+		<script>
+			(() => {
+				let theme = "light";
+				try {
+					const stored = localStorage.getItem("theme");
+					if (stored === "light" || stored === "dark") theme = stored;
+					else if (matchMedia("(prefers-color-scheme: dark)").matches) theme = "dark";
+				} catch {}
+				document.documentElement.dataset.theme = theme;
+			})();
+		</script>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/src/main.tsx"></script>
+	</body>
+</html>

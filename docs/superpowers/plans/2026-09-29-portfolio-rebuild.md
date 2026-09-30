@@ -448,7 +448,7 @@ export const drawGraph: (ctx: CanvasRenderingContext2D, graph: Graph, opts: { wi
 **Interfaces (Produces):**
 ```ts
 export function Reveal(props: { children: ReactNode; className?: string; delay?: number; as?: "div" | "li" | "section" }): JSX.Element; // m.[as] whileInView fade+8px-rise once; plain element when reduced
-export function MorphHeading(props: { children: ReactNode; id?: string; level?: 1 | 2; className?: string }): JSX.Element; // sets data-inview when seen (useInView once); CSS morphs MONO 1→0, CASL 0→1
+export function MorphHeading(props: { children: ReactNode; id?: string; level?: 1 | 2; className?: string }): JSX.Element; // sets data-inview when seen (useInView once); CSS morphs MONO 1→0 (the font subset is mono.css: wght + MONO axes only, 72 kB latin)
 export function ProgressRail(props: { sections: { id: string; label: string }[]; activeId: string | null }): JSX.Element; // fixed right-edge rail; scaleY from useScroll().scrollYProgress; one <a href="#id"> per section
 export function VisuallyHidden(props: { children: ReactNode; as?: "span" | "ul" | "div" }): JSX.Element;
 export const useScrollSpy: (ids: string[]) => string | null; // IntersectionObserver with rootMargin "-40% 0px -55% 0px"
@@ -458,10 +458,10 @@ export const useCountUp: (target: number, active: boolean, durationMs?: number) 
 Tier-1 CSS added to `index.css`:
 ```css
 @layer components {
-	.morph { font-variation-settings: "MONO" 1, "CASL" 0; transition: font-variation-settings 900ms var(--ease-out-expo); }
-	.morph[data-inview="true"] { font-variation-settings: "MONO" 0, "CASL" 1; }
+	.morph { font-variation-settings: "MONO" 1; transition: font-variation-settings 900ms var(--ease-out-expo); }
+	.morph[data-inview="true"] { font-variation-settings: "MONO" 0; }
 	.dim-siblings:has(> :hover) > :not(:hover) { opacity: 0.45; transition: opacity 200ms; }
-	@media (prefers-reduced-motion: reduce) { .morph { transition: none; font-variation-settings: "MONO" 0, "CASL" 1; } }
+	@media (prefers-reduced-motion: reduce) { .morph { transition: none; font-variation-settings: "MONO" 0; } }
 	@supports (animation-timeline: scroll()) {
 		@media (prefers-reduced-motion: no-preference) {
 			.rail-line { transform-origin: top; animation: rail-grow linear both; animation-timeline: view(); animation-range: entry 0% cover 60%; }

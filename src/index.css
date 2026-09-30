@@ -1,0 +1,70 @@
+@import "tailwindcss";
+@import "@fontsource-variable/recursive/mono.css";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+	color-scheme: light;
+	--canvas: #f3f4f6;
+	--raised: #ffffff;
+	--ink: #16181d;
+	--muted: #5b6270;
+	--line: #d9dce2;
+	--area-backend: #3f7d5c;
+	--area-frontend: #b07a2a;
+	--area-ai: #4f6ab8;
+	--area-infra: #a5566a;
+}
+[data-theme="dark"] {
+	color-scheme: dark;
+	--canvas: #121417;
+	--raised: #1a1d21;
+	--ink: #e6e8eb;
+	--muted: #9aa2ad;
+	--line: #262a30;
+	--area-backend: #6fbf93;
+	--area-frontend: #d9a85a;
+	--area-ai: #8ea2e6;
+	--area-infra: #d68aa0;
+}
+
+@theme inline {
+	--color-*: initial;
+	--color-canvas: var(--canvas);
+	--color-raised: var(--raised);
+	--color-ink: var(--ink);
+	--color-muted: var(--muted);
+	--color-line: var(--line);
+	--color-area-backend: var(--area-backend);
+	--color-area-frontend: var(--area-frontend);
+	--color-area-ai: var(--area-ai);
+	--color-area-infra: var(--area-infra);
+	--font-sans: "Recursive Variable", ui-sans-serif, system-ui, sans-serif;
+	--font-mono: "Recursive Variable", ui-monospace, monospace;
+	--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+	html {
+		scroll-behavior: smooth;
+	}
+	body {
+		@apply bg-canvas text-ink font-sans antialiased;
+		font-variation-settings:
+			"MONO" 0,
+			"CASL" 0;
+	}
+	.font-mono {
+		font-variation-settings:
+			"MONO" 1,
+			"CASL" 0;
+	}
+	:focus-visible {
+		@apply outline-2 outline-offset-2 outline-ink;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		html {
+			scroll-behavior: auto;
+		}
+	}
+}
