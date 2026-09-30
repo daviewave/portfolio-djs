@@ -5,3 +5,4 @@ coverage/
 *.pem
 .claude/
 .mcp.json
+tsconfig.tsbuildinfo
