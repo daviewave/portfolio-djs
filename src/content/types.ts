@@ -25,6 +25,8 @@ export interface Role {
 	org: string;
 	summary: string;
 	area: Area;
+	highlights: string[];
+	tech: string[];
 }
 
 export interface Project {

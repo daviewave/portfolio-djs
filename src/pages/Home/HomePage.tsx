@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState } from "react";
 import { MorphHeading, ProgressRail, Reveal } from "@/components";
 import { areas, technologies } from "@/content";
+import { useMotionPreference } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import {
 	Contact,
@@ -69,6 +70,14 @@ export function HomePage() {
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 	const selected =
 		technologies.find((technology) => technology.id === selectedId) ?? null;
+	const { reduced } = useMotionPreference();
+	const pickTech = (id: string) => {
+		setSelectedId(id);
+		document.getElementById("stack")?.scrollIntoView({
+			behavior: reduced ? "auto" : "smooth",
+			block: "start",
+		});
+	};
 	return (
 		<>
 			<TopBar sections={sections} activeId={activeId} />
@@ -97,7 +106,7 @@ export function HomePage() {
 					<AreaLegend />
 				</Section>
 				<Section id="experience" index={3} total={5} title="Where I've been">
-					<ExperienceRail />
+					<ExperienceRail onPickTech={pickTech} />
 				</Section>
 				<Section id="projects" index={4} total={5} title="Things I've made">
 					<ProjectLedger />

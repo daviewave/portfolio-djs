@@ -57,3 +57,12 @@ test("the now section has narrative paragraphs and three recent wins with detail
 		expect(win.detail.trim().length).toBeGreaterThan(40);
 	}
 });
+
+test("role tech ids resolve to technologies and professional roles carry highlights", async () => {
+	const { roles, technologies } = await import("./index");
+	const known = new Set(technologies.map((technology) => technology.id));
+	for (const role of roles)
+		for (const id of role.tech) expect(known.has(id), id).toBe(true);
+	for (const role of roles.slice(0, 4))
+		expect(role.highlights.length).toBeGreaterThan(0);
+});

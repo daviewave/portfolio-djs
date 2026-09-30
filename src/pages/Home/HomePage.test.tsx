@@ -100,3 +100,15 @@ test("hints at clicking the graph until a node is selected", () => {
 		).toBeInTheDocument();
 	}
 });
+
+test("a technology tag in the experience rail selects that node and shows its detail", async () => {
+	const { fireEvent } = await import("@testing-library/react");
+	renderPage();
+	fireEvent.click(
+		screen.getByRole("button", { name: "Show Amazon Neptune in the graph" }),
+	);
+	expect(
+		await screen.findByRole("heading", { level: 3, name: "Amazon Neptune" }),
+	).toBeInTheDocument();
+	expect(screen.queryByText(/click around/i)).toBeNull();
+});
