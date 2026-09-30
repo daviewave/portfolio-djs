@@ -54,6 +54,10 @@ export const switchThemeWithWipe = async (
 		return;
 	}
 	const transition = startViewTransition.call(document, () => applyTheme(next));
-	await transition.ready;
-	await animateWipe(wipeOriginFor(origin));
+	try {
+		await transition.ready;
+		await animateWipe(wipeOriginFor(origin));
+	} catch {
+		// A newer transition skipped this one; the theme is already applied.
+	}
 };

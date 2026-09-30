@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export interface SectionInfo {
 	id: string;
 	label: string;
@@ -11,5 +13,5 @@ export interface StickyPanelProps {
 export interface SectionProps {
 	id: string;
 	title: string;
-	children: React.ReactNode;
+	children: ReactNode;
 }

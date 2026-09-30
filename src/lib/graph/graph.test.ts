@@ -212,3 +212,25 @@ test("refit rescales positions and recenters the forces", async () => {
 		expect(node.x).toBeLessThanOrEqual(400 - node.radius);
 	}
 });
+
+test("advance keeps integrating pointer forces after the graph has settled", async () => {
+	const { advance, buildGraph, createSimulation, settle } = await import(
+		"./index"
+	);
+	const graph = buildGraph([
+		{ id: "a", label: "A", area: "backend", weight: 3, links: ["b"] },
+		{ id: "b", label: "B", area: "backend", weight: 2, links: [] },
+		{ id: "c", label: "C", area: "ai", weight: 1, links: ["a"] },
+	]);
+	const simulation = createSimulation(graph, 800, 400);
+	settle(simulation, 300);
+	while (simulation.alpha() > simulation.alphaMin()) simulation.tick();
+	const options = { radius: 140, strength: 0.6, activeAlphaTarget: 0.02 };
+	expect(advance(simulation, null, options)).toBe(false);
+	const [node] = simulation.nodes();
+	const before = node.x ?? 0;
+	const pointer = { x: before + 60, y: node.y ?? 0 };
+	for (let frame = 0; frame < 30; frame++)
+		advance(simulation, pointer, options);
+	expect(node.x).not.toBeCloseTo(before, 3);
+});

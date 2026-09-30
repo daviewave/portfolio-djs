@@ -22,7 +22,7 @@ npm run check      # biome + tsc + vitest (run before every commit)
 Visual verification (needs the firefox-devtools-mcp checkout the script points
 at): `scripts/verify-visual.py` starts the dev server, drives Firefox, and writes
 screenshots for both themes at desktop and phone widths plus console, CLS and
-axe results to `dist/verify/`.
+axe results to `.verify/`.
 
 ## How the code is organized
 
@@ -54,6 +54,9 @@ reasoning):
   class constants), tests beside them, one `index.ts` barrel per `components/`
   directory. Barrels never re-export a lazily loaded module.
 - Biome formats (tabs, double quotes) and lints; `.tsx` only where there is JSX.
+- Bundle: the graph (d3-force + canvas code) is a lazy chunk; Motion ships in
+  the initial bundle because its `m` components are used above the fold.
+  Initial JS is about 115 kB gzipped.
 
 ## Deploying
 

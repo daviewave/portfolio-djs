@@ -1,8 +1,6 @@
 import { animate } from "motion/react";
 import { useEffect, useState } from "react";
-import { useMotionPreference } from "@/lib/motion";
-
-const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
+import { EASE_OUT_EXPO, useMotionPreference } from "@/lib/motion";
 
 const decimalsOf = (value: number) =>
 	(String(value).split(".")[1] ?? "").length;

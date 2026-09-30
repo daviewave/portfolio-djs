@@ -16,7 +16,10 @@ vi.mock("motion/react", () => {
 		m: { div: plain("div"), li: plain("li"), section: plain("section") },
 	};
 });
-vi.mock("@/lib/motion", () => ({ useMotionPreference: vi.fn() }));
+vi.mock("@/lib/motion", () => ({
+	useMotionPreference: vi.fn(),
+	EASE_OUT_EXPO: [0.16, 1, 0.3, 1],
+}));
 
 const preference = vi.mocked(useMotionPreference);
 

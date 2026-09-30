@@ -27,9 +27,11 @@ const sections: SectionInfo[] = [
 	{ id: "contact", label: "Contact" },
 ];
 
+const sectionIds = sections.map((section) => section.id);
+
 const Section = ({ id, title, children }: SectionProps) => (
-	<Reveal as="section" className="scroll-mt-[3rem]">
-		<div id={id}>
+	<Reveal as="section" id={id} className="scroll-mt-[3rem]">
+		<div>
 			<MorphHeading level={2} className={homeStyles.sectionTitle}>
 				{title}
 			</MorphHeading>
@@ -71,7 +73,7 @@ const NowCopy = () => (
 );
 
 export function HomePage() {
-	const activeId = useScrollSpy(sections.map((section) => section.id));
+	const activeId = useScrollSpy(sectionIds);
 	return (
 		<div className={homeStyles.shell}>
 			<StickyPanel sections={sections} activeId={activeId} />

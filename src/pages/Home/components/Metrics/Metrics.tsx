@@ -4,6 +4,9 @@ import type { Metric } from "@/content";
 import { profile } from "@/content";
 import { useCountUp } from "../../hooks/useCountUp";
 
+const decimalsOf = (value: number) =>
+	(String(value).split(".")[1] ?? "").length;
+
 const MetricTile = ({
 	metric,
 	active,
@@ -11,7 +14,9 @@ const MetricTile = ({
 	metric: Metric;
 	active: boolean;
 }) => {
-	const value = useCountUp(metric.value, active);
+	const value = useCountUp(metric.value, active).toFixed(
+		decimalsOf(metric.value),
+	);
 	return (
 		<div>
 			<p className="text-[2.5rem] font-medium leading-none tracking-[-0.02em] tabular-nums text-ink lg:text-[3rem]">

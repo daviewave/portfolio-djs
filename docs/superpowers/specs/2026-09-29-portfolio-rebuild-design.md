@@ -141,7 +141,9 @@ Django, devops and CI.
 ## Quality bar
 
 - Lighthouse ≥ 95 on performance, accessibility, best practices, SEO; CLS 0.
-- Initial JS ≤ 150 kB gzipped; graph and Motion arrive after first paint.
+- Initial JS ≤ 150 kB gzipped; the graph arrives after first paint. (As built,
+  Motion ships in the initial bundle: its `m` components render above the fold,
+  so a lazy boundary would only add a fallback flash.)
 - Zero console errors or warnings in dev and prod.
 - Keyboard: visible focus everywhere; theme toggle and nav operable; skip link.
 - Both themes at 1440 and 390 px verified visually, plus reduced-motion mode.

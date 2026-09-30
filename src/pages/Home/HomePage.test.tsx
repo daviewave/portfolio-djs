@@ -1,34 +1,10 @@
-import { act, screen, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { ThemeProvider } from "@/components";
 import { projects, roles, technologies } from "@/content";
 import { stubCanvasContext } from "@/test/canvas";
-import { renderApp } from "@/test/render";
 import { HomePage } from "./HomePage";
 
-vi.mock("motion/react", async () => {
-	const { createElement, forwardRef } = await import("react");
-	const plain = (tag: string) =>
-		forwardRef((props: Record<string, unknown>, ref) => {
-			const { initial, whileInView, viewport, transition, style, ...rest } =
-				props;
-			return createElement(tag, { ...rest, ref });
-		});
-	return {
-		m: { div: plain("div"), li: plain("li"), section: plain("section") },
-		LazyMotion: ({ children }: { children: unknown }) => children,
-		domAnimation: {},
-		useInView: () => true,
-		useScroll: () => ({ scrollYProgress: 0 }),
-		animate: (
-			_from: number,
-			to: number,
-			options: { onUpdate?: (v: number) => void },
-		) => {
-			options.onUpdate?.(to);
-			return { stop: vi.fn() };
-		},
-	};
-});
+vi.mock("motion/react", () => import("@/test/motionMock"));
 
 beforeAll(async () => {
 	await import("./components/StackGraph");
@@ -39,7 +15,7 @@ beforeEach(() => {
 });
 
 const renderPage = () =>
-	renderApp(
+	render(
 		<ThemeProvider>
 			<HomePage />
 		</ThemeProvider>,
@@ -66,7 +42,7 @@ test("renders one experience entry per role and one row per project", () => {
 	renderPage();
 	for (const role of roles)
 		expect(screen.getByText(role.summary)).toBeInTheDocument();
-	expect(screen.getAllByRole("link", { name: "View code" })).toHaveLength(
+	expect(screen.getAllByRole("link", { name: /^View code/ })).toHaveLength(
 		projects.length,
 	);
 });
@@ -87,4 +63,13 @@ test("every panel link has a destination", () => {
 	const header = screen.getByRole("banner");
 	for (const link of within(header).getAllByRole("link"))
 		expect(link).toHaveAttribute("href", expect.stringMatching(/.+/));
+});
+
+test("hash targets carry their scroll margin", () => {
+	renderPage();
+	for (const id of ["now", "stack", "experience", "projects", "contact"]) {
+		const target = document.getElementById(id);
+		expect(target?.tagName).toBe("SECTION");
+		expect(target?.className).toContain("scroll-mt-");
+	}
 });

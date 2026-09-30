@@ -2,7 +2,6 @@ import {
 	createContext,
 	useCallback,
 	useContext,
-	useEffect,
 	useMemo,
 	useState,
 } from "react";
@@ -21,11 +20,7 @@ const documentTheme = (): Theme =>
 const opposite = (theme: Theme): Theme => (theme === "dark" ? "light" : "dark");
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-	const [theme, setTheme] = useState<Theme>("light");
-
-	useEffect(() => {
-		setTheme(documentTheme());
-	}, []);
+	const [theme, setTheme] = useState<Theme>(documentTheme);
 
 	const toggle = useCallback(
 		(origin?: ThemeOrigin) => {

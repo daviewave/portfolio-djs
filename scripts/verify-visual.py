@@ -18,9 +18,9 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 MCP_DIR = Path("/var/home/slave/github/claude-code/firefox-mcp-plugin")
 PORT = "3000"
-OUT = REPO / "dist" / "verify"
+OUT = REPO / ".verify"
 AXE = REPO / "node_modules" / "axe-core" / "axe.min.js"
-WIDTHS = {"desk": (1440, 900), "mob": (390, 844)}
+WIDTHS = {"desk": (1440, 900), "laptop": (1280, 720), "mob": (390, 844)}
 
 sys.path.insert(0, str(MCP_DIR / ".venv" / "lib64" / "python3.14" / "site-packages"))
 from mcp import ClientSession, StdioServerParameters  # noqa: E402
@@ -85,7 +85,7 @@ SWEEP_JS = """() => new Promise(resolve => {
 FONT_PROBE_JS = """() => {
   const probe = (settings) => {
     const span = document.createElement("span");
-    span.textContent = "iiiiii mmmmmm";
+    span.textContent = "iiiiiiiiiiii";
     span.style.cssText = `font-family: "Recursive Variable"; font-size: 40px; font-variation-settings: ${settings}; position: absolute; visibility: hidden; white-space: nowrap;`;
     document.body.appendChild(span);
     const width = span.getBoundingClientRect().width;
@@ -97,8 +97,12 @@ FONT_PROBE_JS = """() => {
     bodyVariation: getComputedStyle(document.body).fontVariationSettings,
     h1Variation: getComputedStyle(document.querySelector("h1")).fontVariationSettings,
     loadedFaces: [...document.fonts].map(f => `${f.family} ${f.status}`),
-    widthMono0: probe('"MONO" 0'),
-    widthMono1: probe('"MONO" 1'),
+    widthIsSans: probe('"MONO" 0') < probe('"MONO" 1') * 0.85,
+    caslKeepsWidth: Math.abs(probe('"CASL" 0') - probe('"CASL" 1')) < 1,
+    fallbackRatio: (() => {
+      const w = (family) => { const s = document.createElement("span"); s.textContent = "Lead software engineer at Cyberhill Partners, where our team took Wolverine from proof of concept to AWS Marketplace."; s.style.cssText = `font-family: ${family}; font-size: 20px; position: absolute; visibility: hidden; white-space: nowrap; font-variation-settings: "MONO" 0`; document.body.appendChild(s); const r = s.getBoundingClientRect().width; s.remove(); return r; };
+      return w('"Recursive Variable"') / w("Arial, 'Liberation Sans'");
+    })(),
   };
 }"""
 
@@ -137,10 +141,16 @@ async def drive():
 			report["fonts"] = await call("evaluate_script", function=FONT_PROBE_JS)
 			for name, (width, height) in WIDTHS.items():
 				await capture_theme_pair(call, name, width, height)
-			await call("resize_page", width=1440, height=900)
-			await call("evaluate_script", function='() => { document.documentElement.dataset.theme = "dark"; }')
-			report["cls"] = await call("evaluate_script", function=CLS_JS, timeout=10000)
-			report["axe"] = await run_axe(call)
+			for theme in ("light", "dark"):
+				await call("resize_page", width=1440, height=900)
+				await call("evaluate_script", function=f'() => {{ document.documentElement.dataset.theme = "{theme}"; }}')
+				await asyncio.sleep(0.4)
+				report[f"axe_{theme}"] = await run_axe(call)
+			for name, (width, height) in WIDTHS.items():
+				await call("resize_page", width=width, height=height)
+				await call("navigate_page", type="reload")
+				await asyncio.sleep(1.2)
+				report[f"cls_{name}"] = await call("evaluate_script", function=CLS_JS, timeout=10000)
 			await call("emulate", reducedMotion="reduce")
 			await call("navigate_page", type="reload")
 			await asyncio.sleep(1.5)

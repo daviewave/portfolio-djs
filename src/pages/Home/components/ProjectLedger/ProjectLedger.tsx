@@ -24,6 +24,7 @@ export function ProjectLedger() {
 					</div>
 					<a href={project.url} className={ledgerStyles.codeLink}>
 						View code
+						<span className="sr-only"> for {project.title}</span>
 					</a>
 				</li>
 			))}

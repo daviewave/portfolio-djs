@@ -4,6 +4,6 @@
 	"javascript": { "formatter": { "quoteStyle": "double" } },
 	"css": { "parser": { "tailwindDirectives": true } },
 	"assist": { "actions": { "source": { "organizeImports": "on" } } },
-	"linter": { "enabled": true, "rules": { "recommended": true } },
+	"linter": { "enabled": true, "rules": { "preset": "recommended" } },
 	"files": { "includes": ["src/**", "*.ts", "index.html"] }
 }

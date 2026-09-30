@@ -2,9 +2,8 @@ import { type RefObject, useEffect } from "react";
 import { areas, technologies } from "@/content";
 import type { Area, Technology } from "@/content/types";
 import {
-	applyPointerForce,
+	advance,
 	buildGraph,
-	clampToBounds,
 	createSimulation,
 	drawGraph,
 	type GraphSimulation,
@@ -23,6 +22,11 @@ const POINTER_RADIUS = 140;
 const POINTER_STRENGTH = 0.6;
 const HOVER_RADIUS = 24;
 const ACTIVE_ALPHA_TARGET = 0.02;
+const POINTER_OPTIONS = {
+	radius: POINTER_RADIUS,
+	strength: POINTER_STRENGTH,
+	activeAlphaTarget: ACTIVE_ALPHA_TARGET,
+};
 const LABEL_FONT = "500 12px 'Recursive Variable', monospace";
 const PASSIVE = { passive: true } as const;
 
@@ -126,26 +130,19 @@ export const useGraphLoop = (
 			return toCanvasPoint(canvas, state);
 		};
 
-		const stepSimulation = (local: Point | null) => {
-			if (!simulation) return;
-			if (simulation.alpha() > simulation.alphaMin()) simulation.tick();
-			if (local) {
-				applyPointerForce(
-					simulation.nodes(),
-					local,
-					POINTER_RADIUS,
-					POINTER_STRENGTH,
-				);
-				simulation.alphaTarget(ACTIVE_ALPHA_TARGET);
-			} else {
-				simulation.alphaTarget(0);
-			}
-			clampToBounds(simulation.nodes(), simulation.bounds);
-		};
+		let lastHovered: string | undefined;
+		let needsRepaint = true;
 
 		const frame = () => {
+			if (!simulation) return;
 			const local = localPointer();
-			stepSimulation(local);
+			const moved = advance(simulation, local, POINTER_OPTIONS);
+			const hovered = local
+				? simulation.find(local.x, local.y, HOVER_RADIUS)?.id
+				: undefined;
+			if (!moved && !needsRepaint && hovered === lastHovered) return;
+			lastHovered = hovered;
+			needsRepaint = false;
 			draw(local);
 		};
 
@@ -178,14 +175,17 @@ export const useGraphLoop = (
 				if (reduced) settle(simulation, REFIT_SETTLE_TICKS);
 				else simulation.alpha(REFIT_ALPHA);
 			}
+			needsRepaint = true;
 			draw(localPointer());
 		};
 
 		const repaintWithTheme = () => {
 			palette = readPalette(canvas);
+			needsRepaint = true;
 			draw(localPointer());
 		};
 
+		const clearHover = () => draw(null);
 		const highlightHover = (event: PointerEvent) =>
 			draw(toCanvasPoint(canvas, { x: event.clientX, y: event.clientY }));
 
@@ -210,6 +210,7 @@ export const useGraphLoop = (
 			pointer.start();
 			if (reduced)
 				canvas.addEventListener("pointermove", highlightHover, PASSIVE);
+			canvas.addEventListener("pointerleave", clearHover, PASSIVE);
 		}
 		startLoop();
 
@@ -217,6 +218,7 @@ export const useGraphLoop = (
 			pauseLoop();
 			pointer.stop();
 			canvas.removeEventListener("pointermove", highlightHover);
+			canvas.removeEventListener("pointerleave", clearHover);
 			document.removeEventListener("visibilitychange", syncLoopWithVisibility);
 			resizeObserver.disconnect();
 			themeObserver.disconnect();

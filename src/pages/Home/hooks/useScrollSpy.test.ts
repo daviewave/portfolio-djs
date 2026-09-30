@@ -50,3 +50,25 @@ test("reports the intersecting section and cleans up", () => {
 	unmount();
 	expect(captured.disconnect).toHaveBeenCalled();
 });
+
+test("marks the last section active when scrolled to the bottom", () => {
+	for (const id of ["a", "b"]) {
+		const element = document.createElement("section");
+		element.id = id;
+		document.body.appendChild(element);
+	}
+	Object.defineProperty(window, "innerHeight", {
+		value: 800,
+		configurable: true,
+	});
+	Object.defineProperty(window, "scrollY", { value: 1000, configurable: true });
+	Object.defineProperty(document.documentElement, "scrollHeight", {
+		value: 1800,
+		configurable: true,
+	});
+	const { result } = renderHook(() => useScrollSpy(["a", "b"]));
+	act(() => {
+		window.dispatchEvent(new Event("scroll"));
+	});
+	expect(result.current).toBe("b");
+});

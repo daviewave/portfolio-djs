@@ -97,6 +97,40 @@ export const applyPointerForce = (
 	}
 };
 
+export interface Point {
+	x: number;
+	y: number;
+}
+
+export interface AdvanceOptions {
+	radius: number;
+	strength: number;
+	activeAlphaTarget: number;
+}
+
+export const advance = (
+	simulation: GraphSimulation,
+	pointer: Point | null,
+	options: AdvanceOptions,
+): boolean => {
+	const resting = simulation.alpha() <= simulation.alphaMin();
+	if (pointer) {
+		simulation.alphaTarget(options.activeAlphaTarget);
+		applyPointerForce(
+			simulation.nodes(),
+			pointer,
+			options.radius,
+			options.strength,
+		);
+	} else {
+		simulation.alphaTarget(0);
+	}
+	if (!pointer && resting) return false;
+	simulation.tick();
+	clampToBounds(simulation.nodes(), simulation.bounds);
+	return true;
+};
+
 export const refit = (
 	simulation: GraphSimulation,
 	width: number,

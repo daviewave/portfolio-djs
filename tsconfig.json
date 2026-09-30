@@ -9,7 +9,8 @@
 		"noEmit": true,
 		"skipLibCheck": true,
 		"isolatedModules": true,
-		"types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"],
+		"allowImportingTsExtensions": true,
+		"types": ["vite/client", "vitest/globals", "@testing-library/jest-dom", "node"],
 		"paths": { "@/*": ["./src/*"] }
 	},
 	"include": ["src", "vite.config.ts", "vitest.config.ts"]
