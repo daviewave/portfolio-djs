@@ -1,3 +1,10 @@
+export { MorphHeading, type MorphHeadingProps } from "./MorphHeading";
+export {
+	ProgressRail,
+	type ProgressRailProps,
+	type RailSection,
+} from "./ProgressRail";
+export { Reveal, type RevealProps, type RevealTag } from "./Reveal";
 export type {
 	ThemeContextValue,
 	ThemeOrigin,
@@ -5,3 +12,4 @@ export type {
 } from "./ThemeProvider";
 export { ThemeProvider, useTheme } from "./ThemeProvider";
 export { ThemeToggle } from "./ThemeToggle";
+export { VisuallyHidden } from "./VisuallyHidden";
