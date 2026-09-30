@@ -47,3 +47,13 @@ test("every technology has a written detail with at least one place it was used"
 		expect(detail?.usedIn.length).toBeGreaterThan(0);
 	}
 });
+
+test("the now section has narrative paragraphs and three recent wins with detail", async () => {
+	const { now } = await import("./index");
+	expect(now.paragraphs.length).toBeGreaterThanOrEqual(2);
+	expect(now.recent).toHaveLength(3);
+	for (const win of now.recent) {
+		expect(win.headline.trim().length).toBeGreaterThan(8);
+		expect(win.detail.trim().length).toBeGreaterThan(40);
+	}
+});

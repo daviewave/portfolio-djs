@@ -7,6 +7,7 @@ import {
 	ExperienceRail,
 	Footer,
 	Hero,
+	Now,
 	ProjectLedger,
 	padIndex,
 	SectionNav,
@@ -62,22 +63,6 @@ const AreaLegend = () => (
 	</ul>
 );
 
-const NowCopy = () => (
-	<div className="flex flex-col gap-[1.25rem]">
-		<p className={homeStyles.prose}>
-			Most of my week goes into Wolverine: graph queries on Neptune, LLM
-			pipelines on Bedrock, a Django and React codebase, and the CI/CD that
-			keeps releases boring. About twenty people and a few AI coding agents
-			share that codebase, so a lot of my job is keeping it easy to work in.
-		</p>
-		<p className={homeStyles.prose}>
-			The habit I care about most is making work legible: one Makefile as the
-			front door, tests gating every stage, and documentation that writes itself
-			from the code so nobody has to ask twice.
-		</p>
-	</div>
-);
-
 export function HomePage() {
 	const activeId = useScrollSpy(sectionIds);
 	const activeIndex = Math.max(0, sectionIds.indexOf(activeId ?? ""));
@@ -93,7 +78,7 @@ export function HomePage() {
 					<SectionNav sections={sections} activeId={activeId} variant="chips" />
 				</div>
 				<Section id="now" index={1} total={5} title="What I'm working on">
-					<NowCopy />
+					<Now />
 				</Section>
 				<Section id="stack" index={2} total={5} title="What I build with">
 					{selected === null && (

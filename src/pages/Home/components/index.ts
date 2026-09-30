@@ -2,6 +2,7 @@ export { Contact } from "./Contact";
 export { ExperienceRail } from "./ExperienceRail";
 export { Footer } from "./Footer";
 export { Hero } from "./Hero";
+export { Now } from "./Now";
 export { ProjectLedger } from "./ProjectLedger";
 export { padIndex, Readouts } from "./Readouts";
 export { SectionNav } from "./SectionNav";

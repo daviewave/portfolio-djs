@@ -1,7 +1,6 @@
 import { profile } from "@/content";
 
-const linkClass =
-	"text-ink underline underline-offset-[0.25rem] hover:text-muted";
+const linkClass = "link-underline text-ink hover:text-accent";
 
 export function Contact() {
 	return (

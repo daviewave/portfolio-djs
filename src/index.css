@@ -199,3 +199,23 @@
 		display: none;
 	}
 }
+
+@layer components {
+	.link-underline {
+		background-image: linear-gradient(currentColor, currentColor);
+		background-repeat: no-repeat;
+		background-size: 0% 1px;
+		background-position: 0 100%;
+		padding-bottom: 0.125rem;
+		transition: background-size 320ms var(--ease-out-expo);
+	}
+	.link-underline:hover,
+	.link-underline:focus-visible {
+		background-size: 100% 1px;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.link-underline {
+			transition: none;
+		}
+	}
+}
