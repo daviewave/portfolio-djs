@@ -1,4 +1,7 @@
 import {
+	type ForceCenter,
+	type ForceX,
+	type ForceY,
 	forceCenter,
 	forceCollide,
 	forceLink,
@@ -19,13 +22,13 @@ export interface GraphSimulation extends Simulation<GraphNode, GraphLink> {
 	bounds: Bounds;
 }
 
-const COUSE_DISTANCE = 46;
-const AREA_DISTANCE = 80;
+const COUSE_DISTANCE = 72;
+const AREA_DISTANCE = 120;
 const COUSE_STRENGTH = 0.7;
 const AREA_STRENGTH = 0.15;
-const CHARGE = -40;
-const COLLIDE_PADDING = 6;
-const CENTERING = { x: 0.04, y: 0.05 };
+const CHARGE = -110;
+const COLLIDE_PADDING = 14;
+const CENTERING = { x: 0.012, y: 0.02 };
 const DEFAULT_SETTLE_TICKS = 300;
 
 const linkDistance = (link: GraphLink) =>
@@ -92,4 +95,23 @@ export const applyPointerForce = (
 		node.vx = (node.vx ?? 0) + (dx / distance) * falloff * strength * radius;
 		node.vy = (node.vy ?? 0) + (dy / distance) * falloff * strength * radius;
 	}
+};
+
+export const refit = (
+	simulation: GraphSimulation,
+	width: number,
+	height: number,
+) => {
+	const previous = simulation.bounds;
+	for (const node of simulation.nodes()) {
+		node.x = ((node.x ?? 0) * width) / previous.width;
+		node.y = ((node.y ?? 0) * height) / previous.height;
+	}
+	simulation.bounds = { width, height };
+	(simulation.force("center") as ForceCenter<GraphNode>)
+		.x(width / 2)
+		.y(height / 2);
+	(simulation.force("x") as ForceX<GraphNode>).x(width / 2);
+	(simulation.force("y") as ForceY<GraphNode>).y(height / 2);
+	clampToBounds(simulation.nodes(), simulation.bounds);
 };

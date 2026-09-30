@@ -1,5 +1,6 @@
 import { screen } from "@testing-library/react";
 import App from "./App";
+import { stubCanvasContext } from "./test/canvas";
 import { renderApp } from "./test/render";
 
 vi.mock("motion/react", async () => {
@@ -28,7 +29,7 @@ vi.mock("motion/react", async () => {
 });
 
 beforeEach(() => {
-	HTMLCanvasElement.prototype.getContext = vi.fn(() => null) as never;
+	stubCanvasContext();
 });
 
 test("renders the name as the page's h1 and a skip link", () => {

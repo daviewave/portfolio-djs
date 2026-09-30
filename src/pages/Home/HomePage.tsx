@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { MorphHeading, ProgressRail, Reveal } from "@/components";
 import { areas } from "@/content";
 import { cn } from "@/lib/utils";
@@ -6,12 +7,17 @@ import {
 	ExperienceRail,
 	Metrics,
 	ProjectLedger,
-	StackGraph,
 	StickyPanel,
 } from "./components";
 import { areaDotStyles, homeStyles } from "./Home.styles";
 import type { SectionInfo, SectionProps } from "./Home.types";
 import { useScrollSpy } from "./hooks/useScrollSpy";
+
+const StackGraph = lazy(() =>
+	import("./components/StackGraph").then((module) => ({
+		default: module.StackGraph,
+	})),
+);
 
 const sections: SectionInfo[] = [
 	{ id: "now", label: "Now" },
@@ -77,7 +83,11 @@ export function HomePage() {
 					</div>
 				</Section>
 				<Section id="stack" title="What I work with">
-					<StackGraph />
+					<Suspense
+						fallback={<div className="aspect-[16/9] min-h-[18rem] w-full" />}
+					>
+						<StackGraph />
+					</Suspense>
 					<AreaLegend />
 				</Section>
 				<Section id="experience" title="Where I've been">

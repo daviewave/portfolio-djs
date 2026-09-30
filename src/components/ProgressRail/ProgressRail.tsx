@@ -5,7 +5,7 @@ export function ProgressRail({ sections, activeId }: ProgressRailProps) {
 	const { scrollYProgress } = useScroll();
 	return (
 		<nav
-			aria-label="Sections"
+			aria-label="Section progress"
 			className="fixed right-[1rem] top-1/2 hidden -translate-y-1/2 lg:block"
 		>
 			<div className="relative flex flex-col items-center gap-[1rem] py-[0.5rem]">

@@ -10,9 +10,8 @@ export function StickyPanel({ sections, activeId }: StickyPanelProps) {
 				<MorphHeading level={1} className={homeStyles.name}>
 					{profile.name}
 				</MorphHeading>
-				<p className={homeStyles.role}>
-					{profile.role} in {profile.location}
-				</p>
+				<p className={homeStyles.role}>{profile.role}</p>
+				<p className={homeStyles.location}>{profile.location}</p>
 				<p className={homeStyles.intro}>{profile.intro.join(" ")}</p>
 				<nav aria-label="Sections">
 					<ul className={homeStyles.navList}>

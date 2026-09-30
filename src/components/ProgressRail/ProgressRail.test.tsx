@@ -29,7 +29,7 @@ test("renders one link per section and marks the active one current", () => {
 	expect(links[1]).toHaveAttribute("aria-current", "true");
 	expect(links[0]).not.toHaveAttribute("aria-current");
 	expect(
-		screen.getByRole("navigation", { name: "Sections" }),
+		screen.getByRole("navigation", { name: "Section progress" }),
 	).toBeInTheDocument();
 	expect(screen.getByText("Stack")).toHaveClass("sr-only");
 });

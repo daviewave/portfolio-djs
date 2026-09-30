@@ -2,6 +2,7 @@ import type { Area } from "@/content/types";
 import type { Graph, GraphLink, GraphNode } from "./build";
 
 export interface Palette {
+	canvas?: string;
 	ink: string;
 	muted: string;
 	line: string;
@@ -22,7 +23,7 @@ const LABEL_REVEAL_DISTANCE = 120;
 const SMALL_NODE_RADIUS = 4 + 1 * 2.5;
 const LABEL_GAP = 6;
 const HOVER_RING = 2;
-const LINK_ALPHA = 0.5;
+const LINK_ALPHA = 0.35;
 
 const nodeOf = (end: GraphLink["source"]) => end as GraphNode;
 
@@ -41,7 +42,7 @@ const drawLink = (
 	ctx.globalAlpha = highlighted ? 1 : LINK_ALPHA;
 	ctx.strokeStyle = highlighted
 		? options.palette.areas[source.area]
-		: options.palette.line;
+		: options.palette.muted;
 	ctx.lineWidth = highlighted ? 1.5 : 1;
 	ctx.beginPath();
 	ctx.moveTo(source.x ?? 0, source.y ?? 0);
@@ -87,13 +88,22 @@ const drawLabel = (
 	ctx.globalAlpha = 1;
 	ctx.font = options.labelFont;
 	ctx.textBaseline = "middle";
+	const width = ctx.measureText(node.label).width;
+	const rightEdge = (node.x ?? 0) + node.radius + LABEL_GAP + width;
+	const x =
+		rightEdge > options.width
+			? (node.x ?? 0) - node.radius - LABEL_GAP - width
+			: (node.x ?? 0) + node.radius + LABEL_GAP;
+	const y = node.y ?? 0;
+	if (options.palette.canvas) {
+		ctx.lineWidth = 3;
+		ctx.lineJoin = "round";
+		ctx.strokeStyle = options.palette.canvas;
+		ctx.strokeText(node.label, x, y);
+	}
 	ctx.fillStyle =
 		node.id === options.hovered ? options.palette.ink : options.palette.muted;
-	ctx.fillText(
-		node.label,
-		(node.x ?? 0) + node.radius + LABEL_GAP,
-		node.y ?? 0,
-	);
+	ctx.fillText(node.label, x, y);
 };
 
 export const drawGraph = (

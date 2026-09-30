@@ -7,7 +7,8 @@ export const homeStyles = {
 		"py-[3rem] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:justify-between lg:py-[6rem]",
 	ledger: "flex flex-col gap-[7rem] py-[3rem] lg:py-[6rem]",
 	name: "text-[3rem] font-medium leading-[1.02] tracking-[-0.02em] lg:text-[3.5rem]",
-	role: "mt-[0.75rem] text-[1.125rem] text-muted",
+	role: "mt-[0.75rem] text-[1.125rem] text-ink",
+	location: "mt-[0.25rem] font-mono text-[0.8125rem] text-muted",
 	intro: "mt-[1.5rem] max-w-[34rem] text-[1rem] leading-[1.6] text-muted",
 	sectionTitle:
 		"text-[2rem] leading-[1.1] tracking-[-0.01em] text-ink lg:text-[2.5rem]",

@@ -1,5 +1,11 @@
 @import "tailwindcss";
-@import "@fontsource-variable/recursive/mono.css";
+@font-face {
+	font-family: "Recursive Variable";
+	font-style: normal;
+	font-weight: 300 1000;
+	font-display: swap;
+	src: url("/fonts/recursive-variable.woff2") format("woff2");
+}
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 

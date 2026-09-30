@@ -1,6 +1,7 @@
-import { screen, within } from "@testing-library/react";
+import { act, screen, within } from "@testing-library/react";
 import { ThemeProvider } from "@/components";
 import { projects, roles, technologies } from "@/content";
+import { stubCanvasContext } from "@/test/canvas";
 import { renderApp } from "@/test/render";
 import { HomePage } from "./HomePage";
 
@@ -29,8 +30,12 @@ vi.mock("motion/react", async () => {
 	};
 });
 
+beforeAll(async () => {
+	await import("./components/StackGraph");
+});
+
 beforeEach(() => {
-	HTMLCanvasElement.prototype.getContext = vi.fn(() => null) as never;
+	stubCanvasContext();
 });
 
 const renderPage = () =>

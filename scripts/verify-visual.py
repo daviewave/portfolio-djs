@@ -72,8 +72,44 @@ def text_of(result):
 	return result.content[0].text
 
 
+SWEEP_JS = """() => new Promise(resolve => {
+  const step = () => {
+    const bottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 2;
+    if (bottom) { window.scrollTo(0, 0); setTimeout(() => resolve(true), 400); return; }
+    window.scrollBy(0, Math.round(window.innerHeight * 0.6));
+    setTimeout(step, 180);
+  };
+  step();
+})"""
+
+FONT_PROBE_JS = """() => {
+  const probe = (settings) => {
+    const span = document.createElement("span");
+    span.textContent = "iiiiii mmmmmm";
+    span.style.cssText = `font-family: "Recursive Variable"; font-size: 40px; font-variation-settings: ${settings}; position: absolute; visibility: hidden; white-space: nowrap;`;
+    document.body.appendChild(span);
+    const width = span.getBoundingClientRect().width;
+    span.remove();
+    return width;
+  };
+  return {
+    bodyFamily: getComputedStyle(document.body).fontFamily,
+    bodyVariation: getComputedStyle(document.body).fontVariationSettings,
+    h1Variation: getComputedStyle(document.querySelector("h1")).fontVariationSettings,
+    loadedFaces: [...document.fonts].map(f => `${f.family} ${f.status}`),
+    widthMono0: probe('"MONO" 0'),
+    widthMono1: probe('"MONO" 1'),
+  };
+}"""
+
+
+async def sweep(call):
+	await call("evaluate_script", function=SWEEP_JS, timeout=30000)
+
+
 async def capture_theme_pair(call, name, width, height):
 	await call("resize_page", width=width, height=height)
+	await sweep(call)
 	for theme in ("light", "dark"):
 		await call("evaluate_script", function=f'() => {{ document.documentElement.dataset.theme = "{theme}"; }}')
 		await asyncio.sleep(0.6)
@@ -98,6 +134,7 @@ async def drive():
 			await call("navigate_page", url=f"http://localhost:{PORT}")
 			await asyncio.sleep(2)
 			report = {"console": await call("list_console_messages", types=["error", "warning"])}
+			report["fonts"] = await call("evaluate_script", function=FONT_PROBE_JS)
 			for name, (width, height) in WIDTHS.items():
 				await capture_theme_pair(call, name, width, height)
 			await call("resize_page", width=1440, height=900)

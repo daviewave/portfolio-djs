@@ -51,6 +51,8 @@ const fakeContext = () => {
 		arc: vi.fn(),
 		fill: vi.fn(),
 		fillText: vi.fn(),
+		strokeText: vi.fn(),
+		measureText: vi.fn(() => ({ width: 40 })),
 	};
 	const state = {
 		globalAlpha: 1,
@@ -190,4 +192,23 @@ describe("drawGraph", () => {
 		expect(labels).toContain("redis");
 		expect(labels).not.toContain("nginx");
 	});
+});
+
+test("refit rescales positions and recenters the forces", async () => {
+	const { buildGraph, createSimulation, refit, settle } = await import(
+		"./index"
+	);
+	const graph = buildGraph([
+		{ id: "a", label: "A", area: "backend", weight: 3, links: ["b"] },
+		{ id: "b", label: "B", area: "backend", weight: 2, links: [] },
+		{ id: "c", label: "C", area: "ai", weight: 1, links: ["a"] },
+	]);
+	const simulation = createSimulation(graph, 800, 400);
+	settle(simulation, 100);
+	refit(simulation, 400, 400);
+	expect(simulation.bounds).toEqual({ width: 400, height: 400 });
+	for (const node of simulation.nodes()) {
+		expect(node.x).toBeGreaterThanOrEqual(node.radius);
+		expect(node.x).toBeLessThanOrEqual(400 - node.radius);
+	}
 });

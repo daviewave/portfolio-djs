@@ -9,11 +9,14 @@ import {
 	drawGraph,
 	type GraphSimulation,
 	type Palette,
+	refit,
 	settle,
 } from "@/lib/graph";
 import { createPointerStore, scheduler } from "@/lib/motion";
 
-const MAX_NODES = 32;
+const MAX_NODES = 28;
+const REFIT_SETTLE_TICKS = 60;
+const REFIT_ALPHA = 0.25;
 const INITIAL_SETTLE_TICKS = 120;
 const STATIC_SETTLE_TICKS = 300;
 const POINTER_RADIUS = 140;
@@ -52,6 +55,7 @@ const readPalette = (element: Element): Palette => {
 		areas.map((area) => [area.id, token(area.token)]),
 	) as Record<Area, string>;
 	return {
+		canvas: token("--canvas"),
 		ink: token("--ink"),
 		muted: token("--muted"),
 		line: token("--line"),
@@ -170,8 +174,9 @@ export const useGraphLoop = (
 					reduced ? STATIC_SETTLE_TICKS : INITIAL_SETTLE_TICKS,
 				);
 			} else {
-				simulation.bounds = { width: size.width, height: size.height };
-				clampToBounds(simulation.nodes(), simulation.bounds);
+				refit(simulation, size.width, size.height);
+				if (reduced) settle(simulation, REFIT_SETTLE_TICKS);
+				else simulation.alpha(REFIT_ALPHA);
 			}
 			draw(localPointer());
 		};

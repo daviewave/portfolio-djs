@@ -7,5 +7,6 @@ export {
 	applyPointerForce,
 	clampToBounds,
 	createSimulation,
+	refit,
 	settle,
 } from "./simulation";
