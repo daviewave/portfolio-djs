@@ -1,72 +1,46 @@
 import React from "react";
 
-import {
-  BlogCard,
-  CardInfo,
-  ExternalLinks,
-  GridContainer,
-  HeaderThree,
-  Hr,
-  Tag,
-  TagList,
-  TitleContent,
-  UtilityList,
-  Img,
-} from "./ProjectsStyles";
-import {
-  Section,
-  SectionDivider,
-  SectionTitle,
-} from "../../styles/GlobalComponents";
 import { currentProjects } from "../../constants/constants";
-
-const openInNewTab = (url) => {
-  if (url) {
-    window.open(url, "_blank", "noopener,noreferrer");
-  } else {
-    console.log("URL is undefined or empty");
-  }
-};
+import { Section, SectionDivider, SectionText, SectionTitle } from "../../styles/GlobalComponents";
+import {
+  CodeLink,
+  Ledger,
+  ProjectBody,
+  ProjectDescription,
+  ProjectTags,
+  ProjectTitle,
+  Row,
+} from "./ProjectsStyles";
 
 const Projects = () => (
-  <Section nopadding id="projects">
+  <>
     <SectionDivider />
-    <SectionTitle main>Github Code Samples & Projects</SectionTitle>
-    <GridContainer>
-      {/* by putting the parameter in curly braces we are 'destructuring' our
-      project objects so we can then just call them as they are in the code */}
-      {currentProjects.map(
-        ({ id, image, title, description, tags, source, visit }) => (
-          <BlogCard key={id} onClick={() => openInNewTab(visit)}>
-            <Img src={image} />
-
-            <div
-              style={{
-                height: "70%",
-                display: "flex",
-                marginTop: "4%",
-                // gap: "8%",
-                flexDirection: "column",
-                // justifyContent: "space-between",
-                alignItems: "space-between",
-                paddingTop: "4px",
-              }}
-            >
-              <TitleContent>
-                <HeaderThree title>{title}</HeaderThree>
-              </TitleContent>
-              <CardInfo>{description}</CardInfo>
-              <TagList>
-                {tags.map((tag, i) => (
-                  <Tag key={i}>{tag}</Tag>
-                ))}
-              </TagList>
-            </div>
-          </BlogCard>
-        )
-      )}
-    </GridContainer>
-  </Section>
+    <Section id="projects">
+      <SectionTitle>Projects on GitHub</SectionTitle>
+      <SectionText>
+        Most of my professional work lives in private repos, so this is the
+        public slice: side projects, tooling, and practice.
+      </SectionText>
+      <Ledger>
+        {currentProjects.map(({ id, title, description, tags, source }) => (
+          <Row key={id}>
+            <ProjectTitle>
+              <a href={source} target="_blank" rel="noreferrer">
+                {title}
+              </a>
+            </ProjectTitle>
+            <ProjectBody>
+              <ProjectDescription>{description}</ProjectDescription>
+              <ProjectTags>{tags.join(", ")}</ProjectTags>
+            </ProjectBody>
+            <CodeLink href={source} target="_blank" rel="noreferrer">
+              View code
+            </CodeLink>
+          </Row>
+        ))}
+      </Ledger>
+    </Section>
+  </>
 );
 
 export default Projects;
