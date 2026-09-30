@@ -38,6 +38,7 @@ describe.each([
 		"area-ai",
 		"area-infra",
 		"muted",
+		"accent",
 	])("%s reads at AA contrast on the canvas", (token) => {
 		expect(contrast(tokens[token], tokens.canvas)).toBeGreaterThanOrEqual(4.5);
 	});

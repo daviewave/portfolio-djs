@@ -14,6 +14,11 @@ export interface Technology {
 	links: string[];
 }
 
+export interface TechnologyDetail {
+	summary: string;
+	usedIn: string[];
+}
+
 export interface Role {
 	year: string;
 	title: string;
@@ -31,12 +36,6 @@ export interface Project {
 	url: string;
 }
 
-export interface Metric {
-	value: number;
-	suffix?: string;
-	label: string;
-}
-
 export interface Profile {
 	name: string;
 	role: string;
@@ -46,5 +45,4 @@ export interface Profile {
 	resumePath: string;
 	github: string;
 	linkedin: string;
-	metrics: Metric[];
 }

@@ -1,3 +1,4 @@
+export { CursorLight } from "./CursorLight";
 export { MorphHeading, type MorphHeadingProps } from "./MorphHeading";
 export {
 	ProgressRail,

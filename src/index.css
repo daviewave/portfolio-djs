@@ -28,6 +28,9 @@
 	--area-frontend: #8c6320;
 	--area-ai: #4f6ab8;
 	--area-infra: #a5566a;
+	--accent: #0b6e93;
+	--accent-soft: rgba(11, 110, 147, 0.14);
+	--grid: rgba(22, 24, 29, 0.1);
 }
 [data-theme="dark"] {
 	color-scheme: dark;
@@ -40,6 +43,9 @@
 	--area-frontend: #d9a85a;
 	--area-ai: #8ea2e6;
 	--area-infra: #d68aa0;
+	--accent: #5fd3ff;
+	--accent-soft: rgba(95, 211, 255, 0.16);
+	--grid: rgba(230, 232, 235, 0.09);
 }
 
 @theme inline {
@@ -53,6 +59,7 @@
 	--color-area-frontend: var(--area-frontend);
 	--color-area-ai: var(--area-ai);
 	--color-area-infra: var(--area-infra);
+	--color-accent: var(--accent);
 	--font-sans:
 		"Recursive Variable", "Recursive Fallback", ui-sans-serif, system-ui,
 		sans-serif;
@@ -130,5 +137,48 @@
 				animation-range: entry 0% cover 60%;
 			}
 		}
+	}
+}
+
+@layer components {
+	.grid-field {
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		pointer-events: none;
+		background-image:
+			linear-gradient(var(--grid) 1px, transparent 1px),
+			linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+		background-size: 4rem 4rem;
+	}
+	.grid-field--base {
+		mask-image: radial-gradient(70rem 45rem at 0 0, black, transparent 75%);
+	}
+	.grid-field--lit {
+		mask-image: radial-gradient(
+			22rem circle at var(--mx, -100rem) var(--my, -100rem),
+			black,
+			transparent 75%
+		);
+	}
+	.cursor-light {
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		pointer-events: none;
+		background: radial-gradient(
+			30rem circle at var(--mx, -100rem) var(--my, -100rem),
+			var(--accent-soft),
+			transparent 70%
+		);
+	}
+	.ticks {
+		height: 0.5rem;
+		border-top: 1px solid var(--line);
+		background-image: repeating-linear-gradient(
+			90deg,
+			var(--line) 0 1px,
+			transparent 1px 1rem
+		);
 	}
 }

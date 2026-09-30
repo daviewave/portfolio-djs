@@ -1,13 +1,14 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import { MorphHeading, ProgressRail, Reveal } from "@/components";
-import { areas } from "@/content";
+import { areas, technologies } from "@/content";
 import { cn } from "@/lib/utils";
 import {
 	Contact,
 	ExperienceRail,
-	Metrics,
 	ProjectLedger,
+	padIndex,
 	StickyPanel,
+	TechDetail,
 } from "./components";
 import { areaDotStyles, homeStyles } from "./Home.styles";
 import type { SectionInfo, SectionProps } from "./Home.types";
@@ -29,12 +30,18 @@ const sections: SectionInfo[] = [
 
 const sectionIds = sections.map((section) => section.id);
 
-const Section = ({ id, title, children }: SectionProps) => (
+const Section = ({ id, index, total, title, children }: SectionProps) => (
 	<Reveal as="section" id={id} className="scroll-mt-[3rem]">
 		<div>
-			<MorphHeading level={2} className={homeStyles.sectionTitle}>
-				{title}
-			</MorphHeading>
+			<div className="flex items-end justify-between gap-[1rem]">
+				<MorphHeading level={2} className={homeStyles.sectionTitle}>
+					{title}
+				</MorphHeading>
+				<span className="pb-[0.5rem] font-mono text-[0.75rem] text-muted">
+					{padIndex(index)} / {padIndex(total)}
+				</span>
+			</div>
+			<div aria-hidden="true" className="ticks mt-[0.75rem]" />
 			<div className={homeStyles.sectionBody}>{children}</div>
 		</div>
 	</Reveal>
@@ -74,31 +81,34 @@ const NowCopy = () => (
 
 export function HomePage() {
 	const activeId = useScrollSpy(sectionIds);
+	const [selectedId, setSelectedId] = useState<string | null>(null);
+	const selected =
+		technologies.find((technology) => technology.id === selectedId) ?? null;
 	return (
 		<div className={homeStyles.shell}>
 			<StickyPanel sections={sections} activeId={activeId} />
 			<main id="main" className={homeStyles.ledger}>
-				<Section id="now" title="Now">
+				<Section id="now" index={1} total={5} title="Now">
 					<NowCopy />
-					<div className="mt-[3rem]">
-						<Metrics />
-					</div>
 				</Section>
-				<Section id="stack" title="What I work with">
-					<Suspense
-						fallback={<div className="aspect-[16/9] min-h-[18rem] w-full" />}
-					>
-						<StackGraph />
-					</Suspense>
+				<Section id="stack" index={2} total={5} title="What I work with">
+					<div className="grid gap-[2rem] lg:grid-cols-[minmax(0,1fr)_17rem]">
+						<Suspense
+							fallback={<div className="aspect-[16/9] min-h-[18rem] w-full" />}
+						>
+							<StackGraph selectedId={selectedId} onSelect={setSelectedId} />
+						</Suspense>
+						<TechDetail technology={selected} />
+					</div>
 					<AreaLegend />
 				</Section>
-				<Section id="experience" title="Where I've been">
+				<Section id="experience" index={3} total={5} title="Where I've been">
 					<ExperienceRail />
 				</Section>
-				<Section id="projects" title="Projects on GitHub">
+				<Section id="projects" index={4} total={5} title="Projects on GitHub">
 					<ProjectLedger />
 				</Section>
-				<Section id="contact" title="Get in touch">
+				<Section id="contact" index={5} total={5} title="Get in touch">
 					<Contact />
 				</Section>
 			</main>

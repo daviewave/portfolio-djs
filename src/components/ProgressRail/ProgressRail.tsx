@@ -23,7 +23,7 @@ export function ProgressRail({ sections, activeId }: ProgressRailProps) {
 						key={section.id}
 						href={`#${section.id}`}
 						aria-current={section.id === activeId ? "true" : undefined}
-						className="relative block h-[0.5rem] w-[0.5rem] rounded-full bg-line transition-colors aria-[current=true]:bg-ink hover:bg-muted"
+						className="relative block h-[0.5rem] w-[0.5rem] rounded-full bg-line transition-colors aria-[current=true]:bg-accent aria-[current=true]:shadow-[0_0_0.75rem_var(--accent)] hover:bg-muted"
 					>
 						<span className="sr-only">{section.label}</span>
 					</a>

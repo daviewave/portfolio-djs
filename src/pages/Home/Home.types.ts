@@ -12,6 +12,8 @@ export interface StickyPanelProps {
 
 export interface SectionProps {
 	id: string;
+	index: number;
+	total: number;
 	title: string;
 	children: ReactNode;
 }

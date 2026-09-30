@@ -38,7 +38,12 @@ test("at least 25 technologies covering all four areas", () => {
 	expect(new Set(technologies.map((t) => t.id)).size).toBe(technologies.length);
 });
 
-test("metrics are positive numbers", () => {
-	expect(profile.metrics.length).toBeGreaterThan(0);
-	for (const metric of profile.metrics) expect(metric.value).toBeGreaterThan(0);
+test("every technology has a written detail with at least one place it was used", async () => {
+	const { technologies, technologyDetails } = await import("./index");
+	for (const technology of technologies) {
+		const detail = technologyDetails[technology.id];
+		expect(detail, technology.id).toBeDefined();
+		expect(detail?.summary.trim().length).toBeGreaterThan(20);
+		expect(detail?.usedIn.length).toBeGreaterThan(0);
+	}
 });

@@ -11,7 +11,7 @@ import {
 	forceY,
 	type Simulation,
 } from "d3-force";
-import type { Graph, GraphLink, GraphNode } from "./build";
+import { type Graph, type GraphLink, type GraphNode, isHub } from "./build";
 
 export interface Bounds {
 	width: number;
@@ -22,25 +22,67 @@ export interface GraphSimulation extends Simulation<GraphNode, GraphLink> {
 	bounds: Bounds;
 }
 
-const COUSE_DISTANCE = 72;
+const COUSE_DISTANCE = 90;
+const HUB_DISTANCE = 58;
+const HUB_STRENGTH = 0.7;
+const HUB_ANCHOR = 0.35;
+const TECH_ANCHOR = 0.05;
+const QUADRANTS: ReadonlyArray<readonly [number, number]> = [
+	[0.27, 0.36],
+	[0.73, 0.36],
+	[0.27, 0.7],
+	[0.73, 0.7],
+];
 const AREA_DISTANCE = 120;
-const COUSE_STRENGTH = 0.7;
+const COUSE_STRENGTH = 0.25;
 const AREA_STRENGTH = 0.15;
 const CHARGE = -110;
 const COLLIDE_PADDING = 14;
 const CENTERING = { x: 0.012, y: 0.02 };
 const DEFAULT_SETTLE_TICKS = 300;
 
-const linkDistance = (link: GraphLink) =>
-	link.kind === "couse" ? COUSE_DISTANCE : AREA_DISTANCE;
-const linkStrength = (link: GraphLink) =>
-	link.kind === "couse" ? COUSE_STRENGTH : AREA_STRENGTH;
+const linkDistance = (link: GraphLink) => {
+	if (link.kind === "hub") return HUB_DISTANCE;
+	return link.kind === "couse" ? COUSE_DISTANCE : AREA_DISTANCE;
+};
+const linkStrength = (link: GraphLink) => {
+	if (link.kind === "hub") return HUB_STRENGTH;
+	return link.kind === "couse" ? COUSE_STRENGTH : AREA_STRENGTH;
+};
+
+type Anchor = { x: number; y: number };
+
+const anchorsFor = (nodes: GraphNode[], width: number, height: number) => {
+	const areasInOrder = [
+		...new Set(nodes.filter(isHub).map((node) => node.area)),
+	];
+	const anchors = new Map<string, Anchor>();
+	areasInOrder.forEach((area, index) => {
+		const [fx, fy] = QUADRANTS[index % QUADRANTS.length];
+		anchors.set(area, { x: width * fx, y: height * fy });
+	});
+	return anchors;
+};
+
+const anchorX =
+	(anchors: Map<string, Anchor>, width: number) => (node: GraphNode) =>
+		anchors.get(node.area)?.x ?? width / 2;
+const anchorY =
+	(anchors: Map<string, Anchor>, height: number) => (node: GraphNode) =>
+		anchors.get(node.area)?.y ?? height / 2;
+const anchorStrength =
+	(hasHubs: boolean, fallback: number) => (node: GraphNode) => {
+		if (!hasHubs) return fallback;
+		return isHub(node) ? HUB_ANCHOR : TECH_ANCHOR;
+	};
 
 export const createSimulation = (
 	graph: Graph,
 	width: number,
 	height: number,
 ): GraphSimulation => {
+	const anchors = anchorsFor(graph.nodes, width, height);
+	const hasHubs = anchors.size > 0;
 	const simulation = forceSimulation<GraphNode, GraphLink>(graph.nodes)
 		.force(
 			"link",
@@ -55,8 +97,18 @@ export const createSimulation = (
 			"collide",
 			forceCollide<GraphNode>((node) => node.radius + COLLIDE_PADDING),
 		)
-		.force("x", forceX<GraphNode>(width / 2).strength(CENTERING.x))
-		.force("y", forceY<GraphNode>(height / 2).strength(CENTERING.y))
+		.force(
+			"x",
+			forceX<GraphNode>(anchorX(anchors, width)).strength(
+				anchorStrength(hasHubs, CENTERING.x),
+			),
+		)
+		.force(
+			"y",
+			forceY<GraphNode>(anchorY(anchors, height)).strength(
+				anchorStrength(hasHubs, CENTERING.y),
+			),
+		)
 		.stop() as GraphSimulation;
 	simulation.bounds = { width, height };
 	return simulation;
@@ -145,7 +197,17 @@ export const refit = (
 	(simulation.force("center") as ForceCenter<GraphNode>)
 		.x(width / 2)
 		.y(height / 2);
-	(simulation.force("x") as ForceX<GraphNode>).x(width / 2);
-	(simulation.force("y") as ForceY<GraphNode>).y(height / 2);
+	const anchors = anchorsFor(simulation.nodes(), width, height);
+	(simulation.force("x") as ForceX<GraphNode>).x(anchorX(anchors, width));
+	(simulation.force("y") as ForceY<GraphNode>).y(anchorY(anchors, height));
 	clampToBounds(simulation.nodes(), simulation.bounds);
+};
+
+export const nodeAt = (
+	simulation: GraphSimulation,
+	point: Point,
+	radius: number,
+): GraphNode | undefined => {
+	const hit = simulation.find(point.x, point.y, radius);
+	return hit && !isHub(hit) ? hit : undefined;
 };

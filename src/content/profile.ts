@@ -13,10 +13,4 @@ export const profile: Profile = {
 	resumePath: "/resume.pdf",
 	github: "https://github.com/daviewave",
 	linkedin: "https://www.linkedin.com/in/david-silveira-03921821b/",
-	metrics: [
-		{ value: 5, label: "years shipping software" },
-		{ value: 20, suffix: "+", label: "contributors on the platform I lead" },
-		{ value: 117, label: "Makefile targets behind one workflow" },
-		{ value: 3.6, suffix: "x", label: "faster graph analytics after batching" },
-	],
 };

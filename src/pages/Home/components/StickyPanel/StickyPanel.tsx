@@ -2,6 +2,7 @@ import { MorphHeading, ThemeToggle } from "@/components";
 import { profile } from "@/content";
 import { homeStyles } from "../../Home.styles";
 import type { StickyPanelProps } from "../../Home.types";
+import { Readouts } from "../Readouts";
 
 export function StickyPanel({ sections, activeId }: StickyPanelProps) {
 	return (
@@ -31,6 +32,13 @@ export function StickyPanel({ sections, activeId }: StickyPanelProps) {
 						))}
 					</ul>
 				</nav>
+				<Readouts
+					activeIndex={Math.max(
+						0,
+						sections.findIndex((section) => section.id === activeId),
+					)}
+					total={sections.length}
+				/>
 			</div>
 			<div className={homeStyles.panelFooter}>
 				<a className={homeStyles.panelLink} href={profile.github}>

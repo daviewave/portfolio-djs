@@ -73,3 +73,15 @@ test("hash targets carry their scroll margin", () => {
 		expect(target?.className).toContain("scroll-mt-");
 	}
 });
+
+test("shows instrument readouts for the section index", () => {
+	renderPage();
+	expect(screen.getByText("01 / 05")).toBeInTheDocument();
+	expect(screen.getByText(/^section 01 \/ 05$/)).toBeInTheDocument();
+});
+
+test("invites a graph click and shows no metric tiles", () => {
+	renderPage();
+	expect(screen.getByText(/click a node/i)).toBeInTheDocument();
+	expect(screen.queryByText("years shipping software")).toBeNull();
+});

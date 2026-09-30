@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { technologies } from "@/content";
 import * as graph from "@/lib/graph";
 import * as motion from "@/lib/motion";
@@ -102,4 +102,15 @@ test("unmount releases the frame loop and the resize observer", () => {
 	unmount();
 	expect(unsubscribe).toHaveBeenCalledTimes(1);
 	expect(disconnect).toHaveBeenCalled();
+});
+
+test("the accessible technology list selects a node", () => {
+	const onSelect = vi.fn();
+	render(<StackGraph onSelect={onSelect} selectedId="python" />);
+	fireEvent.click(screen.getByRole("button", { name: "Django" }));
+	expect(onSelect).toHaveBeenCalledWith("django");
+	expect(screen.getByRole("button", { name: "Python" })).toHaveAttribute(
+		"aria-pressed",
+		"true",
+	);
 });

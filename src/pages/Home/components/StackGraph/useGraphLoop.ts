@@ -1,4 +1,4 @@
-import { type RefObject, useEffect } from "react";
+import { type RefObject, useEffect, useRef } from "react";
 import { areas, technologies } from "@/content";
 import type { Area, Technology } from "@/content/types";
 import {
@@ -7,6 +7,7 @@ import {
 	createSimulation,
 	drawGraph,
 	type GraphSimulation,
+	nodeAt,
 	type Palette,
 	refit,
 	settle,
@@ -35,6 +36,11 @@ interface Preference {
 	finePointer: boolean;
 }
 
+export interface Selection {
+	selectedId: string | null;
+	onSelect?: (id: string) => void;
+}
+
 interface CanvasSize {
 	width: number;
 	height: number;
@@ -60,6 +66,7 @@ const readPalette = (element: Element): Palette => {
 	) as Record<Area, string>;
 	return {
 		canvas: token("--canvas"),
+		accent: token("--accent"),
 		ink: token("--ink"),
 		muted: token("--muted"),
 		line: token("--line"),
@@ -90,8 +97,16 @@ export const useGraphLoop = (
 	canvasRef: RefObject<HTMLCanvasElement | null>,
 	wrapperRef: RefObject<HTMLElement | null>,
 	preference: Preference,
+	selection: Selection,
 ) => {
 	const { reduced, finePointer } = preference;
+	const selectionRef = useRef(selection);
+	const repaintRef = useRef<(() => void) | null>(null);
+
+	useEffect(() => {
+		selectionRef.current = selection;
+		repaintRef.current?.();
+	}, [selection]);
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
@@ -100,7 +115,7 @@ export const useGraphLoop = (
 		const ctx = canvas.getContext("2d");
 		if (!ctx) return;
 
-		const graph = buildGraph(selectGraphTechnologies(technologies));
+		const graph = buildGraph(selectGraphTechnologies(technologies), areas);
 		const pointer = createPointerStore(canvas);
 		let simulation: GraphSimulation | null = null;
 		let palette = readPalette(canvas);
@@ -119,6 +134,7 @@ export const useGraphLoop = (
 				dpr: size.dpr,
 				palette,
 				hovered,
+				selected: selectionRef.current.selectedId ?? undefined,
 				pointer: local,
 				labelFont: LABEL_FONT,
 			});
@@ -143,6 +159,8 @@ export const useGraphLoop = (
 			if (!moved && !needsRepaint && hovered === lastHovered) return;
 			lastHovered = hovered;
 			needsRepaint = false;
+			canvas.style.cursor =
+				hovered && !hovered.startsWith("hub:") ? "pointer" : "";
 			draw(local);
 		};
 
@@ -186,6 +204,19 @@ export const useGraphLoop = (
 		};
 
 		const clearHover = () => draw(null);
+		const selectAt = (event: MouseEvent) => {
+			if (!simulation) return;
+			const hit = nodeAt(
+				simulation,
+				toCanvasPoint(canvas, { x: event.clientX, y: event.clientY }),
+				HOVER_RADIUS + 6,
+			);
+			if (hit) selectionRef.current.onSelect?.(hit.id);
+		};
+		repaintRef.current = () => {
+			needsRepaint = true;
+			draw(localPointer());
+		};
 		const highlightHover = (event: PointerEvent) =>
 			draw(toCanvasPoint(canvas, { x: event.clientX, y: event.clientY }));
 
@@ -212,9 +243,12 @@ export const useGraphLoop = (
 				canvas.addEventListener("pointermove", highlightHover, PASSIVE);
 			canvas.addEventListener("pointerleave", clearHover, PASSIVE);
 		}
+		canvas.addEventListener("click", selectAt);
 		startLoop();
 
 		return () => {
+			repaintRef.current = null;
+			canvas.removeEventListener("click", selectAt);
 			pauseLoop();
 			pointer.stop();
 			canvas.removeEventListener("pointermove", highlightHover);

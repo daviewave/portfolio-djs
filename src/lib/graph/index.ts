@@ -1,5 +1,5 @@
-export type { Graph, GraphLink, GraphNode } from "./build";
-export { buildGraph } from "./build";
+export type { Graph, GraphLink, GraphNode, NodeKind } from "./build";
+export { buildGraph, hubId, isHub } from "./build";
 export type { DrawOptions, Palette } from "./draw";
 export { drawGraph } from "./draw";
 export type {
@@ -13,6 +13,7 @@ export {
 	applyPointerForce,
 	clampToBounds,
 	createSimulation,
+	nodeAt,
 	refit,
 	settle,
 } from "./simulation";

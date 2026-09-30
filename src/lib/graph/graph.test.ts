@@ -268,3 +268,37 @@ test("a held pointer pulls nearby nodes in and lets them settle without jitter",
 	}
 	expect(maxStep).toBeLessThan(0.5);
 });
+
+test("hub areas add one anchored hub per area with every technology linked to its hub", async () => {
+	const { buildGraph, createSimulation, isHub, nodeAt, settle } = await import(
+		"./index"
+	);
+	const areas = [
+		{ id: "backend" as const, label: "Backend", token: "--area-backend" },
+		{ id: "ai" as const, label: "AI & data", token: "--area-ai" },
+	];
+	const graph = buildGraph(
+		[
+			{ id: "a", label: "A", area: "backend", weight: 3, links: ["b"] },
+			{ id: "b", label: "B", area: "backend", weight: 2, links: [] },
+			{ id: "c", label: "C", area: "ai", weight: 1, links: [] },
+		],
+		areas,
+	);
+	expect(graph.nodes.filter(isHub)).toHaveLength(2);
+	expect(graph.links.filter((link) => link.kind === "hub")).toHaveLength(3);
+	const simulation = createSimulation(graph, 800, 400);
+	settle(simulation, 300);
+	const hubs = simulation.nodes().filter(isHub);
+	const backendHub = hubs.find((hub) => hub.area === "backend");
+	const aiHub = hubs.find((hub) => hub.area === "ai");
+	expect(backendHub?.x ?? 0).toBeLessThan(400);
+	expect(aiHub?.x ?? 0).toBeGreaterThan(400);
+	const tech = simulation.nodes().find((node) => node.id === "c");
+	expect(nodeAt(simulation, { x: tech?.x ?? 0, y: tech?.y ?? 0 }, 4)?.id).toBe(
+		"c",
+	);
+	expect(
+		nodeAt(simulation, { x: aiHub?.x ?? 0, y: aiHub?.y ?? 0 }, 4),
+	).toBeUndefined();
+});

@@ -24,7 +24,7 @@ export const homeStyles = {
 	navRule: (active: boolean) =>
 		cn(
 			"h-px w-[2rem] bg-line transition-[width,background-color] duration-300 group-hover:w-[4rem] group-hover:bg-ink",
-			active && "w-[4rem] bg-ink",
+			active && "w-[4rem] bg-accent",
 		),
 	panelFooter:
 		"mt-[2rem] flex items-center gap-[1.5rem] text-[0.9375rem] text-muted",
