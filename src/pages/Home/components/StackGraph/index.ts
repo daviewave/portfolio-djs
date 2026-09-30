@@ -1,2 +1,3 @@
 export { StackGraph } from "./StackGraph";
-export type { StackGraphProps } from "./StackGraph.types";
+export type { GraphMode, StackGraphProps } from "./StackGraph.types";
+export { selectGraphTechnologies } from "./selectGraphTechnologies";

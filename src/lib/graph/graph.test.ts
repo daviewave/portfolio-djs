@@ -302,3 +302,55 @@ test("hub areas add one anchored hub per area with every technology linked to it
 		nodeAt(simulation, { x: aiHub?.x ?? 0, y: aiHub?.y ?? 0 }, 4),
 	).toBeUndefined();
 });
+
+test("toGraphData copies nodes and flattens link endpoints to ids", async () => {
+	const { buildGraph, toGraphData } = await import("./index");
+	const graph = buildGraph(
+		[
+			{ id: "a", label: "A", area: "backend", weight: 3, links: ["b"] },
+			{ id: "b", label: "B", area: "backend", weight: 2, links: [] },
+		],
+		[{ id: "backend", label: "Backend", token: "--area-backend" }],
+	);
+	const data = toGraphData(graph);
+	expect(data.nodes).toHaveLength(3);
+	expect(data.nodes[0]).not.toBe(graph.nodes[0]);
+	expect(
+		data.links.map((link) => `${link.source}>${link.target}:${link.kind}`),
+	).toEqual(
+		expect.arrayContaining([
+			"a>hub:backend:hub",
+			"b>hub:backend:hub",
+			"a>b:couse",
+		]),
+	);
+});
+
+test("hierarchy forces anchor hubs on opposite sides of the centre", async () => {
+	const { buildGraph, hierarchyForceX, hierarchyForceY, toGraphData } =
+		await import("./index");
+	const data = toGraphData(
+		buildGraph(
+			[
+				{ id: "a", label: "A", area: "backend", weight: 3, links: [] },
+				{ id: "c", label: "C", area: "ai", weight: 1, links: [] },
+			],
+			[
+				{ id: "backend", label: "Backend", token: "--area-backend" },
+				{ id: "ai", label: "AI & data", token: "--area-ai" },
+			],
+		),
+	);
+	const extent = { width: 800, height: 400 };
+	const x = hierarchyForceX(data.nodes, extent).x() as (
+		node: unknown,
+	) => number;
+	const y = hierarchyForceY(data.nodes, extent).y() as (
+		node: unknown,
+	) => number;
+	const backendHub = data.nodes.find((node) => node.id === "hub:backend");
+	const aiHub = data.nodes.find((node) => node.id === "hub:ai");
+	expect(x(backendHub)).toBeLessThan(0);
+	expect(x(aiHub)).toBeGreaterThan(0);
+	expect(y(backendHub)).toBeLessThan(0);
+});

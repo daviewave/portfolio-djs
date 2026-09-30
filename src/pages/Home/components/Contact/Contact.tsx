@@ -5,9 +5,10 @@ const linkClass =
 
 export function Contact() {
 	return (
-		<div className="max-w-[40rem] text-[1.125rem] leading-[1.6] text-muted">
+		<div className="max-w-[42rem] text-[1.0625rem] leading-[1.7] text-muted md:text-[1.125rem]">
 			<p>
-				The fastest way to reach me is{" "}
+				If any of this sounds like your kind of work, or you just want to talk
+				shop, email me at{" "}
 				<a className={linkClass} href={`mailto:${profile.email}`}>
 					{profile.email}
 				</a>
@@ -15,7 +16,7 @@ export function Contact() {
 				<a className={linkClass} href={profile.resumePath}>
 					resume
 				</a>{" "}
-				has the full history, and my{" "}
+				has the full history, and{" "}
 				<a className={linkClass} href={profile.github}>
 					GitHub
 				</a>{" "}

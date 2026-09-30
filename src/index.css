@@ -182,3 +182,20 @@
 		);
 	}
 }
+
+@layer components {
+	.bar-surface {
+		background: color-mix(in srgb, var(--canvas) 88%, transparent);
+	}
+	.casual {
+		font-variation-settings:
+			"MONO" 0,
+			"CASL" 1;
+	}
+	.no-scrollbar {
+		scrollbar-width: none;
+	}
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+}

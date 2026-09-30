@@ -9,7 +9,7 @@ const areaLabel = (id: string) =>
 export function TechDetail({ technology }: TechDetailProps) {
 	if (!technology) {
 		return (
-			<div className="flex h-full flex-col justify-center border-l border-line pl-[1.5rem]">
+			<div className="flex h-full flex-col justify-center border-t border-line pt-[1.25rem] lg:border-t-0 lg:border-l lg:pl-[1.5rem] lg:pt-0">
 				<p className="text-[0.9375rem] leading-[1.6] text-muted">
 					Click a node to see how I have used it. Hubs group the stack by area.
 				</p>
@@ -18,7 +18,10 @@ export function TechDetail({ technology }: TechDetailProps) {
 	}
 	const detail = detailFor(technology.id);
 	return (
-		<div aria-live="polite" className="border-l border-line pl-[1.5rem]">
+		<div
+			aria-live="polite"
+			className="border-t border-line pt-[1.25rem] lg:border-t-0 lg:border-l lg:pl-[1.5rem] lg:pt-0"
+		>
 			<p className="flex items-center gap-[0.5rem] font-mono text-[0.75rem] text-muted">
 				<span
 					aria-hidden="true"

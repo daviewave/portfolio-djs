@@ -5,9 +5,9 @@ export const profile: Profile = {
 	role: "Lead Software Engineer",
 	location: "Austin, Texas",
 	intro: [
-		"Lead software engineer at Cyberhill Partners, where our team took Wolverine — a self-healing cybersecurity knowledge-graph platform — from proof of concept to AWS Marketplace.",
-		"Five years across the stack: Django and React, graph databases, LLM pipelines, and the infrastructure underneath.",
-		"Off hours I'm usually somewhere deep in Linux; Qubes OS is home.",
+		"I'm a software engineer in Austin, Texas, and these days I lead engineering on Wolverine at Cyberhill Partners: a self-healing cybersecurity knowledge-graph platform our team took from a proof of concept to an agentic AI product on AWS Marketplace.",
+		"Over the last five years I've worked across the whole stack: Django and React apps, graph databases, LLM pipelines, and the AWS infrastructure and CI/CD underneath them.",
+		"Away from work I'm usually tinkering with Linux. Qubes OS is my daily driver, mostly because I like seeing how far a machine can be pushed.",
 	],
 	email: "dav.silveira@proton.me",
 	resumePath: "/resume.pdf",

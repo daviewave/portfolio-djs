@@ -20,7 +20,7 @@ MCP_DIR = Path("/var/home/slave/github/claude-code/firefox-mcp-plugin")
 PORT = "3000"
 OUT = REPO / ".verify"
 AXE = REPO / "node_modules" / "axe-core" / "axe.min.js"
-WIDTHS = {"desk": (1440, 900), "laptop": (1280, 720), "mob": (390, 844)}
+WIDTHS = {"desk": (1440, 900), "laptop": (1280, 720), "mob": (390, 844), "phone-s": (360, 780)}
 
 sys.path.insert(0, str(MCP_DIR / ".venv" / "lib64" / "python3.14" / "site-packages"))
 from mcp import ClientSession, StdioServerParameters  # noqa: E402
@@ -139,6 +139,8 @@ async def drive():
 			await asyncio.sleep(2)
 			report = {"console": await call("list_console_messages", types=["error", "warning"])}
 			report["fonts"] = await call("evaluate_script", function=FONT_PROBE_JS)
+			await call("resize_page", width=360, height=780)
+			report["overflow_360"] = await call("evaluate_script", function="() => ({ scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth })")
 			for name, (width, height) in WIDTHS.items():
 				await capture_theme_pair(call, name, width, height)
 			for theme in ("light", "dark"):

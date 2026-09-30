@@ -40,7 +40,7 @@ export function ThemeToggle({ className }: { className?: string }) {
 			aria-label={nextLabel}
 			onClick={onClick}
 			className={cn(
-				"inline-flex size-[2.25rem] items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-muted [&>svg]:size-[1.125rem]",
+				"inline-flex size-[2.75rem] items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-muted [&>svg]:size-[1.125rem]",
 				className,
 			)}
 		>

@@ -5,9 +5,20 @@ export interface SectionInfo {
 	label: string;
 }
 
-export interface StickyPanelProps {
+export interface SectionNavProps {
 	sections: SectionInfo[];
 	activeId: string | null;
+	variant: "bar" | "chips";
+}
+
+export interface TopBarProps {
+	sections: SectionInfo[];
+	activeId: string | null;
+}
+
+export interface FooterProps {
+	activeIndex: number;
+	total: number;
 }
 
 export interface SectionProps {

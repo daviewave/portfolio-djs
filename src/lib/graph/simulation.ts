@@ -22,11 +22,11 @@ export interface GraphSimulation extends Simulation<GraphNode, GraphLink> {
 	bounds: Bounds;
 }
 
-const COUSE_DISTANCE = 90;
-const HUB_DISTANCE = 58;
+export const COUSE_DISTANCE = 90;
+export const HUB_DISTANCE = 58;
 const HUB_STRENGTH = 0.7;
-const HUB_ANCHOR = 0.35;
-const TECH_ANCHOR = 0.05;
+export const HUB_ANCHOR = 0.35;
+export const TECH_ANCHOR = 0.05;
 const QUADRANTS: ReadonlyArray<readonly [number, number]> = [
 	[0.27, 0.36],
 	[0.73, 0.36],
@@ -36,23 +36,27 @@ const QUADRANTS: ReadonlyArray<readonly [number, number]> = [
 const AREA_DISTANCE = 120;
 const COUSE_STRENGTH = 0.25;
 const AREA_STRENGTH = 0.15;
-const CHARGE = -110;
-const COLLIDE_PADDING = 14;
+export const CHARGE = -110;
+export const COLLIDE_PADDING = 14;
 const CENTERING = { x: 0.012, y: 0.02 };
 const DEFAULT_SETTLE_TICKS = 300;
 
-const linkDistance = (link: GraphLink) => {
+export const linkDistance = (link: GraphLink) => {
 	if (link.kind === "hub") return HUB_DISTANCE;
 	return link.kind === "couse" ? COUSE_DISTANCE : AREA_DISTANCE;
 };
-const linkStrength = (link: GraphLink) => {
+export const linkStrength = (link: GraphLink) => {
 	if (link.kind === "hub") return HUB_STRENGTH;
 	return link.kind === "couse" ? COUSE_STRENGTH : AREA_STRENGTH;
 };
 
-type Anchor = { x: number; y: number };
+export type Anchor = { x: number; y: number };
 
-const anchorsFor = (nodes: GraphNode[], width: number, height: number) => {
+export const anchorsFor = (
+	nodes: GraphNode[],
+	width: number,
+	height: number,
+) => {
 	const areasInOrder = [
 		...new Set(nodes.filter(isHub).map((node) => node.area)),
 	];
@@ -64,13 +68,13 @@ const anchorsFor = (nodes: GraphNode[], width: number, height: number) => {
 	return anchors;
 };
 
-const anchorX =
+export const anchorX =
 	(anchors: Map<string, Anchor>, width: number) => (node: GraphNode) =>
 		anchors.get(node.area)?.x ?? width / 2;
-const anchorY =
+export const anchorY =
 	(anchors: Map<string, Anchor>, height: number) => (node: GraphNode) =>
 		anchors.get(node.area)?.y ?? height / 2;
-const anchorStrength =
+export const anchorStrength =
 	(hasHubs: boolean, fallback: number) => (node: GraphNode) => {
 		if (!hasHubs) return fallback;
 		return isHub(node) ? HUB_ANCHOR : TECH_ANCHOR;

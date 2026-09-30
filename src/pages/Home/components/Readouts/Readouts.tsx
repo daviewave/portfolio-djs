@@ -8,7 +8,7 @@ export function Readouts({ activeIndex, total }: ReadoutsProps) {
 	const time = useClock();
 	const progress = useScrollProgress();
 	return (
-		<dl className="mt-[2rem] grid grid-cols-3 gap-[1rem] font-mono text-[0.75rem] text-muted">
+		<dl className="flex flex-wrap gap-x-[1.5rem] gap-y-[0.25rem] font-mono text-[0.75rem] text-muted">
 			<div>
 				<dt className="sr-only">Local time</dt>
 				<dd>Austin {time}</dd>

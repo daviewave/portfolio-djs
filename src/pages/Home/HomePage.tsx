@@ -5,10 +5,13 @@ import { cn } from "@/lib/utils";
 import {
 	Contact,
 	ExperienceRail,
+	Footer,
+	Hero,
 	ProjectLedger,
 	padIndex,
-	StickyPanel,
+	SectionNav,
 	TechDetail,
+	TopBar,
 } from "./components";
 import { areaDotStyles, homeStyles } from "./Home.styles";
 import type { SectionInfo, SectionProps } from "./Home.types";
@@ -25,25 +28,23 @@ const sections: SectionInfo[] = [
 	{ id: "stack", label: "Stack" },
 	{ id: "experience", label: "Experience" },
 	{ id: "projects", label: "Projects" },
-	{ id: "contact", label: "Contact" },
+	{ id: "contact", label: "Say hi" },
 ];
 
 const sectionIds = sections.map((section) => section.id);
 
 const Section = ({ id, index, total, title, children }: SectionProps) => (
-	<Reveal as="section" id={id} className="scroll-mt-[3rem]">
-		<div>
-			<div className="flex items-end justify-between gap-[1rem]">
-				<MorphHeading level={2} className={homeStyles.sectionTitle}>
-					{title}
-				</MorphHeading>
-				<span className="pb-[0.5rem] font-mono text-[0.75rem] text-muted">
-					{padIndex(index)} / {padIndex(total)}
-				</span>
-			</div>
-			<div aria-hidden="true" className="ticks mt-[0.75rem]" />
-			<div className={homeStyles.sectionBody}>{children}</div>
+	<Reveal as="section" id={id} className="scroll-mt-[4.5rem]">
+		<div className="flex items-end justify-between gap-[1rem]">
+			<MorphHeading level={2} className={homeStyles.sectionTitle}>
+				{title}
+			</MorphHeading>
+			<span className={homeStyles.sectionIndex}>
+				{padIndex(index)} / {padIndex(total)}
+			</span>
 		</div>
+		<div aria-hidden="true" className={homeStyles.ticks} />
+		<div className={homeStyles.sectionBody}>{children}</div>
 	</Reveal>
 );
 
@@ -64,35 +65,43 @@ const AreaLegend = () => (
 const NowCopy = () => (
 	<div className="flex flex-col gap-[1.25rem]">
 		<p className={homeStyles.prose}>
-			I lead engineering on Wolverine at Cyberhill Partners: a self-healing
-			cybersecurity knowledge-graph platform that our team of about twenty took
-			from proof of concept to an agentic AI product on AWS Marketplace. Most
-			weeks that means graph queries on Neptune, LLM pipelines on Bedrock, a
-			Django and React codebase, and the CI/CD and infrastructure that keep
-			releases boring.
+			Most of my week goes into Wolverine: graph queries on Neptune, LLM
+			pipelines on Bedrock, a Django and React codebase, and the CI/CD that
+			keeps releases boring. About twenty people and a few AI coding agents
+			share that codebase, so a lot of my job is keeping it easy to work in.
 		</p>
 		<p className={homeStyles.prose}>
-			The pattern I care about most is making the work legible: a single
-			Makefile as the front door, tests gating every stage, and documentation
-			that writes itself from the code so nobody has to ask twice.
+			The habit I care about most is making work legible: one Makefile as the
+			front door, tests gating every stage, and documentation that writes itself
+			from the code so nobody has to ask twice.
 		</p>
 	</div>
 );
 
 export function HomePage() {
 	const activeId = useScrollSpy(sectionIds);
+	const activeIndex = Math.max(0, sectionIds.indexOf(activeId ?? ""));
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 	const selected =
 		technologies.find((technology) => technology.id === selectedId) ?? null;
 	return (
-		<div className={homeStyles.shell}>
-			<StickyPanel sections={sections} activeId={activeId} />
-			<main id="main" className={homeStyles.ledger}>
-				<Section id="now" index={1} total={5} title="Now">
+		<>
+			<TopBar sections={sections} activeId={activeId} />
+			<main id="main" className={homeStyles.main}>
+				<div className="flex flex-col gap-[2rem]">
+					<Hero />
+					<SectionNav sections={sections} activeId={activeId} variant="chips" />
+				</div>
+				<Section id="now" index={1} total={5} title="What I'm working on">
 					<NowCopy />
 				</Section>
-				<Section id="stack" index={2} total={5} title="What I work with">
-					<div className="grid gap-[2rem] lg:grid-cols-[minmax(0,1fr)_17rem]">
+				<Section id="stack" index={2} total={5} title="What I build with">
+					{selected === null && (
+						<p className={homeStyles.hint}>
+							Click around — each dot is something I've shipped with.
+						</p>
+					)}
+					<div className={homeStyles.stackGrid}>
 						<Suspense
 							fallback={<div className="aspect-[16/9] min-h-[18rem] w-full" />}
 						>
@@ -105,14 +114,15 @@ export function HomePage() {
 				<Section id="experience" index={3} total={5} title="Where I've been">
 					<ExperienceRail />
 				</Section>
-				<Section id="projects" index={4} total={5} title="Projects on GitHub">
+				<Section id="projects" index={4} total={5} title="Things I've made">
 					<ProjectLedger />
 				</Section>
-				<Section id="contact" index={5} total={5} title="Get in touch">
+				<Section id="contact" index={5} total={5} title="Say hi">
 					<Contact />
 				</Section>
 			</main>
+			<Footer activeIndex={activeIndex} total={sections.length} />
 			<ProgressRail sections={sections} activeId={activeId} />
-		</div>
+		</>
 	);
 }

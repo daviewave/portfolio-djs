@@ -1,110 +1,76 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { technologies } from "@/content";
-import * as graph from "@/lib/graph";
-import * as motion from "@/lib/motion";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { areas, technologies } from "@/content";
+import { useMotionPreference } from "@/lib/motion";
 import { StackGraph } from "./StackGraph";
+import { selectGraphTechnologies } from "./selectGraphTechnologies";
 
+vi.mock("react-force-graph-2d", () => import("@/test/forceGraphMock"));
+vi.mock("react-force-graph-3d", () => import("@/test/forceGraphMock"));
 vi.mock("@/lib/motion", async (importOriginal) => {
 	const actual = await importOriginal<typeof import("@/lib/motion")>();
-	return {
-		...actual,
-		useMotionPreference: vi.fn(() => ({ reduced: false, finePointer: true })),
-		scheduler: { add: vi.fn(() => vi.fn()), active: false },
-	};
+	return { ...actual, useMotionPreference: vi.fn() };
 });
 
-vi.mock("@/lib/graph", async (importOriginal) => {
-	const actual = await importOriginal<typeof import("@/lib/graph")>();
-	return {
-		...actual,
-		settle: vi.fn(actual.settle),
-		drawGraph: vi.fn(),
-	};
-});
-
-const preference = vi.mocked(motion.useMotionPreference);
-const schedulerAdd = vi.mocked(motion.scheduler.add);
-const settle = vi.mocked(graph.settle);
-
-const fakeContext = () =>
-	({
-		setTransform: vi.fn(),
-		clearRect: vi.fn(),
-		beginPath: vi.fn(),
-		arc: vi.fn(),
-		fill: vi.fn(),
-		stroke: vi.fn(),
-		fillText: vi.fn(),
-		moveTo: vi.fn(),
-		lineTo: vi.fn(),
-		save: vi.fn(),
-		restore: vi.fn(),
-	}) as unknown as CanvasRenderingContext2D;
+const preference = vi.mocked(useMotionPreference);
+const expectedNodes =
+	selectGraphTechnologies(technologies).length + areas.length;
 
 beforeEach(() => {
 	preference.mockReturnValue({ reduced: false, finePointer: true });
-	schedulerAdd.mockClear();
-	settle.mockClear();
-	vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(
-		fakeContext(),
+	localStorage.clear();
+	vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue({
+		width: 800,
+		height: 450,
+		top: 0,
+		left: 0,
+		right: 800,
+		bottom: 450,
+		x: 0,
+		y: 0,
+		toJSON: () => ({}),
+	});
+});
+
+test("renders the 2D graph by default with every hub and selected technology", () => {
+	render(<StackGraph />);
+	const graph = screen.getByTestId("force-graph");
+	expect(graph).toHaveAttribute("data-mode", "2d");
+	expect(graph).toHaveAttribute("data-nodes", String(expectedNodes));
+	expect(
+		screen.getByRole("figure", { name: /clustered around one hub/ }),
+	).toBeInTheDocument();
+});
+
+test("switches to the lazily loaded 3D renderer and remembers the choice", async () => {
+	render(<StackGraph />);
+	fireEvent.click(screen.getByRole("button", { name: "3D" }));
+	await waitFor(() =>
+		expect(screen.getByTestId("force-graph")).toHaveAttribute(
+			"data-mode",
+			"3d",
+		),
+	);
+	expect(localStorage.getItem("graph-mode")).toBe("3d");
+	expect(screen.getByRole("button", { name: "3D" })).toHaveAttribute(
+		"aria-pressed",
+		"true",
 	);
 });
 
-test("lists every technology for assistive tech", () => {
-	render(<StackGraph />);
-	const canvas = screen.getByRole("img", { name: /technologies I work with/ });
-	expect(canvas.tagName).toBe("CANVAS");
-	for (const technology of technologies) {
-		expect(screen.getByText(technology.label)).toBeInTheDocument();
-	}
-});
-
-test("reduced motion settles once and never joins the frame loop", () => {
-	preference.mockReturnValue({ reduced: true, finePointer: true });
-	render(<StackGraph />);
-	expect(settle).toHaveBeenCalledTimes(1);
-	expect(schedulerAdd).not.toHaveBeenCalled();
-});
-
-const pointerListenersOnCanvas = () =>
-	vi
-		.mocked(HTMLCanvasElement.prototype.addEventListener)
-		.mock.calls.map(([type]) => String(type))
-		.filter((type) => type.startsWith("pointer"));
-
-test("coarse pointers get no pointer listeners", () => {
-	preference.mockReturnValue({ reduced: false, finePointer: false });
-	vi.spyOn(HTMLCanvasElement.prototype, "addEventListener");
-	render(<StackGraph />);
-	expect(pointerListenersOnCanvas()).toEqual([]);
-});
-
-test("fine pointers follow pointer movement on the canvas", () => {
-	vi.spyOn(HTMLCanvasElement.prototype, "addEventListener");
-	render(<StackGraph />);
-	expect(pointerListenersOnCanvas()).toContain("pointermove");
-});
-
-test("unmount releases the frame loop and the resize observer", () => {
-	const unsubscribe = vi.fn();
-	schedulerAdd.mockReturnValue(unsubscribe);
-	const disconnect = vi.fn();
-	vi.stubGlobal(
-		"ResizeObserver",
-		class {
-			observe = vi.fn();
-			unobserve = vi.fn();
-			disconnect = disconnect;
-		},
+test("clicking a technology node selects it and clicking a hub does not", () => {
+	const onSelect = vi.fn();
+	render(<StackGraph onSelect={onSelect} />);
+	fireEvent.click(
+		document.querySelector('[data-node-id="python"]') as HTMLElement,
 	);
-	const { unmount } = render(<StackGraph />);
-	expect(schedulerAdd).toHaveBeenCalledTimes(1);
-	unmount();
-	expect(unsubscribe).toHaveBeenCalledTimes(1);
-	expect(disconnect).toHaveBeenCalled();
+	expect(onSelect).toHaveBeenCalledWith("python");
+	fireEvent.click(
+		document.querySelector('[data-node-id="hub:backend"]') as HTMLElement,
+	);
+	expect(onSelect).toHaveBeenCalledTimes(1);
 });
 
-test("the accessible technology list selects a node", () => {
+test("the accessible technology list selects a node and reflects the selection", () => {
 	const onSelect = vi.fn();
 	render(<StackGraph onSelect={onSelect} selectedId="python" />);
 	fireEvent.click(screen.getByRole("button", { name: "Django" }));
@@ -113,4 +79,12 @@ test("the accessible technology list selects a node", () => {
 		"aria-pressed",
 		"true",
 	);
+});
+
+test("renders settled and static under reduced motion", () => {
+	preference.mockReturnValue({ reduced: true, finePointer: true });
+	render(<StackGraph />);
+	const graph = screen.getByTestId("force-graph");
+	expect(graph).toHaveAttribute("data-cooldown-ticks", "0");
+	expect(graph).toHaveAttribute("data-warmup-ticks", "200");
 });

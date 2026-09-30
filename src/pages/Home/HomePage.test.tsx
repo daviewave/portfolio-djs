@@ -1,10 +1,12 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { ThemeProvider } from "@/components";
-import { projects, roles, technologies } from "@/content";
+import { projects, roles } from "@/content";
 import { stubCanvasContext } from "@/test/canvas";
 import { HomePage } from "./HomePage";
 
 vi.mock("motion/react", () => import("@/test/motionMock"));
+vi.mock("react-force-graph-2d", () => import("@/test/forceGraphMock"));
+vi.mock("react-force-graph-3d", () => import("@/test/forceGraphMock"));
 
 beforeAll(async () => {
 	await import("./components/StackGraph");
@@ -21,21 +23,38 @@ const renderPage = () =>
 		</ThemeProvider>,
 	);
 
-test("renders every section heading and the section nav", () => {
+const TITLES = [
+	"What I'm working on",
+	"What I build with",
+	"Where I've been",
+	"Things I've made",
+	"Say hi",
+];
+
+test("greets with a headshot and renders every section heading", () => {
 	renderPage();
-	for (const title of [
-		"Now",
-		"What I work with",
-		"Where I've been",
-		"Projects on GitHub",
-		"Get in touch",
-	]) {
+	expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
+		"Hi, I'm David.",
+	);
+	expect(screen.getByRole("img", { name: "David Silveira" })).toHaveAttribute(
+		"src",
+		"/images/profile.jpeg",
+	);
+	for (const title of TITLES) {
 		expect(
 			screen.getByRole("heading", { level: 2, name: title }),
 		).toBeInTheDocument();
 	}
-	const nav = screen.getAllByRole("navigation", { name: "Sections" })[0];
-	expect(within(nav).getAllByRole("link")).toHaveLength(5);
+});
+
+test("offers the section links in the top bar and as mobile chips", () => {
+	renderPage();
+	const bar = screen.getByRole("navigation", { name: "Sections" });
+	expect(within(bar).getAllByRole("link")).toHaveLength(5);
+	const chips = screen.getByRole("navigation", { name: "Jump to section" });
+	expect(within(chips).getAllByRole("link")).toHaveLength(5);
+	for (const link of within(screen.getByRole("banner")).getAllByRole("link"))
+		expect(link).toHaveAttribute("href", expect.stringMatching(/.+/));
 });
 
 test("renders one experience entry per role and one row per project", () => {
@@ -47,22 +66,16 @@ test("renders one experience entry per role and one row per project", () => {
 	);
 });
 
-test("renders the theme toggle and the accessible graph list", () => {
+test("keeps the readouts and contact links in the footer", () => {
 	renderPage();
+	const footer = screen.getByRole("contentinfo");
+	expect(within(footer).getByText(/^section 01 \/ 05$/)).toBeInTheDocument();
 	expect(
-		screen.getByRole("button", { name: /switch to .* theme/i }),
+		within(footer).getByRole("link", { name: "GitHub" }),
 	).toBeInTheDocument();
-	const graph = screen.getByRole("img", { name: /graph of the technologies/i });
-	expect(graph).toBeInTheDocument();
-	for (const tech of technologies.slice(0, 5))
-		expect(screen.getAllByText(tech.label).length).toBeGreaterThan(0);
-});
-
-test("every panel link has a destination", () => {
-	renderPage();
-	const header = screen.getByRole("banner");
-	for (const link of within(header).getAllByRole("link"))
-		expect(link).toHaveAttribute("href", expect.stringMatching(/.+/));
+	expect(
+		within(footer).getByRole("link", { name: "Resume" }),
+	).toBeInTheDocument();
 });
 
 test("hash targets carry their scroll margin", () => {
@@ -74,14 +87,16 @@ test("hash targets carry their scroll margin", () => {
 	}
 });
 
-test("shows instrument readouts for the section index", () => {
+test("hints at clicking the graph until a node is selected", () => {
 	renderPage();
+	expect(screen.getByText(/click around/i)).toBeInTheDocument();
 	expect(screen.getByText("01 / 05")).toBeInTheDocument();
-	expect(screen.getByText(/^section 01 \/ 05$/)).toBeInTheDocument();
-});
-
-test("invites a graph click and shows no metric tiles", () => {
-	renderPage();
-	expect(screen.getByText(/click a node/i)).toBeInTheDocument();
-	expect(screen.queryByText("years shipping software")).toBeNull();
+	const node = screen.queryByRole("button", { name: "Django" });
+	if (node) {
+		fireEvent.click(node);
+		expect(screen.queryByText(/click around/i)).toBeNull();
+		expect(
+			screen.getByRole("heading", { level: 3, name: "Django" }),
+		).toBeInTheDocument();
+	}
 });

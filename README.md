@@ -30,7 +30,7 @@ axe results to `.verify/`.
 src/
   main.tsx  App.tsx  index.css   tokens as CSS variables; @theme inline maps them to utilities
   pages/Home/                    HomePage.tsx, Home.types.ts, Home.styles.ts, components/, hooks/
-  components/                    shared UI: ThemeProvider, ThemeToggle, Reveal, MorphHeading, ProgressRail
+  components/                    shared UI: ThemeProvider, ThemeToggle, CursorLight, Reveal, MorphHeading, ProgressRail
   lib/motion/                    one rAF scheduler, one pointer store, useMotionPreference
   lib/graph/                     pure graph model: build, simulate, refit, draw (no React)
   lib/theme/                     pre-hydration init script, readTheme/applyTheme, the wipe
