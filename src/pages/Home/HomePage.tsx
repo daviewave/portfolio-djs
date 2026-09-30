@@ -50,15 +50,37 @@ const Section = ({ id, index, total, title, children }: SectionProps) => (
 	</Reveal>
 );
 
-const AreaLegend = () => (
-	<ul className={homeStyles.legend}>
+const AreaLegend = ({
+	highlightArea,
+	onHighlight,
+}: {
+	highlightArea: string | null;
+	onHighlight: (area: string | null) => void;
+}) => (
+	<ul
+		className={homeStyles.legend}
+		aria-label="Skill areas; hover or focus one to highlight it in the graph"
+	>
 		{areas.map((area) => (
-			<li key={area.id} className="flex items-center gap-[0.5rem]">
-				<span
-					aria-hidden="true"
-					className={cn(homeStyles.legendDot, areaDotStyles[area.id])}
-				/>
-				{area.label}
+			<li key={area.id}>
+				<button
+					type="button"
+					className={homeStyles.legendButton(highlightArea === area.id)}
+					aria-pressed={highlightArea === area.id}
+					onMouseEnter={() => onHighlight(area.id)}
+					onMouseLeave={() => onHighlight(null)}
+					onFocus={() => onHighlight(area.id)}
+					onBlur={() => onHighlight(null)}
+					onClick={() =>
+						onHighlight(highlightArea === area.id ? null : area.id)
+					}
+				>
+					<span
+						aria-hidden="true"
+						className={cn(homeStyles.legendDot, areaDotStyles[area.id])}
+					/>
+					{area.label}
+				</button>
 			</li>
 		))}
 	</ul>
@@ -68,6 +90,7 @@ export function HomePage() {
 	const activeId = useScrollSpy(sectionIds);
 	const activeIndex = Math.max(0, sectionIds.indexOf(activeId ?? ""));
 	const [selectedId, setSelectedId] = useState<string | null>(null);
+	const [highlightArea, setHighlightArea] = useState<string | null>(null);
 	const selected =
 		technologies.find((technology) => technology.id === selectedId) ?? null;
 	const { reduced } = useMotionPreference();
@@ -99,11 +122,18 @@ export function HomePage() {
 						<Suspense
 							fallback={<div className="aspect-[16/9] min-h-[18rem] w-full" />}
 						>
-							<StackGraph selectedId={selectedId} onSelect={setSelectedId} />
+							<StackGraph
+								selectedId={selectedId}
+								highlightArea={highlightArea}
+								onSelect={setSelectedId}
+							/>
 						</Suspense>
 						<TechDetail technology={selected} />
 					</div>
-					<AreaLegend />
+					<AreaLegend
+						highlightArea={highlightArea}
+						onHighlight={setHighlightArea}
+					/>
 				</Section>
 				<Section id="experience" index={3} total={5} title="Where I've been">
 					<ExperienceRail onPickTech={pickTech} />

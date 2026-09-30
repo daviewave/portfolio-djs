@@ -11,6 +11,17 @@ import { useGraphForces } from "./useGraphForces";
 const TRANSPARENT = "rgba(0,0,0,0)";
 const FIT_MS = 400;
 const FIT_PADDING = 24;
+const DIMMED_ALPHA = 0.18;
+
+const withAlpha = (color: string, alpha: number) => {
+	const match = /^#([0-9a-f]{6})$/i.exec(color.trim());
+	if (!match) return color;
+	const value = Number.parseInt(match[1], 16);
+	return `rgba(${(value >> 16) & 255}, ${(value >> 8) & 255}, ${value & 255}, ${alpha})`;
+};
+
+const linkArea = (link: ForceLink) =>
+	typeof link.source === "object" ? (link.source as ForceNode).area : undefined;
 
 type Methods = ForceGraphMethods<NodeObject<ForceNode>, ForceLink>;
 
@@ -19,6 +30,7 @@ export function GraphCanvas2D({
 	palette,
 	size,
 	selectedId,
+	highlightArea,
 	reduced,
 	visible,
 	onSelect,
@@ -32,13 +44,26 @@ export function GraphCanvas2D({
 			node: NodeObject<ForceNode>,
 			ctx: CanvasRenderingContext2D,
 			scale: number,
-		) =>
+		) => {
+			const dimmed = highlightArea !== null && node.area !== highlightArea;
+			ctx.save();
+			ctx.globalAlpha = dimmed ? DIMMED_ALPHA : 1;
 			paintNode(node, ctx, scale, {
 				palette,
 				selectedId,
 				hoveredId: hovered.current,
-			}),
-		[palette, selectedId],
+			});
+			ctx.restore();
+		},
+		[palette, selectedId, highlightArea],
+	);
+	const linkColor = useCallback(
+		(link: ForceLink) => {
+			const color = linkColorFor(link, palette);
+			const dimmed = highlightArea !== null && linkArea(link) !== highlightArea;
+			return dimmed ? withAlpha(color, DIMMED_ALPHA) : color;
+		},
+		[palette, highlightArea],
 	);
 
 	return (
@@ -51,7 +76,7 @@ export function GraphCanvas2D({
 			nodeLabel={() => ""}
 			nodeCanvasObject={paint}
 			nodePointerAreaPaint={paintPointerArea}
-			linkColor={(link) => linkColorFor(link, palette)}
+			linkColor={linkColor}
 			linkWidth={1}
 			warmupTicks={reduced ? 200 : 0}
 			cooldownTicks={reduced ? 0 : undefined}

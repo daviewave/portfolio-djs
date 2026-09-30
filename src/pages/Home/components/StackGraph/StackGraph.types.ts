@@ -5,6 +5,7 @@ export type GraphMode = "2d" | "3d";
 export interface StackGraphProps {
 	className?: string;
 	selectedId?: string | null;
+	highlightArea?: string | null;
 	onSelect?: (id: string) => void;
 }
 
@@ -27,6 +28,7 @@ export interface GraphCanvasProps {
 	palette: GraphPalette;
 	size: GraphSize;
 	selectedId: string | null;
+	highlightArea: string | null;
 	reduced: boolean;
 	visible: boolean;
 	onSelect?: (id: string) => void;

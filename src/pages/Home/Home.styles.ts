@@ -13,6 +13,11 @@ export const homeStyles = {
 	stackGrid: "grid gap-[2rem] lg:grid-cols-[minmax(0,1fr)_17rem] [&>*]:min-w-0",
 	legend:
 		"mt-[1rem] flex flex-wrap gap-x-[1.5rem] gap-y-[0.5rem] text-[0.875rem] text-muted",
+	legendButton: (active: boolean) =>
+		cn(
+			"flex min-h-[2.25rem] items-center gap-[0.5rem] rounded-full px-[0.5rem] transition-colors hover:text-ink",
+			active && "text-ink",
+		),
 	legendDot: "inline-block h-[0.5rem] w-[0.5rem] rounded-full",
 } as const;
 
@@ -60,10 +65,12 @@ export const heroStyles = {
 export const footerStyles = {
 	footer: "border-t border-line",
 	inner:
-		"mx-auto flex w-full max-w-[64rem] flex-col gap-[1.5rem] px-[1.25rem] py-[2rem] md:flex-row md:items-center md:justify-between md:px-[2rem]",
+		"mx-auto w-full max-w-[64rem] px-[1.25rem] py-[2rem] md:px-[2rem] grid gap-[1.5rem] md:grid-cols-[1fr_auto] md:items-baseline",
 	links:
 		"flex flex-wrap gap-x-[1.5rem] gap-y-[0.25rem] text-[0.9375rem] text-muted",
 	link: "flex min-h-[2.75rem] items-center underline-offset-[0.25rem] hover:text-ink hover:underline",
+	colophon:
+		"mt-[1.5rem] max-w-[46rem] text-[0.8125rem] leading-[1.6] text-muted md:col-span-2",
 } as const;
 
 export const areaDotStyles = {

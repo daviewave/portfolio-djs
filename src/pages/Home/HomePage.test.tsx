@@ -112,3 +112,16 @@ test("a technology tag in the experience rail selects that node and shows its de
 	).toBeInTheDocument();
 	expect(screen.queryByText(/click around/i)).toBeNull();
 });
+
+test("legend highlights an area and the footer carries a colophon", async () => {
+	const { fireEvent } = await import("@testing-library/react");
+	renderPage();
+	const backend = screen.getByRole("button", { name: /Backend/ });
+	fireEvent.focus(backend);
+	expect(backend).toHaveAttribute("aria-pressed", "true");
+	fireEvent.blur(backend);
+	expect(backend).toHaveAttribute("aria-pressed", "false");
+	expect(
+		screen.getByRole("link", { name: /source is on GitHub/ }),
+	).toBeInTheDocument();
+});

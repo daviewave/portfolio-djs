@@ -23,6 +23,7 @@ const BOX =
 export function StackGraph({
 	className,
 	selectedId = null,
+	highlightArea = null,
 	onSelect,
 }: StackGraphProps) {
 	const wrapperRef = useRef<HTMLDivElement>(null);
@@ -40,6 +41,7 @@ export function StackGraph({
 		palette,
 		size,
 		selectedId,
+		highlightArea,
 		reduced,
 		visible,
 		onSelect,

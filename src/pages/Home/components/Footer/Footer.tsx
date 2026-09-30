@@ -30,6 +30,18 @@ export function Footer({ activeIndex, total }: FooterProps) {
 					</li>
 				</ul>
 				<Readouts activeIndex={activeIndex} total={total} />
+				<p className={footerStyles.colophon}>
+					Set in Recursive, a variable font that morphs between mono and sans as
+					you scroll. Built with Vite, React and Tailwind; the graph runs on
+					d3-force. The{" "}
+					<a
+						className="link-underline text-ink"
+						href="https://github.com/daviewave/portfolio-djs"
+					>
+						source is on GitHub
+					</a>
+					.
+				</p>
 			</div>
 		</footer>
 	);

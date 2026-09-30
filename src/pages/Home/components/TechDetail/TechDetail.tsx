@@ -1,4 +1,6 @@
+import { m } from "motion/react";
 import { areas, detailFor } from "@/content";
+import { EASE_OUT_EXPO, useMotionPreference } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { areaDotStyles } from "../../Home.styles";
 import type { TechDetailProps } from "./TechDetail.types";
@@ -7,6 +9,7 @@ const areaLabel = (id: string) =>
 	areas.find((area) => area.id === id)?.label ?? id;
 
 export function TechDetail({ technology }: TechDetailProps) {
+	const { reduced } = useMotionPreference();
 	if (!technology) {
 		return (
 			<div className="flex h-full flex-col justify-center border-t border-line pt-[1.25rem] lg:border-t-0 lg:border-l lg:pl-[1.5rem] lg:pt-0">
@@ -17,10 +20,19 @@ export function TechDetail({ technology }: TechDetailProps) {
 		);
 	}
 	const detail = detailFor(technology.id);
+	const Panel = reduced ? "div" : m.div;
 	return (
-		<div
+		<Panel
+			key={technology.id}
 			aria-live="polite"
 			className="border-t border-line pt-[1.25rem] lg:border-t-0 lg:border-l lg:pl-[1.5rem] lg:pt-0"
+			{...(reduced
+				? {}
+				: {
+						initial: { opacity: 0, x: 10 },
+						animate: { opacity: 1, x: 0 },
+						transition: { duration: 0.45, ease: EASE_OUT_EXPO },
+					})}
 		>
 			<p className="flex items-center gap-[0.5rem] font-mono text-[0.75rem] text-muted">
 				<span
@@ -43,6 +55,6 @@ export function TechDetail({ technology }: TechDetailProps) {
 					<span className="text-ink">Used in</span> {detail.usedIn.join(", ")}
 				</p>
 			)}
-		</div>
+		</Panel>
 	);
 }

@@ -4,7 +4,12 @@ const linkClass = "link-underline text-ink hover:text-accent";
 
 export function Contact() {
 	return (
-		<div className="max-w-[42rem] text-[1.0625rem] leading-[1.7] text-muted md:text-[1.125rem]">
+		<div className="max-w-[42rem] text-[1.0625rem] leading-[1.7] text-muted md:text-[1.125rem] flex flex-col gap-[1rem]">
+			<p>
+				The conversations I enjoy most are about knowledge graphs, LLM systems
+				that behave in production, and keeping big codebases pleasant to work
+				in.
+			</p>
 			<p>
 				If any of this sounds like your kind of work, or you just want to talk
 				shop, email me at{" "}
