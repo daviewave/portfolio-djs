@@ -60,5 +60,6 @@ reasoning):
 
 ## Deploying
 
-Vercel detects the Vite project and serves `dist/`; no configuration file is
-needed. The resume PDF lives at `public/resume.pdf`.
+`vercel.json` pins the Vite framework preset, `npm run build` and `dist/` so
+the project's older Next.js settings on Vercel do not apply; `engines.node`
+pins Node 22. The resume PDF lives at `public/resume.pdf`.

@@ -159,5 +159,5 @@ console, reduced-motion emulation), then Lighthouse against `vite preview`.
 ## Delivery
 
 Work happens on the `redesign` branch. The Next.js app, styled-components and
-`yarn.lock` are removed; `package-lock.json` is the lockfile. Vercel needs no config
-file. The resume PDF is refreshed from `resumes/master/master.pdf`.
+`yarn.lock` are removed; `package-lock.json` is the lockfile. Vercel reads `vercel.json` (framework, build command, output directory) because
+the project's stored settings date from the Next.js app. The resume PDF is refreshed from `resumes/master/master.pdf`.
