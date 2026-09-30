@@ -68,3 +68,14 @@
 		}
 	}
 }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+	mix-blend-mode: normal;
+}
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-group(*) {
+		animation: none;
+	}
+}
