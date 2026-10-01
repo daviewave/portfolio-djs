@@ -12,7 +12,7 @@ export function TechDetail({ technology }: TechDetailProps) {
 	const { reduced } = useMotionPreference();
 	if (!technology) {
 		return (
-			<div className="flex h-full flex-col justify-center border-t border-line pt-[1.25rem] lg:border-t-0 lg:border-l lg:pl-[1.5rem] lg:pt-0">
+			<div className="hidden h-full flex-col justify-center border-l border-line pl-[1.5rem] lg:flex">
 				<p className="text-[0.9375rem] leading-[1.6] text-muted">
 					Click a node to see how I have used it. Hubs group the stack by area.
 				</p>

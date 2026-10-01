@@ -83,6 +83,12 @@
 			"MONO" 1,
 			"CASL" 0;
 	}
+	button:not(:disabled),
+	[role="button"]:not([aria-disabled="true"]),
+	summary,
+	label[for] {
+		cursor: pointer;
+	}
 	:focus-visible {
 		@apply outline-2 outline-offset-2 outline-ink;
 	}
@@ -197,6 +203,9 @@
 	}
 	.no-scrollbar::-webkit-scrollbar {
 		display: none;
+	}
+	.fade-right {
+		mask-image: linear-gradient(90deg, black calc(100% - 2.5rem), transparent);
 	}
 }
 

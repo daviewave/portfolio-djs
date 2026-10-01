@@ -1,9 +1,14 @@
 import { type ForceLink, type ForceNode, linkEndpoint } from "@/lib/graph";
 import type { GraphPalette } from "./StackGraph.types";
 
-const LABEL_FONT = "500 12px 'Recursive Variable', monospace";
-const HUB_LABEL_FONT = "600 12px 'Recursive Variable', monospace";
+const LABEL_FAMILY = "'Recursive Variable', monospace";
+const LABEL_SIZE = 12;
 const LABEL_GAP = 4;
+const LABEL_HALO = 3;
+// Below this zoom only hubs and the heaviest nodes keep a label, so a phone
+// sized canvas stays readable; the rest appear on hover or selection.
+const SPARSE_SCALE = 0.75;
+const PROMINENT_RADIUS = 11;
 const RING = 2;
 const GLOW = 18;
 
@@ -61,21 +66,31 @@ const paintTech = (
 	ctx.stroke();
 };
 
+const labelHidden = (node: ForceNode, state: PaintState, scale: number) => {
+	if (node.kind === "hub" || emphasized(node, state)) return false;
+	if (node.radius < 9) return scale < 1.6;
+	return scale < SPARSE_SCALE && node.radius < PROMINENT_RADIUS;
+};
+
+// Labels hold their on-screen size when the graph is zoomed out to fit, and
+// face the centre so the outer clusters never run off the canvas edge.
 const paintLabel = (
 	ctx: CanvasRenderingContext2D,
 	node: ForceNode,
 	state: PaintState,
 	scale: number,
 ) => {
+	if (labelHidden(node, state, scale)) return;
 	const hub = node.kind === "hub";
-	const small = node.radius < 9;
-	if (small && !emphasized(node, state) && scale < 1.6) return;
-	ctx.font = hub ? HUB_LABEL_FONT : LABEL_FONT;
+	const unit = 1 / Math.min(scale, 1);
+	const inward = (node.x ?? 0) > 0;
+	const offset = node.radius + LABEL_GAP * unit;
+	ctx.font = `${hub ? 600 : 500} ${LABEL_SIZE * unit}px ${LABEL_FAMILY}`;
 	ctx.textBaseline = "middle";
-	ctx.textAlign = "left";
-	const x = (node.x ?? 0) + node.radius + LABEL_GAP;
+	ctx.textAlign = inward ? "right" : "left";
+	const x = (node.x ?? 0) + (inward ? -offset : offset);
 	const y = node.y ?? 0;
-	ctx.lineWidth = 3;
+	ctx.lineWidth = LABEL_HALO * unit;
 	ctx.lineJoin = "round";
 	ctx.strokeStyle = state.palette.canvas;
 	ctx.strokeText(node.label, x, y);

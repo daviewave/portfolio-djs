@@ -10,7 +10,7 @@ const MODES: GraphMode[] = ["2d", "3d"];
 
 const buttonClass = (active: boolean) =>
 	cn(
-		"rounded-[0.25rem] px-[0.5rem] py-[0.125rem] font-mono text-[0.75rem] transition-colors",
+		"min-h-[2rem] rounded-[0.25rem] px-[0.75rem] font-mono text-[0.75rem] transition-colors md:min-h-[1.5rem] md:px-[0.5rem]",
 		active ? "bg-ink text-canvas" : "text-muted hover:text-ink",
 	);
 

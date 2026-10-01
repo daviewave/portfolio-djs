@@ -4,7 +4,7 @@ import { profile, roles } from "@/content";
 import { EASE_OUT_EXPO, useMotionPreference } from "@/lib/motion";
 import { heroStyles } from "../../Home.styles";
 
-const PHOTO_SIZE = 112;
+const PHOTO_SIZE = 128;
 
 const arrive = {
 	hidden: { opacity: 0, y: 12 },

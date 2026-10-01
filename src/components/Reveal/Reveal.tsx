@@ -27,7 +27,9 @@ export function Reveal({
 			className={className}
 			initial={{ opacity: 0, y: 8 }}
 			whileInView={{ opacity: 1, y: 0 }}
-			viewport={{ once: true, amount: 0.2 }}
+			// A margin rather than a visible fraction: a section taller than five
+			// screens can never be 20% in view on a short phone.
+			viewport={{ once: true, margin: "0px 0px -12% 0px" }}
 			transition={{ duration: 0.6, delay, ease: EASE_OUT_EXPO }}
 		>
 			{children}

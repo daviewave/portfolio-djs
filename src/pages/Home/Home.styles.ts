@@ -1,21 +1,22 @@
 import { cn } from "@/lib/utils";
 
 export const homeStyles = {
-	main: "mx-auto flex w-full max-w-[64rem] flex-col gap-[5rem] px-[1.25rem] pb-[5rem] pt-[2.5rem] md:gap-[7rem] md:px-[2rem] md:pt-[4rem]",
+	main: "mx-auto flex w-full max-w-[64rem] flex-col gap-[4.5rem] px-[1.25rem] pb-[4.5rem] pt-[2rem] md:pb-[5rem] md:gap-[7rem] md:px-[2rem] md:pt-[4rem]",
 	prose:
 		"max-w-[42rem] text-[1rem] leading-[1.7] text-muted md:text-[1.0625rem]",
 	sectionTitle:
-		"text-[2rem] leading-[1.1] tracking-[-0.01em] text-ink md:text-[2.5rem]",
-	sectionIndex: "pb-[0.5rem] font-mono text-[0.75rem] text-muted",
+		"min-w-0 text-balance text-[1.75rem] leading-[1.1] tracking-[-0.01em] text-ink md:text-[2.5rem]",
+	sectionIndex:
+		"shrink-0 whitespace-nowrap pb-[0.25rem] font-mono text-[0.75rem] text-muted md:pb-[0.5rem]",
 	ticks: "ticks mt-[0.75rem] opacity-60 md:opacity-100",
-	sectionBody: "mt-[2rem]",
+	sectionBody: "mt-[1.5rem] md:mt-[2rem]",
 	hint: "mb-[1rem] text-[0.9375rem] text-muted",
 	stackGrid: "grid gap-[2rem] lg:grid-cols-[minmax(0,1fr)_17rem] [&>*]:min-w-0",
 	legend:
-		"mt-[1rem] flex flex-wrap gap-x-[1.5rem] gap-y-[0.5rem] text-[0.875rem] text-muted",
+		"mt-[1rem] grid grid-cols-2 gap-x-[1rem] gap-y-[0.25rem] text-[0.875rem] text-muted sm:flex sm:flex-wrap sm:gap-x-[1.5rem] sm:gap-y-[0.5rem]",
 	legendButton: (active: boolean) =>
 		cn(
-			"flex min-h-[2.25rem] items-center gap-[0.5rem] rounded-full px-[0.5rem] transition-colors hover:text-ink",
+			"-ml-[0.5rem] flex min-h-[2.75rem] items-center gap-[0.5rem] rounded-full px-[0.5rem] transition-colors hover:text-ink sm:min-h-[2.25rem]",
 			active && "text-ink",
 		),
 	legendDot: "inline-block h-[0.5rem] w-[0.5rem] rounded-full",
@@ -33,7 +34,7 @@ export const barStyles = {
 export const navStyles = {
 	bar: "hidden items-center gap-[1.5rem] md:flex",
 	chips:
-		"no-scrollbar -mx-[1.25rem] flex gap-[0.5rem] overflow-x-auto px-[1.25rem] md:hidden max-w-full min-w-0",
+		"no-scrollbar fade-right -mx-[1.25rem] flex gap-[0.5rem] overflow-x-auto px-[1.25rem] md:hidden",
 	barLink: (active: boolean) =>
 		cn(
 			"flex min-h-[2.75rem] items-center text-[0.9375rem] text-muted transition-colors hover:text-ink",
@@ -47,14 +48,15 @@ export const navStyles = {
 } as const;
 
 export const heroStyles = {
-	wrap: "flex flex-col gap-[1.5rem] md:flex-row md:items-start md:gap-[2.5rem]",
+	wrap: "flex flex-col gap-[1.25rem] md:flex-row md:items-start md:gap-[2.5rem]",
 	photo:
-		"h-[5.5rem] w-[5.5rem] shrink-0 rounded-full object-cover md:h-[7rem] md:w-[7rem]",
+		"h-[6rem] w-[6rem] shrink-0 rounded-full border border-line bg-raised object-cover md:h-[8rem] md:w-[8rem]",
 	heading:
-		"text-[2.5rem] leading-[1.05] tracking-[-0.02em] text-ink md:text-[3.5rem]",
+		"text-[2.25rem] leading-[1.05] tracking-[-0.02em] text-ink md:text-[3.5rem]",
 	intro:
-		"mt-[1.25rem] max-w-[42rem] text-[1.0625rem] leading-[1.7] text-muted md:text-[1.125rem]",
-	status: "mt-[1.25rem] font-mono text-[0.8125rem] text-muted",
+		"mt-[1rem] max-w-[42rem] text-[1rem] leading-[1.65] text-muted md:mt-[1.25rem] md:text-[1.125rem] md:leading-[1.7]",
+	status:
+		"mt-[1.25rem] text-pretty font-mono text-[0.8125rem] leading-[1.6] text-muted",
 	actions: "mt-[1.5rem] flex flex-wrap items-center gap-[0.75rem]",
 	primary:
 		"inline-flex min-h-[2.75rem] items-center rounded-full bg-ink px-[1.25rem] text-[0.9375rem] font-medium text-canvas transition-opacity hover:opacity-85",
@@ -65,12 +67,12 @@ export const heroStyles = {
 export const footerStyles = {
 	footer: "border-t border-line",
 	inner:
-		"mx-auto w-full max-w-[64rem] px-[1.25rem] py-[2rem] md:px-[2rem] grid gap-[1.5rem] md:grid-cols-[1fr_auto] md:items-baseline",
+		"mx-auto grid w-full max-w-[64rem] gap-[1rem] px-[1.25rem] py-[1.5rem] md:grid-cols-[1fr_auto] md:items-baseline md:gap-[1.5rem] md:px-[2rem] md:py-[2rem]",
 	links:
-		"flex flex-wrap gap-x-[1.5rem] gap-y-[0.25rem] text-[0.9375rem] text-muted",
+		"flex flex-wrap gap-x-[1.5rem] text-[0.9375rem] text-muted max-sm:[&>li:first-child]:w-full",
 	link: "flex min-h-[2.75rem] items-center underline-offset-[0.25rem] hover:text-ink hover:underline",
 	colophon:
-		"mt-[1.5rem] max-w-[46rem] text-[0.8125rem] leading-[1.6] text-muted md:col-span-2",
+		"max-w-[46rem] text-[0.8125rem] leading-[1.6] text-muted md:col-span-2 md:mt-[1.5rem]",
 } as const;
 
 export const areaDotStyles = {
