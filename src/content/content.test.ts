@@ -1,4 +1,10 @@
-import { profile, projects, roles, technologies } from "./index";
+import {
+	professionalProjects,
+	profile,
+	projects,
+	roles,
+	technologies,
+} from "./index";
 
 const isBlank = (value: unknown) =>
 	typeof value === "string" && value.trim() === "";
@@ -18,12 +24,21 @@ test("every technology link points at an existing technology", () => {
 
 test("no role, project or intro sentence has an empty field", () => {
 	for (const role of roles) expect(hasNoBlankFields(role)).toBe(true);
-	for (const project of projects) {
+	for (const project of [...professionalProjects, ...projects]) {
 		expect(hasNoBlankFields(project)).toBe(true);
 		expect(project.tags.length).toBeGreaterThan(0);
+		expect(project.highlights.length).toBeGreaterThan(0);
+		for (const highlight of project.highlights)
+			expect(isBlank(highlight)).toBe(false);
 	}
-	expect(profile.intro.length).toBe(3);
+	for (const project of projects) expect(project.url).toBeTruthy();
+	for (const project of professionalProjects) {
+		expect(project.org).toBeTruthy();
+		expect(project.url).toBeUndefined();
+	}
+	expect(profile.intro.length).toBeGreaterThanOrEqual(3);
 	for (const sentence of profile.intro) expect(isBlank(sentence)).toBe(false);
+	expect(isBlank(profile.headline)).toBe(false);
 });
 
 test("roles are ordered newest first", () => {
@@ -45,16 +60,6 @@ test("every technology has a written detail with at least one place it was used"
 		expect(detail, technology.id).toBeDefined();
 		expect(detail?.summary.trim().length).toBeGreaterThan(20);
 		expect(detail?.usedIn.length).toBeGreaterThan(0);
-	}
-});
-
-test("the now section has narrative paragraphs and three recent wins with detail", async () => {
-	const { now } = await import("./index");
-	expect(now.paragraphs.length).toBeGreaterThanOrEqual(2);
-	expect(now.recent).toHaveLength(3);
-	for (const win of now.recent) {
-		expect(win.headline.trim().length).toBeGreaterThan(8);
-		expect(win.detail.trim().length).toBeGreaterThan(40);
 	}
 });
 

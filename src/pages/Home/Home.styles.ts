@@ -10,16 +10,6 @@ export const homeStyles = {
 		"shrink-0 whitespace-nowrap pb-[0.25rem] font-mono text-[0.75rem] text-muted md:pb-[0.5rem]",
 	ticks: "ticks mt-[0.75rem] opacity-60 md:opacity-100",
 	sectionBody: "mt-[1.5rem] md:mt-[2rem]",
-	hint: "mb-[1rem] text-[0.9375rem] text-muted",
-	stackGrid: "grid gap-[2rem] lg:grid-cols-[minmax(0,1fr)_17rem] [&>*]:min-w-0",
-	legend:
-		"mt-[1rem] grid grid-cols-2 gap-x-[1rem] gap-y-[0.25rem] text-[0.875rem] text-muted sm:flex sm:flex-wrap sm:gap-x-[1.5rem] sm:gap-y-[0.5rem]",
-	legendButton: (active: boolean) =>
-		cn(
-			"-ml-[0.5rem] flex min-h-[2.75rem] items-center gap-[0.5rem] rounded-full px-[0.5rem] transition-colors hover:text-ink sm:min-h-[2.25rem]",
-			active && "text-ink",
-		),
-	legendDot: "inline-block h-[0.5rem] w-[0.5rem] rounded-full",
 } as const;
 
 export const barStyles = {
@@ -27,8 +17,12 @@ export const barStyles = {
 	inner:
 		"mx-auto flex h-[3.5rem] w-full max-w-[64rem] items-center justify-between gap-[1rem] px-[1.25rem] md:px-[2rem]",
 	wordmark:
-		"casual flex min-h-[2.75rem] items-center text-[1.125rem] font-medium text-ink",
-	right: "flex items-center gap-[1.5rem]",
+		"casual flex min-h-[2.75rem] shrink-0 items-center text-[1.125rem] font-medium text-ink",
+	right: "flex items-center md:gap-[1.5rem]",
+	profiles:
+		"flex items-center gap-[0.875rem] md:gap-[1.25rem] md:border-l md:border-line md:pl-[1.5rem]",
+	profile:
+		"flex min-h-[2.75rem] items-center text-[0.875rem] text-ink underline-offset-[0.25rem] hover:underline md:text-[0.9375rem]",
 } as const;
 
 export const navStyles = {
@@ -52,11 +46,9 @@ export const heroStyles = {
 	photo:
 		"h-[6rem] w-[6rem] shrink-0 rounded-full border border-line bg-raised object-cover md:h-[8rem] md:w-[8rem]",
 	heading:
-		"text-[2.25rem] leading-[1.05] tracking-[-0.02em] text-ink md:text-[3.5rem]",
+		"text-balance text-[1.75rem] leading-[1.15] tracking-[-0.02em] text-ink md:text-[2.5rem]",
 	intro:
 		"mt-[1rem] max-w-[42rem] text-[1rem] leading-[1.65] text-muted md:mt-[1.25rem] md:text-[1.125rem] md:leading-[1.7]",
-	status:
-		"mt-[1.25rem] text-pretty font-mono text-[0.8125rem] leading-[1.6] text-muted",
 	actions: "mt-[1.5rem] flex flex-wrap items-center gap-[0.75rem]",
 	primary:
 		"inline-flex min-h-[2.75rem] items-center rounded-full bg-ink px-[1.25rem] text-[0.9375rem] font-medium text-canvas transition-opacity hover:opacity-85",

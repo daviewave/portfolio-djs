@@ -1,6 +1,6 @@
 import { m } from "motion/react";
 import { MorphHeading } from "@/components";
-import { profile, roles } from "@/content";
+import { profile } from "@/content";
 import { EASE_OUT_EXPO, useMotionPreference } from "@/lib/motion";
 import { heroStyles } from "../../Home.styles";
 
@@ -38,12 +38,6 @@ const Photo = () => (
 	/>
 );
 
-const Status = () => (
-	<p className={heroStyles.status}>
-		Right now: {profile.role} at {roles[0].org}, {profile.location}
-	</p>
-);
-
 const Actions = () => (
 	<div className={heroStyles.actions}>
 		<a className={heroStyles.primary} href={`mailto:${profile.email}`}>
@@ -52,18 +46,27 @@ const Actions = () => (
 		<a className={heroStyles.quiet} href={profile.resumePath}>
 			Resume
 		</a>
+		<a className={heroStyles.quiet} href={profile.github}>
+			GitHub
+		</a>
+		<a className={heroStyles.quiet} href={profile.linkedin}>
+			LinkedIn
+		</a>
 	</div>
+);
+
+const Heading = () => (
+	<MorphHeading level={1} className={heroStyles.heading}>
+		{profile.headline}
+	</MorphHeading>
 );
 
 const StillHero = () => (
 	<div className={heroStyles.wrap}>
 		<Photo />
 		<div>
-			<MorphHeading level={1} className={heroStyles.heading}>
-				Hi, I'm David.
-			</MorphHeading>
+			<Heading />
 			<p className={heroStyles.intro}>{profile.intro.join(" ")}</p>
-			<Status />
 			<Actions />
 		</div>
 	</div>
@@ -84,16 +87,11 @@ export function Hero() {
 			</m.div>
 			<div>
 				<m.div variants={arrive}>
-					<MorphHeading level={1} className={heroStyles.heading}>
-						Hi, I'm David.
-					</MorphHeading>
+					<Heading />
 				</m.div>
 				<m.p variants={arrive} className={heroStyles.intro}>
 					{profile.intro.join(" ")}
 				</m.p>
-				<m.div variants={arrive}>
-					<Status />
-				</m.div>
 				<m.div variants={arrive}>
 					<Actions />
 				</m.div>

@@ -4,10 +4,24 @@ import {
 	scheduler,
 	useMotionPreference,
 } from "@/lib/motion";
+import { createTouchLight } from "./touchLight";
+
+const PASSIVE = { passive: true } as const;
+
+const paintAt = (x: number, y: number) => {
+	const root = document.documentElement.style;
+	root.setProperty("--mx", `${x}px`);
+	root.setProperty("--my", `${y}px`);
+};
+
+const clearLight = () => {
+	const root = document.documentElement.style;
+	root.removeProperty("--mx");
+	root.removeProperty("--my");
+};
 
 const followPointer = () => {
 	const pointer = createPointerStore(window);
-	const root = document.documentElement.style;
 	let lastX = Number.NaN;
 	let lastY = Number.NaN;
 	pointer.start();
@@ -16,22 +30,40 @@ const followPointer = () => {
 		if (!active || (x === lastX && y === lastY)) return;
 		lastX = x;
 		lastY = y;
-		root.setProperty("--mx", `${x}px`);
-		root.setProperty("--my", `${y}px`);
+		paintAt(x, y);
 	});
 	return () => {
 		stop();
 		pointer.stop();
-		root.removeProperty("--mx");
-		root.removeProperty("--my");
+		clearLight();
+	};
+};
+
+// Without a cursor the light rides the scroll and jumps to wherever is touched.
+const followTouch = () => {
+	const light = createTouchLight();
+	window.addEventListener("pointerdown", light.onTouch, PASSIVE);
+	window.addEventListener("pointermove", light.onTouch, PASSIVE);
+	const stop = scheduler.add(() => {
+		const point = light.step();
+		if (point) paintAt(point.x, point.y);
+	});
+	return () => {
+		stop();
+		window.removeEventListener("pointerdown", light.onTouch);
+		window.removeEventListener("pointermove", light.onTouch);
+		clearLight();
 	};
 };
 
 export function CursorLight() {
 	const { reduced, finePointer } = useMotionPreference();
-	const lit = finePointer && !reduced;
+	const lit = !reduced;
 
-	useEffect(() => (lit ? followPointer() : undefined), [lit]);
+	useEffect(() => {
+		if (!lit) return undefined;
+		return finePointer ? followPointer() : followTouch();
+	}, [lit, finePointer]);
 
 	return (
 		<>

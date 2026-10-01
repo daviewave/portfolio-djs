@@ -5,25 +5,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="preload" href="/fonts/recursive-variable.woff2" as="font" type="font/woff2" crossorigin />
 		<title>David Silveira - Lead Software Engineer</title>
-		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3f4f6" />
-		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417" />
+		<meta name="theme-color" content="#121417" />
+		<meta name="color-scheme" content="dark" />
 		<meta property="og:title" content="David Silveira - Lead Software Engineer" />
 		<meta property="og:type" content="website" />
 		<meta
 			name="description"
 			content="David Silveira, a lead software engineer in Austin building AI products end to end: Django, React, graph databases, and AWS."
 		/>
-		<script>
-			(() => {
-				let theme = "light";
-				try {
-					const stored = localStorage.getItem("theme");
-					if (stored === "light" || stored === "dark") theme = stored;
-					else if (matchMedia("(prefers-color-scheme: dark)").matches) theme = "dark";
-				} catch {}
-				document.documentElement.dataset.theme = theme;
-			})();
-		</script>
 	</head>
 	<body>
 		<div id="root"></div>

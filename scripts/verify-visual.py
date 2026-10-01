@@ -114,7 +114,7 @@ async def sweep(call):
 async def capture_theme_pair(call, name, width, height):
 	await call("resize_page", width=width, height=height)
 	await sweep(call)
-	for theme in ("light", "dark"):
+	for theme in ("dark",):
 		await call("evaluate_script", function=f'() => {{ document.documentElement.dataset.theme = "{theme}"; }}')
 		await asyncio.sleep(0.6)
 		await call("take_screenshot", fullPage=True, filePath=str(OUT / f"{name}-{theme}"))
@@ -143,7 +143,7 @@ async def drive():
 			report["overflow_360"] = await call("evaluate_script", function="() => ({ scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth })")
 			for name, (width, height) in WIDTHS.items():
 				await capture_theme_pair(call, name, width, height)
-			for theme in ("light", "dark"):
+			for theme in ("dark",):
 				await call("resize_page", width=1440, height=900)
 				await call("evaluate_script", function=f'() => {{ document.documentElement.dataset.theme = "{theme}"; }}')
 				await asyncio.sleep(0.4)

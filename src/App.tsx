@@ -1,5 +1,5 @@
 import { domAnimation, LazyMotion } from "motion/react";
-import { CursorLight, ThemeProvider } from "@/components";
+import { CursorLight } from "@/components";
 import { HomePage } from "@/pages/Home/HomePage";
 
 const skipLinkClass =
@@ -7,14 +7,12 @@ const skipLinkClass =
 
 export default function App() {
 	return (
-		<ThemeProvider>
-			<LazyMotion features={domAnimation} strict>
-				<a href="#main" className={skipLinkClass}>
-					Skip to content
-				</a>
-				<CursorLight />
-				<HomePage />
-			</LazyMotion>
-		</ThemeProvider>
+		<LazyMotion features={domAnimation} strict>
+			<a href="#main" className={skipLinkClass}>
+				Skip to content
+			</a>
+			<CursorLight />
+			<HomePage />
+		</LazyMotion>
 	);
 }

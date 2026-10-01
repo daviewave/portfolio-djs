@@ -33,15 +33,21 @@ export interface Project {
 	title: string;
 	description: string;
 	kind: string;
+	year: string;
 	area: Area;
+	highlights: string[];
 	tags: string[];
-	url: string;
+	// Work built on the job has an org and no public repository.
+	org?: string;
+	url?: string;
+	liveUrl?: string;
 }
 
 export interface Profile {
 	name: string;
 	role: string;
 	location: string;
+	headline: string;
 	intro: string[];
 	email: string;
 	resumePath: string;

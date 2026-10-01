@@ -11,6 +11,6 @@ export const railStyles = {
 	highlights: "mt-[0.875rem] flex max-w-[62ch] flex-col gap-[0.5rem]",
 	highlight:
 		"relative pl-[1rem] text-[0.9375rem] leading-[1.6] text-muted before:absolute before:left-0 before:top-[0.75rem] before:h-px before:w-[0.5rem] before:bg-accent before:content-['']",
-	tags: "mt-[0.5rem] flex flex-wrap gap-x-[1rem] md:mt-[0.875rem] md:gap-x-[0.75rem] md:gap-y-[0.25rem]",
-	tag: "flex min-h-[2rem] items-center font-mono text-[0.8125rem] underline-offset-[0.25rem] hover:text-ink hover:underline md:min-h-0 md:text-[0.75rem]",
+	tags: "mt-[0.875rem] flex flex-wrap gap-x-[0.75rem] gap-y-[0.25rem]",
+	tag: "font-mono text-[0.75rem]",
 } as const;

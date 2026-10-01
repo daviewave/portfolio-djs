@@ -6,7 +6,6 @@ import { useMotionPreference } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { areaDotStyles, areaTextStyles } from "../../Home.styles";
 import { railStyles } from "./ExperienceRail.styles";
-import type { ExperienceRailProps } from "./ExperienceRail.types";
 
 const technologyById = new Map(
 	technologies.map((technology) => [technology.id, technology]),
@@ -23,10 +22,7 @@ const Highlights = ({ role }: { role: Role }) =>
 		</ul>
 	);
 
-const TechTags = ({
-	role,
-	onPickTech,
-}: { role: Role } & ExperienceRailProps) => {
+const TechTags = ({ role }: { role: Role }) => {
 	const tags = role.tech
 		.map((id) => technologyById.get(id))
 		.filter((t) => t !== undefined);
@@ -34,22 +30,18 @@ const TechTags = ({
 	return (
 		<ul className={railStyles.tags} aria-label={`Technologies at ${role.org}`}>
 			{tags.map((technology) => (
-				<li key={technology.id}>
-					<button
-						type="button"
-						className={cn(railStyles.tag, areaTextStyles[technology.area])}
-						aria-label={`Show ${technology.label} in the graph`}
-						onClick={() => onPickTech?.(technology.id)}
-					>
-						{technology.label}
-					</button>
+				<li
+					key={technology.id}
+					className={cn(railStyles.tag, areaTextStyles[technology.area])}
+				>
+					{technology.label}
 				</li>
 			))}
 		</ul>
 	);
 };
 
-export function ExperienceRail({ onPickTech }: ExperienceRailProps) {
+export function ExperienceRail() {
 	const listRef = useRef<HTMLOListElement>(null);
 	const { reduced } = useMotionPreference();
 	const { scrollYProgress } = useScroll({
@@ -81,7 +73,7 @@ export function ExperienceRail({ onPickTech }: ExperienceRailProps) {
 						</h3>
 						<p className={railStyles.summary}>{role.summary}</p>
 						<Highlights role={role} />
-						<TechTags role={role} onPickTech={onPickTech} />
+						<TechTags role={role} />
 					</Reveal>
 				))}
 			</ol>

@@ -15,24 +15,7 @@
 	line-gap-override: 0%;
 }
 
-@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
-
 :root {
-	color-scheme: light;
-	--canvas: #f3f4f6;
-	--raised: #ffffff;
-	--ink: #16181d;
-	--muted: #5b6270;
-	--line: #d9dce2;
-	--area-backend: #3a7556;
-	--area-frontend: #8c6320;
-	--area-ai: #4f6ab8;
-	--area-infra: #a5566a;
-	--accent: #0b6e93;
-	--accent-soft: rgba(11, 110, 147, 0.14);
-	--grid: rgba(22, 24, 29, 0.1);
-}
-[data-theme="dark"] {
 	color-scheme: dark;
 	--canvas: #121417;
 	--raised: #1a1d21;
@@ -46,6 +29,16 @@
 	--accent: #5fd3ff;
 	--accent-soft: rgba(95, 211, 255, 0.16);
 	--grid: rgba(230, 232, 235, 0.09);
+	--glow-size: 30rem;
+	--grid-glow-size: 22rem;
+}
+/* A phone is narrower than the desktop glow, so the touch light is smaller. */
+@media (pointer: coarse) {
+	:root {
+		--glow-size: 18rem;
+		--accent-soft: rgba(95, 211, 255, 0.22);
+		--grid-glow-size: 14rem;
+	}
 }
 
 @theme inline {
@@ -96,17 +89,6 @@
 		html {
 			scroll-behavior: auto;
 		}
-	}
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-	animation: none;
-	mix-blend-mode: normal;
-}
-@media (prefers-reduced-motion: reduce) {
-	::view-transition-group(*) {
-		animation: none;
 	}
 }
 
@@ -162,7 +144,7 @@
 	}
 	.grid-field--lit {
 		mask-image: radial-gradient(
-			22rem circle at var(--mx, -100rem) var(--my, -100rem),
+			var(--grid-glow-size) circle at var(--mx, -100rem) var(--my, -100rem),
 			black,
 			transparent 75%
 		);
@@ -173,7 +155,7 @@
 		z-index: -1;
 		pointer-events: none;
 		background: radial-gradient(
-			30rem circle at var(--mx, -100rem) var(--my, -100rem),
+			var(--glow-size) circle at var(--mx, -100rem) var(--my, -100rem),
 			var(--accent-soft),
 			transparent 70%
 		);

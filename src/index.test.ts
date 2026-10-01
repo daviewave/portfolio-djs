@@ -27,11 +27,8 @@ const blockFor = (selector: string) => {
 	return css.slice(start, css.indexOf("}", start));
 };
 
-describe.each([
-	["light", ":root {"],
-	["dark", '[data-theme="dark"] {'],
-])("%s theme", (_name, selector) => {
-	const tokens = tokensIn(blockFor(selector));
+describe("the dark palette", () => {
+	const tokens = tokensIn(blockFor(":root {"));
 	test.each([
 		"area-backend",
 		"area-frontend",
